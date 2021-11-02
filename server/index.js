@@ -8,6 +8,6 @@ app.get('/api', (req, res) => {
     res.send('Hello')
 });
 
-app.listen(process.env.API_PORT, process.env.API_HOST, () => {
-    console.log(`Running at ${process.env.API_HOST}:${process.env.API_PORT}`);
+app.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, () => {
+    console.log(`Running at ${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
 })
