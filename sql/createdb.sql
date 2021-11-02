@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS user_story.story (
 
 CREATE TABLE IF NOT EXISTS user_story.tag (
     tag_id SERIAL PRIMARY KEY,
-    tag_title VARCHAR(80) NOT NULL
+    tag_title VARCHAR(80) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS user_story.story_tag (
