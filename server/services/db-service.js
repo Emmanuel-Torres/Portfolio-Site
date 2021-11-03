@@ -26,6 +26,12 @@ const getImages = async () => {
     return (await pool.query('SELECT * FROM user_story.image')).rows;
 };
 
+const getStoryById = async (storyId) => {
+    return (await pool.query(`SELECT * FROM user_story.story
+                              WHERE story_id = $1`,
+                              [storyId])).rows;
+};
+
 const getStepsByStoryId = async (storyId) => {
     return (await pool.query(`SELECT * FROM user_story.step
                               WHERE story_id = $1
@@ -178,6 +184,7 @@ module.exports.dbService = {
     getTags,
     getSteps,
     getImages,
+    getStoryById,
     getStepsByStoryId,
     getImagesByStepId,
     getTagsByStoryId,
