@@ -1,4 +1,6 @@
 const { Pool } = require("pg")
+const dotenv = require("dotenv")
+dotenv.config()
 
 const pool = new Pool({
     user: process.env.DB_USER,
@@ -69,14 +71,17 @@ const getStoriesByTagId = async (tagId) => {
 
 //Add data:
 const addStory = async (story) => {
-    await pool.query(`INSERT INTO user_story.story (story_title, story_posted_on)
-                      VALUES ($1, $2)`
+    const res = await pool.query(`INSERT INTO user_story.story (story_title, story_posted_on)
+                      VALUES ($1, $2)
+                      RETURNING *`,
                       [story.title, story.postedOn]);
+    
+    return res.rows[0];
 };
 
 const addTag = async (tag) => {
     await pool.query(`INSERT INTO user_story.tag (tag_title)
-                      VALUES ($1)`
+                      VALUES ($1)`,
                       [tag.title]);
 };
 

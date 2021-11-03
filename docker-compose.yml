@@ -9,15 +9,17 @@ services:
     volumes:
       - ./sql/createdb.sql:/docker-entrypoint-initdb.d/createdb.sql
       - ./sql/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
-
-  server:
-    build: ./server
     ports:
-      - 5000:3000
-    env_file:
-      - ./server/.env
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
-    depends_on:
-      - db
+      - 3000:5432
+
+  # server:
+  #   build: ./server
+  #   ports:
+  #     - 5000:3000
+  #   env_file:
+  #     - ./server/.env
+  #   environment:
+  #     DB_HOST: db
+  #     DB_PORT: 5432
+  #   depends_on:
+  #     - db

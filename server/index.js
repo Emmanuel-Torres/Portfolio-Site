@@ -1,5 +1,6 @@
 const express = require('express');
 const { dbService } = require('./services/db-service');
+const { storyController } = require('./controllers/story-contoller')
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
@@ -44,15 +45,7 @@ app.get('/api/tags/:tagid/stories', (req, res) => {
 });
 
 //post endpoints
-app.post('/api/stories', async (req, res) => {
-    const story = req.body.story;
-    try {
-        
-    }
-    catch {
-
-    }
-});
+app.post('/api/stories', async (req, res) => res.json(storyController.addStory(req.body.story.title, req.body.story.postedOn)));
 
 app.post('/api/stories/:storyid/tags', (req, res) => {
 
