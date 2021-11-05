@@ -8,8 +8,9 @@ const getTagsByStoryId = async (storyId) => {
     return await dbService.getTagsByStoryId(storyId);
 };
 
-const addTag = async (title) => {
-    return await dbService.addTag({ title });
+const addTagByStoryId = async (storyId, title) => {
+    const res = await dbService.addTag({ title });
+    await dbService.addStoryTag(storyId, res.tagId)
 };
 
 const updateTag = async (tagId, tag) => {
@@ -23,7 +24,7 @@ const deleteTag = async (tagId) => {
 module.exports.tagController = {
     getTags,
     getTagsByStoryId,
-    addTag,
+    addTagByStoryId,
     updateTag,
     deleteTag
 };

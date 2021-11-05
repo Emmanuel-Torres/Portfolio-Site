@@ -1,115 +1,61 @@
 const express = require('express');
-const { dbService } = require('./services/db-service');
-const { storyController } = require('./controllers/story-contoller')
 const app = express();
+
+const { storyController } = require('./controllers/story-contoller');
+const { stepController } = require('./controllers/step-controller');
+const { tagController } = require('./controllers/tag-controller');
+const { imageController } = require('./controllers/image-controller');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-//get endpoints
-app.get('/api', (req, res) => {
-    res.send('Hello')
-});
+// get endpoints
+app.get('/api', (req, res) => res.send('welcome'));
 
-app.get('/api/stories', (req, res) => {
-    dbService.getStories().then(r => res.send(r)).catch(err => res.send(500));
-});
+app.get('/api/stories', async (req, res) => { res.json(await storyController.getStories()); });
 
-app.get('/api/stories/:storyid', (req, res) => {
-    const storyId = req.params.storyid;
-    dbService.getStoryById(storyId).then(r => res.send(r)).catch(err => res.send(500));
-});
+app.get('/api/stories/:storyid', async (req, res) => res.json(await storyController.getStoryById(req.params.storyid)));
 
-app.get('/api/stories/:storyid/steps', (req, res) => {
-    const storyId = req.params.storyid;
-    dbService.getStepsByStoryId(storyId).then(r => res.send(r)).catch(err => res.send(500));
-});
+app.get('/api/stories/:storyid/steps', async (req, res) => res.json(await stepController.getStepsByStoryId(req.params.storyid)));
 
-app.get('/api/stories/:storyid/tags', (req, res) => {
-    const storyId = req.params.storyid;
-    dbService.getTagsByStoryId(storyId).then(r => res.send(r)).catch(err => res.send(500));
-});
+app.get('/api/stories/:storyid/tags', async (req, res) => res.json(await tagController.getTagsByStoryId(req.params.storyid)));
 
-app.get('/api/steps/:stepid/images', (req, res) => {
-    const stepId = req.params.stepid;
-    dbService.getImagesByStepId(stepId).then(r => res.send(r)).catch(err => res.send(500));
-});
+app.get('/api/steps/:stepid/images', async (req, res) => res.json(await imageController.getImagesByStepId(req.params.stepid)));
 
-app.get('/api/tags', (req, res) => {
-    dbService.getTags().then(r => res.send(r)).catch(err => res.send(500));
-});
+app.get('/api/tags', async (req, res) => res.json(await tagController.getTags()));
 
-app.get('/api/tags/:tagid/stories', (req, res) => {
-    const tagId = req.params.tagid;
-    dbService.getTagsByStoryId(tagId).then(r => res.send(r)).catch(err => res.send(500));
-});
+app.get('/api/tags/:tagid/stories', async (req, res) => res.json(await storyController.getStoriesByTagId(req.params.tagid)));
 
-//post endpoints
-app.post('/api/stories', async (req, res) => res.json(storyController.addStory(req.body.story.title, req.body.story.postedOn)));
+// post endpoints
+app.post('/api/stories', async (req, res) => res.json(await storyController.addStory(req.body.story.title, req.body.story.postedOn)));
 
-app.post('/api/stories/:storyid/tags', (req, res) => {
+app.post('/api/stories/:storyid/tags', async (req, res) => { });
 
-});
+app.post('/api/stories/:storyid/steps', (req, res) => { });
 
-app.post('/api/stories/:storyid/steps', (req, res) => {
+app.post('/api/steps/:stepid/images', (req, res) => { });
 
-});
+app.post('/api/tags/:tagid/stories', (req, res) => { });
 
-app.post('/api/steps/:stepid/images', (req, res) => {
+// put endpoints
+app.put('/api/stories/:storyid', (req, res) => res.json(await storyController.updateStory(req.params.storyid, req.body.story)));
 
-});
+app.put('/api/steps/:stepid', (req, res) => res.json(await stepController.updateStep(req.params.stepid, req.body.step)));
 
-app.post('/api/tags/:tagid/stories', (req, res) => {
+app.put('/api/images/:imageid', (req, res) => res.json(await imageController.updateImage(req.params.imageid, req.body.image)));
 
-});
+app.put('/api/tags/:tagid', (req, res) => res.json(await tagController.updateTag(req.params.tagid, req.body.tag)));
 
-//put endpoints
-app.put('/api/stories/:storyid', (req, res) => {
-    const storyId = req.params.storyid;
-    const story = req.body.story;
-    dbService.updateStory(storyId, story).then(() => res.send(200)).catch(err => res.send(500));
-});
+// delete endpoints
+app.delete('/api/stories/:storyid', async (req, res) => res.json(await storyController.deleteStory(req.params.storyid)));
 
-app.put('/api/steps/:stepid', (req, res) => {
-    const stepId = req.params.stepid;
-    const step = req.body.step;
-    dbService.updateStep(stepId, step).then(() => res.send(200)).catch(err => res.send(500));
-});
+app.delete('/api/steps/:stepid', (req, res) => res.json(await stepController.deleteStep(req.params.stepid)));
 
-app.put('/api/images/:imageid', (req, res) => {
-    const imageId = req.params.imageid;
-    const image = req.body.image;
-    dbService.updateImage(imageId, image).then(() => res.send(200)).catch(err => res.send(500));
-});
+app.delete('/api/images/:imageid', (req, res) => res.json(await imageController.deleteImage(req.params.imageid)));
 
-app.put('/api/tags/:tagid', (req, res) => {
-    const tagId = req.params.tagid;
-    const tag = req.body.tag;
-    dbService.updateTag(tagId, tag).then(() => res.send(200)).catch(err => res.send(500));
-});
+app.delete('/api/tags/:tagid', (req, res) => res.json(await tagController.deleteTag(req.params.tagid)));
 
-//delete endpoints
-app.delete('/api/stories/:storyid', (req, res) => {
-    const storyId = req.params.storyid;
-    dbService.deleteStory(storyId).then(() => res.send(200)).catch(err => res.send(500));
-});
-
-app.delete('/api/steps/:stepid', (req, res) => {
-    const stepId = req.params.stepid;
-    dbService.deleteStep(stepId).then(() => res.send(200)).catch(err => res.send(500));
-});
-
-app.delete('/api/images/:imageid', (req, res) => {
-    const imageId = req.params.imageid;
-    dbService.deleteImage(imageId).then(() => res.send(200)).catch(err => res.send(500));
-});
-
-app.delete('/api/tags/:tagid', (req, res) => {
-    const tagId = req.params.tagid;
-    dbService.deleteTag(tagId).then(() => res.send(200)).catch(err => res.send(500));
-});
-
-
+// configure host
 app.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, () => {
     console.log(`Running at ${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
 })
