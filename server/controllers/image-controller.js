@@ -4,7 +4,7 @@ const getImagesByStepId = async (stepId) => {
     return await dbService.getImagesByStepId(stepId);
 };
 
-const addImage = async (title, img, caption) => {
+const addImage = async (stepId, title, img, caption) => {
     return await dbService.addImage({ title, img, caption });
 };
 
