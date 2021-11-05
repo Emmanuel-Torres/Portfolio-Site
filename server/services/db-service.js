@@ -80,21 +80,27 @@ const addStory = async (story) => {
 };
 
 const addTag = async (tag) => {
-    await pool.query(`INSERT INTO user_story.tag (tag_title)
-                      VALUES ($1)`,
+    const res = await pool.query(`INSERT INTO user_story.tag (tag_title)
+                      VALUES ($1)
+                      RETURNING *`,
                       [tag.title]);
+                      
+    return res.rows[0];
 };
 
-const addStoryTag = async (storyTag) => {
+const addStoryTag = async (storyId, tagId) => {
     await pool.query(`INSERT INTO user_story.story_tag (story_id, tag_id)
                       VALUES ($1, $2)`,
-                      [storyTag.storyId, storyTag.tagId]);
+                      [storyId, tagId]);
 };
 
 const addStep = async (step) => {
-    await pool.query(`INSERT INTO user_story.step (story_id, step_title, step_content, step_position)
-                      VALUES ($1, $2, $3, $4)`
+    const res = await pool.query(`INSERT INTO user_story.step (story_id, step_title, step_content, step_position)
+                      VALUES ($1, $2, $3, $4)
+                      RETURNING *`
                       [step.storyId, step.title, step.content, step.position]);
+
+    return res.rows[0];
 };
 
 const addImage = async (image) => {
@@ -103,10 +109,10 @@ const addImage = async (image) => {
                       [image.title, image.img, image.caption]);
 };
 
-const addStepImage = async (stepImage) => {
+const addStepImage = async (stepId, imageId) => {
     await pool.query(`INSERT INTO user_story.step_image (step_id, image_id)
                       VALUES ($1, $2)`
-                      [stepImage.stepId, stepImage.imageId]);
+                      [stepId, imageId]);
 };
 
 //Upddate data:

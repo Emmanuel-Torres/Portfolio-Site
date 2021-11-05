@@ -1,4 +1,16 @@
-const { dbService } = require("../services/db-service")
+const { dbService } = require("../services/db-service");
+
+const getStories = async () => {
+    return await dbService.getStories();
+};
+
+const getStoryById = async (storyId) => {
+    return await dbService.getStoryById(storyId);
+};
+
+const getStoriesByTagId = async (tagId) => {
+    return await dbService.getStoriesByTagId(tagId);
+};
 
 const addStory = async (title, postedOn) => {
     if (!title || !postedOn) {
@@ -8,6 +20,19 @@ const addStory = async (title, postedOn) => {
     return await dbService.addStory({ title, postedOn })
 }
 
+const updateStory = async (storyId, story) => {
+    return await dbService.updateStory(storyId, story);
+}
+
+const deleteStory = async (storyId) => {
+    return await dbService.deleteStory(storyId);
+};
+
 module.exports.storyController = {
-    addStory
+    getStories,
+    getStoryById,
+    getStoriesByTagId,
+    addStory,
+    updateStory,
+    deleteStory
 }
