@@ -13,7 +13,7 @@ const pool = new Pool({
 // Retrieve data:
 const getStories = async () => {
     return (await pool.query(`SELECT * FROM user_story.story
-                              ORDER BY posted_on DESC`)).rows;
+                              ORDER BY story_posted_on DESC`)).rows;
 };
 
 const getTags = async () => {
@@ -39,8 +39,8 @@ const getStoryById = async (storyId) => {
 const getStepsByStoryId = async (storyId) => {
     return (await pool.query(`SELECT s.*, i.*, si.step_image_id
                               FROM user_story.step s
-                                INNER JOIN user_story.step_image si ON (s.step_id = si.step_id)
-                                INNER JOIN user_story.image i ON (si.image_id = i.image_id)
+                                LEFT JOIN user_story.step_image si ON (s.step_id = si.step_id)
+                                LEFT JOIN user_story.image i ON (si.image_id = i.image_id)
                               WHERE s.story_id = $1
                               ORDER BY s.step_position ASC`,
                               [storyId])).rows

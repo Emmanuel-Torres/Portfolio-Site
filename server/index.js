@@ -60,22 +60,22 @@ app.post('/api/steps/:stepid/images', async (req, res) => {
 app.post('/api/tags/:tagid/stories', async (req, res) => { });
 
 // put endpoints
-app.put('/api/stories/:storyid', (req, res) => { res.json(await storyController.updateStory(req.params.storyid, req.body.story)) });
+app.put('/api/stories/:storyid', async (req, res) => { res.json(await storyController.updateStory(req.params.storyid, req.body.story)) });
 
-app.put('/api/steps/:stepid', (req, res) => { res.json(await stepController.updateStep(req.params.stepid, req.body.step)) });
+app.put('/api/steps/:stepid', async (req, res) => { res.json(await stepController.updateStep(req.params.stepid, req.body.step)) });
 
-app.put('/api/images/:imageid', (req, res) => { res.json(await imageController.updateImage(req.params.imageid, req.body.image)) });
+app.put('/api/images/:imageid', async (req, res) => { res.json(await imageController.updateImage(req.params.imageid, req.body.image)) });
 
-app.put('/api/tags/:tagid', (req, res) => { res.json(await tagController.updateTag(req.params.tagid, req.body.tag)) });
+app.put('/api/tags/:tagid', async (req, res) => { res.json(await tagController.updateTag(req.params.tagid, req.body.tag)) });
 
 // delete endpoints
 app.delete('/api/stories/:storyid', async (req, res) => { res.json(await storyController.deleteStory(req.params.storyid)) });
 
-app.delete('/api/steps/:stepid', (req, res) => { res.json(await stepController.deleteStep(req.params.stepid)) });
+app.delete('/api/steps/:stepid', async (req, res) => { res.json(await stepController.deleteStep(req.params.stepid)) });
 
-app.delete('/api/images/:imageid', (req, res) => { res.json(await imageController.deleteImage(req.params.imageid)) });
+app.delete('/api/images/:imageid', async (req, res) => { res.json(await imageController.deleteImage(req.params.imageid)) });
 
-app.delete('/api/tags/:tagid', (req, res) => { res.json(await tagController.deleteTag(req.params.tagid)) });
+app.delete('/api/tags/:tagid', async (req, res) => { res.json(await tagController.deleteTag(req.params.tagid)) });
 
 // configure host
 app.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, () => {

@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS user_story.step (
     story_id INT NOT NULL,
     step_title VARCHAR(80) NOT NULL,
     step_content TEXT NOT NULL,
-    step_position INT UNIQUE NOT NULL CHECK (step_position >= 0),
+    step_position INT NOT NULL CHECK (step_position >= 0),
     FOREIGN KEY (story_id) REFERENCES user_story.story (story_id) ON DELETE CASCADE
 );
 
