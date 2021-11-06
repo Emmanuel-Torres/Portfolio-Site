@@ -9,7 +9,7 @@ const NavBar = (props) => {
                     <span className='navbar-toggler-icon'></span>
                 </button>
                 <div className='collapse navbar-collapse' id='navbarLinks'>
-                    <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
+                    <ul className='navbar-nav me-auto mb-2 mb-lg-0 justify-content-end'>
                         <li className='nav-item'>
                             <NavLink className='nav-link' to='/home'>Home</NavLink>
                         </li>
