@@ -5,7 +5,9 @@ const getStories = async () => {
 };
 
 const getStoryById = async (storyId) => {
-    return await dbService.getStoryById(storyId);
+    const story = await dbService.getStoryById(storyId);
+    const steps = await dbService.getStepsByStoryId(storyId);
+    return {...story, steps};
 };
 
 const getStoriesByTagId = async (tagId) => {
@@ -16,7 +18,7 @@ const addStory = async (title, postedOn) => {
     if (!title || !postedOn) {
         throw Exeption('Title or Posted On not found.')
     }
-    
+
     return await dbService.addStory({ title, postedOn })
 }
 
