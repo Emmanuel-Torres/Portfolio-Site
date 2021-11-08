@@ -6,8 +6,8 @@ const getStories = async () => {
 
 const getStoryById = async (storyId) => {
     const story = await dbService.getStoryById(storyId);
-    const steps = await dbService.getStepsByStoryId(storyId);
-    return {...story, steps};
+    const story_steps = await dbService.getStepsByStoryId(storyId);
+    return { ...story, story_steps };
 };
 
 const getStoriesByTagId = async (tagId) => {

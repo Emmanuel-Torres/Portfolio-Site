@@ -17,7 +17,7 @@ app.get('/api/stories', async (req, res) => {
 });
 
 app.get('/api/stories/:storyid', async (req, res) => {
-    res.json(await storyController.getStoryById(req.params.storyid))
+    res.json(await storyController.getStoryById(req.params.storyid));
 });
 
 // app.get('/api/stories/:storyid/steps', async (req, res) => { res.json(await stepController.getStepsByStoryId(req.params.storyid)) });
@@ -27,7 +27,7 @@ app.get('/api/stories/:storyid', async (req, res) => {
 // app.get('/api/steps/:stepid/images', async (req, res) => { res.json(await imageController.getImagesByStepId(req.params.stepid)) });
 
 app.get('/api/tags', async (req, res) => {
-    res.json(await tagController.getTags())
+    res.json(await tagController.getTags());
 });
 
 // app.get('/api/tags/:tagid/stories', async (req, res) => { res.json(await storyController.getStoriesByTagId(req.params.tagid)) });
