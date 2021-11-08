@@ -1,9 +1,9 @@
 const { default: axios } = require('axios')
 
 const storyUrl = '/api/stories';
-const stepUrl = '/api/steps';
+// const stepUrl = '/api/steps';
 const tagUrl = '/api/tags';
-const imageUrl = '/api/image';
+// const imageUrl = '/api/image';
 
 const getStories = async () => {
     const res = await axios.get(storyUrl);

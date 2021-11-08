@@ -1,5 +1,6 @@
 import NavBar from "./components/UI/NavBar";
 import { Route, Routes } from 'react-router-dom'
+import Story from "./components/Story/Story";
 import Home from "./views/Home";
 import Stories from "./views/Stories";
 import Projects from "./views/Projects"
@@ -13,6 +14,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/home' element={<Home />} />
         <Route path='/stories' element={<Stories />} />
+        <Route path='/stories/:productid' element={<Story />}/>
         <Route path='/projects' element={<Projects />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

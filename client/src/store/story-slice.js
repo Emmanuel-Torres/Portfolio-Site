@@ -27,7 +27,7 @@ const storySlice = createSlice({
     initialState: {
         tags: [],
         stories: [],
-        currentStory: {}
+        currentStory: null
     },
     reducers: {
 
