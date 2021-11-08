@@ -1,7 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-const store = configureStore(
+import storySlice from './story-slice';
 
-);
+const store = configureStore({
+    reducer: { story: storySlice.reducer }
+});
 
 export default store;
