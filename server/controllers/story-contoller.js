@@ -6,12 +6,20 @@ const getStories = async () => {
 
 const getStoryById = async (storyId) => {
     const story = await dbService.getStoryById(storyId);
-    const steps = await dbService.getStepsByStoryId(storyId);
-    // const steps_images = steps.map(async s => {
-    //     const images = await dbService.getImagesByStepId(s.step_id);
-    //     return { ...s, step_images: images }
-    // })
-    return { ...story, story_steps: steps };
+    if (story) {
+        const steps = await dbService.getStepsByStoryId(storyId);
+        const stepsWithImages = []
+        
+        for (const s of steps) {
+            const images = await dbService.getImagesByStepId(s.step_id);
+            stepsWithImages.push({...s, step_images: images});
+        }
+    
+        console.log(stepsWithImages);
+        return { ...story, story_steps: stepsWithImages };
+    }
+
+    return {};
 };
 
 const getStoriesByTagId = async (tagId) => {

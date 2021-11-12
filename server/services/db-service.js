@@ -7,7 +7,6 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
 })
 
 // Retrieve data:
@@ -39,7 +38,7 @@ const getImagesByStepId = async (stepId) => {
     const res = await pool.query(`SELECT si.step_image_id, i.*
                                   FROM user_story.step_image si 
                                   LEFT JOIN user_story.image i ON (si.image_id = i.image_id)
-                                  WHERE si.step_id = $1`
+                                  WHERE si.step_id = $1`,
                                   [stepId]);
     return res.rows;
 };
@@ -49,7 +48,8 @@ const getTagsByStoryId = async (storyId) => {
                                   FROM user_story.story_tag st
                                   INNER JOIN user_story.tag t ON (st.tag_id = t.tag_id)
                                   WHERE st.story_id = $1`,
-                                  [storyId])
+                                  [storyId]);
+    return res.rows;
 };
 
 //Add data:

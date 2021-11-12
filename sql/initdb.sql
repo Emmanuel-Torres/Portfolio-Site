@@ -13,6 +13,14 @@ INSERT INTO user_story.step (story_id, step_title, step_content, step_position)
            (2, 'Writing CRUD queries', 'After establishing the connection, I was able to write CRUD operations on my database. These operations look like the following:', 3),
            (2, 'Learning outcomes', 'This was a very good exercise to refresh my memory on database skills, and it was a great way to start a full stack project that I plan to keep growing in the future.', 4);
 
+INSERT INTO user_story.image (image_title, image_url, image_caption)
+    VALUES ('Sample 1', 'http://images3.memedroid.com/images/UPLOADED194/5eb5eb36e6299.jpeg', 'michi triste'),
+           ('Sample 2', 'https://64.media.tumblr.com/27dc9cd8cea0bff5bc030b5b5ccf4ef8/b14260eb06673624-eb/s500x750/7fe08c2f47411464643b7fe07c23605933da92de.jpg', 'mini michi');
+
+INSERT INTO user_story.step_image (step_id, image_id)
+    VALUES (1, 1),
+           (1, 2);
+
 INSERT INTO user_story.tag (tag_title)
     VALUES ('NodeJS'),
            ('API'),
