@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS user_story.step (
 CREATE TABLE IF NOT EXISTS user_story.image (
     image_id SERIAL PRIMARY KEY,
     image_title VARCHAR(80) NOT NULL,
-    image_img BYTEA NOT NULL,
+    image_url TEXT NOT NULL,
     image_caption VARCHAR(255) 
 );
 

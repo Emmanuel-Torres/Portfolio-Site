@@ -20,57 +20,36 @@ const getTags = async () => {
     return (await pool.query('SELECT * FROM user_story.tag')).rows;
 };
 
-const getSteps = async () => {
-    return (await pool.query('SELECT * FROM user_story.step')).rows;
-};
-
-const getImages = async () => {
-    return (await pool.query('SELECT * FROM user_story.image')).rows;
-};
-
 const getStoryById = async (storyId) => {
-    const res = (await pool.query(`SELECT * FROM user_story.story
-                                   WHERE story_id = $1`,
-                                   [storyId]));
-
+    const res = await pool.query(`SELECT *
+                                  FROM user_story.story 
+                                  WHERE story_id = $1`,[storyId]);
     return res.rows[0];
 };
 
 const getStepsByStoryId = async (storyId) => {
-    return (await pool.query(`SELECT s.*, i.*, si.step_image_id
-                              FROM user_story.step s
-                                LEFT JOIN user_story.step_image si ON (s.step_id = si.step_id)
-                                LEFT JOIN user_story.image i ON (si.image_id = i.image_id)
-                              WHERE s.story_id = $1
-                              ORDER BY s.step_position ASC`,
-                              [storyId])).rows
+    const res = await pool.query(`SELECT *
+                                  FROM user_story.step
+                                  WHERE story_id = $1`,
+                                  [storyId])
+    return res.rows;
 };
 
 const getImagesByStepId = async (stepId) => {
-    return (await pool.query(`SELECT si.step_image_id, i.*
-                              FROM user_story.image i
-                                INNER JOIN user_story.step_image si ON (i.image_id = si.image_id)
-                              WHERE si.step_id = $1
-                              ORDER BY i.image_id DESC`,
-                              [stepId])).rows
+    const res = await pool.query(`SELECT si.step_image_id, i.*
+                                  FROM user_story.step_image si 
+                                  LEFT JOIN user_story.image i ON (si.image_id = i.image_id)
+                                  WHERE si.step_id = $1`
+                                  [stepId]);
+    return res.rows;
 };
 
 const getTagsByStoryId = async (storyId) => {
-    return (await pool.query(`SELECT st.story_tag_id, t.*
-                              FROM user_story.tag t
-                                INNER JOIN user_story.story_tag st
-                                ON (t.tag_id = st.tag_id)
-                              WHERE st.story_id = $1`,
-                              [storyId])).rows
-};
-
-const getStoriesByTagId = async (tagId) => {
-    return (await pool.query(`SELECT st.story_tag_id, s.*
-                              FROM user_story.story s
-                                INNER JOIN user_story.story_tag st
-                                ON (s.story_id = st.story_id)
-                              WHERE st.tag_id = $1`,
-                              [tagId]))
+    const res = await pool.query(`SELECT 
+                                  FROM user_story.story_tag st
+                                  INNER JOIN user_story.tag t ON (st.tag_id = t.tag_id)
+                                  WHERE st.story_id = $1`,
+                                  [storyId])
 };
 
 //Add data:
@@ -197,13 +176,10 @@ const deleteStepImage = async (stepImageId) => {
 module.exports.dbService = {
     getStories,
     getTags,
-    getSteps,
-    getImages,
-    getStoryById: getStoryById,
+    getStoryById,
     getStepsByStoryId,
     getImagesByStepId,
     getTagsByStoryId,
-    getStoriesByTagId,
     addStory,
     addTag,
     addStoryTag,
