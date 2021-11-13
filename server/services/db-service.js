@@ -19,6 +19,10 @@ const getTags = async () => {
     return (await pool.query('SELECT * FROM user_story.tag')).rows;
 };
 
+const getImages = async () => {
+    return (await pool.query(`SELECT * FROM user_story.image`)).rows;
+};
+
 const getStoryById = async (storyId) => {
     const res = await pool.query(`SELECT *
                                   FROM user_story.story 
@@ -29,7 +33,8 @@ const getStoryById = async (storyId) => {
 const getStepsByStoryId = async (storyId) => {
     const res = await pool.query(`SELECT *
                                   FROM user_story.step
-                                  WHERE story_id = $1`,
+                                  WHERE story_id = $1
+                                  ORDER BY step_position ASC`,
                                   [storyId])
     return res.rows;
 };
@@ -102,7 +107,7 @@ const addStepImage = async (stepId, imageId) => {
 const updateStory = async (storyId, story) => {
     await pool.query(`UPDATE user_story.story
                       SET story_title = $1
-                      WHERE story_id = $2`
+                      WHERE story_id = $2`,
                       [story.title, storyId]);
 };
 
@@ -150,7 +155,7 @@ const updateStepImage = async (stepImageId, stepImage) => {
 
 //Delete data:
 const deleteStory = async (storyId) => {
-    await pool.query(`DELETE FROM user_story.story WHERE story_id = $1`,[storyID]);
+    await pool.query(`DELETE FROM user_story.story WHERE story_id = $1`,[storyId]);
 };
 
 const deleteTag = async (tagId) => {
@@ -176,6 +181,7 @@ const deleteStepImage = async (stepImageId) => {
 module.exports.dbService = {
     getStories,
     getTags,
+    getImages,
     getStoryById,
     getStepsByStoryId,
     getImagesByStepId,
