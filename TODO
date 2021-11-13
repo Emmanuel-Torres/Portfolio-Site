@@ -14,8 +14,8 @@ Update:
 Read:
 [X] As a user I would like to get the list of stories, without steps or images associated.
 [X] As a user I would like to get the list of tags that are available.
-[ ] As a user I would like to get a full story item that includes all steps and images.
-[ ] As a user I would like to get the list of available images.
+[X] As a user I would like to get a full story item that includes all steps and images.
+[X] As a user I would like to get the list of available images.
 
 Create:
 [ ] As a user I would like to add a full story with steps and images associated with it.

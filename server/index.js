@@ -26,9 +26,9 @@ app.get('/api/stories/:storyid', async (req, res) => {
     }
     catch (ex) {
         console.error(ex);
+        res.send(500);
     }
 });
-
 
 // post endpoints
 app.post('/api/stories', async (req, res) => {

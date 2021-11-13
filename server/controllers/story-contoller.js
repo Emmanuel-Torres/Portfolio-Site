@@ -7,19 +7,18 @@ const getStories = async () => {
 const getStoryById = async (storyId) => {
     const story = await dbService.getStoryById(storyId);
     if (story) {
-        const steps = await dbService.getStepsByStoryId(storyId);
-        const stepsWithImages = []
+        const story_steps = await dbService.getStepsByStoryId(storyId);
         
-        for (const s of steps) {
-            const images = await dbService.getImagesByStepId(s.step_id);
-            stepsWithImages.push({...s, step_images: images});
+        for (let i = 0; i < story_steps.length; i++) {
+            const step_images = await dbService.getImagesByStepId(story_steps[i].step_id);
+            story_steps[i]["step_images"] = step_images;
         }
     
-        console.log(stepsWithImages);
-        return { ...story, story_steps: stepsWithImages };
+        console.log(story_steps);
+        return { ...story, story_steps };
     }
 
-    return {};
+    return undefined;
 };
 
 const getStoriesByTagId = async (tagId) => {
