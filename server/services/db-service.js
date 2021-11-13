@@ -82,17 +82,17 @@ const addStoryTag = async (storyId, tagId) => {
                       [storyId, tagId]);
 };
 
-const addStep = async (step) => {
+const addStep = async (story_id, step) => {
     const res = await pool.query(`INSERT INTO user_story.step (story_id, step_title, step_content, step_position)
                       VALUES ($1, $2, $3, $4)
                       RETURNING *`
-                      [step.storyId, step.title, step.content, step.position]);
+                      [story_id, step.step_title, step.step_content, step.step_position]);
 
     return res.rows[0];
 };
 
 const addImage = async (image) => {
-    await pool.query(`INSERT INTO user_story.image (image_title, image_img, image_caption)
+    await pool.query(`INSERT INTO user_story.image (image_title, image_url, image_caption)
                       VALUES ($1, $2, $3)`
                       [image.title, image.img, image.caption]);
 };

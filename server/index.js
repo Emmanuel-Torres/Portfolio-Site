@@ -32,28 +32,29 @@ app.get('/api/stories/:storyid', async (req, res) => {
 
 // post endpoints
 app.post('/api/stories', async (req, res) => {
-    const title = req.body.story.title;
-    const postedOn = req.body.story.postedOn;
-    res.json(await storyController.addStory(title, postedOn));
+    const story_title = req.body.story.story_title;
+    const story_posted_on = req.body.story.story_posted_on;
+    const story_steps = req.body.story.story_steps;
+    res.json(await storyController.addStory(story_title, story_posted_on, story_steps));
 });
 
-app.post('/api/stories/:storyid/steps', async (req, res) => {
-    const storyId = req.params.storyid;
-    const title = req.body.step.title;
-    const content = req.body.step.content;
-    const position = req.body.step.position;
-    res.json(await stepController.addStep(storyId, title, content, position));
-});
+// app.post('/api/stories/:storyid/steps', async (req, res) => {
+//     const story_id = req.params.storyid;
+//     const title = req.body.step.title;
+//     const content = req.body.step.content;
+//     const position = req.body.step.position;
+//     res.json(await stepController.addStep(storyId, title, content, position));
+// });
 
-app.post('/api/stories/:storyid/tags', async (req, res) => { });
+// app.post('/api/stories/:storyid/tags', async (req, res) => { });
 
-app.post('/api/steps/:stepid/images', async (req, res) => {
-    const stepId = req.params.stepid;
-    const title = req.body.image.title;
-    const img = req.body.image.img;
-    const caption = req.body.image.caption;
-    res.json(await imageController.addImage(stepId, title, img, caption));
-});
+// app.post('/api/steps/:stepid/images', async (req, res) => {
+//     const stepId = req.params.stepid;
+//     const title = req.body.image.title;
+//     const img = req.body.image.img;
+//     const caption = req.body.image.caption;
+//     res.json(await imageController.addImage(stepId, title, img, caption));
+// });
 
 app.post('/api/tags/:tagid/stories', async (req, res) => { });
 
