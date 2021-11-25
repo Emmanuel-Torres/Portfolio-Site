@@ -26,13 +26,14 @@ Read:
 [X] As a user I would like to get the list of available images.
 
 Create:
-[ ] As a user I need at least a title and a posted on date to create a new story.
-[ ] As a user I need a title, content, and a steps position, to create a new step.
-[ ] As a user I need a title and a URL to create a new image.
+[X] As a user I need at least a title and a posted on date to create a new story.
+[X] As a user I need a title, content, and a steps position, to create a new step.
+[X] As a user I need a title and a URL to create a new image.
+[ ] As a user I want my story, steps, and images to get added to the database if everything was valid
 
-[ ] As a user I would like to add a full story with steps and images associated with it.
-[ ] As a user I would like the story steps to get added to the step table when a new story is added.
-[ ] As a user I would like the step images to get added to the image table when a new story is added.
+[X] As a user I would like to add a full story with steps and images associated with it.
+[X] As a user I would like the story steps to get added to the step table when a new story is added.
+[X] As a user I would like the step images to get added to the image table when a new story is added.
 [ ] As a user I would like to associate existing images with my newly creating steps.
 [ ] As a user I would like to associate existing tags with my newly created story.
 [ ] As a user I would like to add new tags to new stories. They should get added to the tag table.
