@@ -24,7 +24,7 @@ const getStoryById = async (storyId) => {
 
 const addStory = async (story_title, story_steps) => {
     if (!validatorService.isValidStory(story_title)) {
-        throw Exeption('Title or Posted On not found.')
+        throw Exeption('Title or Posted On not found');
     }
     const story = await dbService.addStory({ story_title, story_posted_on: new Date() });
     const storyWithSteps = await addStepsToStory(story, story_steps);
@@ -34,8 +34,10 @@ const addStory = async (story_title, story_steps) => {
 const addStepsToStory = async (story, steps) => {
     const story_steps = [];
     for (let i = 0; i < steps.length; i++) {
+        if (!validatorService.isValidStep(steps[i])) {
+            throw Exeption('Step was not valid');
+        }
         const step = await dbService.addStep(story.story_id, steps[i]);
-        console.log(step)
         const stepWithImages = await addImagesToStep(step, steps[i].step_images);
         story_steps.push(stepWithImages);
     }
@@ -45,6 +47,9 @@ const addStepsToStory = async (story, steps) => {
 const addImagesToStep = async (step, images) => {
     const step_images = [];
     for (let i = 0; i < images.length; i++) {
+        if (!validatorService.isValidImage(images[i])) {
+            throw Exeption('Image was not valid');
+        }
         const image = await dbService.addImage(images[i]);
         const stepImage = await dbService.addStepImage(step.step_id, image.image_id)
         step_images.push({ ...image, step_image_id: stepImage.step_image_id });
