@@ -22,37 +22,38 @@ const getStoryById = async (storyId) => {
     return undefined;
 };
 
-const addStory = async (story_title, story_posted_on, story_steps) => {
-    if (!validatorService.isValidStory({ story_title, story_posted_on, story_steps })) {
+const addStory = async (story_title, story_steps) => {
+    if (!validatorService.isValidStory(story_title)) {
         throw Exeption('Title or Posted On not found.')
     }
-
-    const story = await dbService.addStory({ story_title, story_posted_on });
-    const storyWithSteps = addStepsToStory(story, story_steps);
+    const story = await dbService.addStory({ story_title, story_posted_on: new Date() });
+    const storyWithSteps = await addStepsToStory(story, story_steps);
+    return storyWithSteps;
 }
-
-// const updateStory = async (storyId, story) => {
-//     return await dbService.updateStory(storyId, story);
-// }
-
-const deleteStory = async (storyId) => {
-    return await dbService.deleteStory(storyId);
-};
 
 const addStepsToStory = async (story, steps) => {
     const story_steps = [];
     for (let i = 0; i < steps.length; i++) {
-        const step = dbService.addStep(story.story_id, steps[i]);
-        const stepWithImages = addImagesToStep(step, steps[i].step_images);
+        const step = await dbService.addStep(story.story_id, steps[i]);
+        console.log(step)
+        const stepWithImages = await addImagesToStep(step, steps[i].step_images);
+        story_steps.push(stepWithImages);
     }
+    return { ...story, story_steps };
 };
 
 const addImagesToStep = async (step, images) => {
     const step_images = [];
     for (let i = 0; i < images.length; i++) {
-        const image = dbService.addImage(images[i]);
-        step_images.push(image);
+        const image = await dbService.addImage(images[i]);
+        const stepImage = await dbService.addStepImage(step.step_id, image.image_id)
+        step_images.push({ ...image, step_image_id: stepImage.step_image_id });
     }
+    return { ...step, step_images };
+};
+
+const deleteStory = async (storyId) => {
+    return await dbService.deleteStory(storyId);
 };
 
 module.exports.storyController = {

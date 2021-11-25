@@ -62,8 +62,16 @@ const addStory = async (story) => {
     const res = await pool.query(`INSERT INTO user_story.story (story_title, story_posted_on)
                       VALUES ($1, $2)
                       RETURNING *`,
-                      [story.title, story.postedOn]);
+                      [story.story_title, story.story_posted_on]);
     
+    return res.rows[0];
+};
+
+const addStep = async (story_id, step) => {
+    const res = await pool.query(`INSERT INTO user_story.step (story_id, step_title, step_content, step_position)
+                      VALUES ($1, $2, $3, $4)
+                      RETURNING *`,
+                      [story_id, step.step_title, step.step_content, step.step_position]);
     return res.rows[0];
 };
 
@@ -71,36 +79,31 @@ const addTag = async (tag) => {
     const res = await pool.query(`INSERT INTO user_story.tag (tag_title)
                       VALUES ($1)
                       RETURNING *`,
-                      [tag.title]);
-                      
+                      [tag.tag_title]);
     return res.rows[0];
 };
 
-const addStoryTag = async (storyId, tagId) => {
-    await pool.query(`INSERT INTO user_story.story_tag (story_id, tag_id)
+const addStoryTag = async (story_id, tag_id) => {
+    const res = await pool.query(`INSERT INTO user_story.story_tag (story_id, tag_id)
                       VALUES ($1, $2)`,
-                      [storyId, tagId]);
-};
-
-const addStep = async (story_id, step) => {
-    const res = await pool.query(`INSERT INTO user_story.step (story_id, step_title, step_content, step_position)
-                      VALUES ($1, $2, $3, $4)
-                      RETURNING *`
-                      [story_id, step.step_title, step.step_content, step.step_position]);
-
+                      [story_id, tag_id]);
     return res.rows[0];
 };
 
 const addImage = async (image) => {
-    await pool.query(`INSERT INTO user_story.image (image_title, image_url, image_caption)
-                      VALUES ($1, $2, $3)`
-                      [image.title, image.img, image.caption]);
+    const res = await pool.query(`INSERT INTO user_story.image (image_title, image_url, image_caption)
+                      VALUES ($1, $2, $3)
+                      RETURNING *`,
+                      [image.image_title, image.image_url, image.image_caption]);
+    return res.rows[0];
 };
 
-const addStepImage = async (stepId, imageId) => {
-    await pool.query(`INSERT INTO user_story.step_image (step_id, image_id)
-                      VALUES ($1, $2)`
-                      [stepId, imageId]);
+const addStepImage = async (step_id, image_id) => {
+    const res = await pool.query(`INSERT INTO user_story.step_image (step_id, image_id)
+                      VALUES ($1, $2)
+                      RETURNING *`,
+                      [step_id, image_id]);
+    return res.rows[0];
 };
 
 //Upddate data:

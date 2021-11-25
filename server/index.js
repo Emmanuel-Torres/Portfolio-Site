@@ -33,9 +33,8 @@ app.get('/api/stories/:storyid', async (req, res) => {
 // post endpoints
 app.post('/api/stories', async (req, res) => {
     const story_title = req.body.story.story_title;
-    const story_posted_on = req.body.story.story_posted_on;
     const story_steps = req.body.story.story_steps;
-    res.json(await storyController.addStory(story_title, story_posted_on, story_steps));
+    res.json(await storyController.addStory(story_title, story_steps));
 });
 
 // app.post('/api/stories/:storyid/steps', async (req, res) => {
