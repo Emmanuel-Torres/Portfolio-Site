@@ -1,6 +1,11 @@
+import { FC } from "react";
 import StoryForm from "../components/Forms/StoryForm";
 
-const NewStory = () => {
+type Props = {
+
+}
+
+const NewStory: FC<Props> = (): JSX.Element => {
     return (
         <StoryForm />
     );

@@ -1,4 +1,10 @@
-const ImageInput = () => {
+import { FC } from "react"
+
+type Props = {
+    
+}
+
+const ImageInput: FC<Props> = (props): JSX.Element => {
     return (
         <>
             <br />
