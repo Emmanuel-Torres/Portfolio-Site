@@ -22,10 +22,16 @@ const getTags = async (): Promise<Tag[]> => {
     return res.data;
 };
 
+const addStory = async (story: Story): Promise<Story> => {
+    const res = await axios.post<Story>(storyUrl, story);
+    return res.data;
+}
+
 const apiService = {
     getStories,
     getStoryById,
     getTags,
+    addStory
 };
 
 export default apiService;
