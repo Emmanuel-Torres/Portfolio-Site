@@ -29,6 +29,7 @@ const StoryForm = () => {
             <button type='button' onClick={addStepHandler}>Add Step</button>
             <br/>
             {story.story_steps.map((s, index) => <StepInput key={index} step_position={index}/>)}
+            <br />
             <button type='button'>Cancel</button>
             <button type='submit'>Create Story</button>
         </form>

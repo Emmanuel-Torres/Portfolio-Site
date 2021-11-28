@@ -53,8 +53,16 @@ const storyFormSlice = createSlice({
         changeStepTitle(state, action: PayloadAction<{ position: number, title: string }>) {
             state.story.story_steps[action.payload.position].step_title = action.payload.title;
         },
-        changeStepContent(state, action: PayloadAction<{ position: number, content: string }>) {
-            state.story.story_steps[action.payload.position].step_content = action.payload.content;
+        changeStepContent(state, action: PayloadAction<{ step_position: number, content: string }>) {
+            state.story.story_steps[action.payload.step_position].step_content = action.payload.content;
+        },
+        changeImageTitle(state, action: PayloadAction<{ step_position: number, image_position: number, title: string }>) {
+            state.story.story_steps[action.payload.step_position]
+                .step_images[action.payload.image_position].image_title = action.payload.title
+        },
+        changeImageUrl(state, action: PayloadAction<{ step_position: number, image_position: number, url: string }>) {
+            state.story.story_steps[action.payload.step_position]
+                .step_images[action.payload.image_position].image_url = action.payload.url
         }
     },
     extraReducers: (builder) => {
@@ -69,4 +77,12 @@ const storyFormSlice = createSlice({
 })
 
 export default storyFormSlice;
-export const { addStep, addImage, changeStoryTitle, changeStepTitle, changeStepContent } = storyFormSlice.actions;
+export const { 
+    addStep,
+    addImage, 
+    changeStoryTitle, 
+    changeStepTitle, 
+    changeStepContent, 
+    changeImageTitle,
+    changeImageUrl
+} = storyFormSlice.actions;

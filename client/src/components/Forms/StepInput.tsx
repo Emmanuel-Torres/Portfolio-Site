@@ -17,7 +17,7 @@ const StepInput: FC<Props> = (props): JSX.Element => {
     }
 
     const stepContentChanged = (event: FocusEvent<HTMLTextAreaElement>) => {
-        dispatch(changeStepContent({ position: props.step_position, content: event.target.value }));
+        dispatch(changeStepContent({ step_position: props.step_position, content: event.target.value }));
     }
 
     const addImageHandler = () => {
@@ -36,7 +36,7 @@ const StepInput: FC<Props> = (props): JSX.Element => {
             <textarea value={step.step_content} onChange={stepContentChanged} />
             <br />
             <button type='button' onClick={addImageHandler}>Add Image</button>
-            {step.step_images.map((i, index) => <ImageInput key={index} image={i} />)}
+            {step.step_images.map((i, index) => <ImageInput key={index} step_position={props.step_position} image_position={index} />)}
         </>
     )
 }
