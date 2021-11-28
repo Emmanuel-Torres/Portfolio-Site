@@ -1,7 +1,8 @@
 import { FC } from "react"
+import Image from "../../models/image";
 
 type Props = {
-    
+    image: Image
 }
 
 const ImageInput: FC<Props> = (props): JSX.Element => {
