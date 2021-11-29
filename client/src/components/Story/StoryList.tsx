@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
 import Story from "../../models/story";
+import StoryCard from "./StoryCard";
 
 type Props = {
     stories: Story[]
@@ -8,16 +8,10 @@ type Props = {
 
 const StoryList: FC<Props> = (props): JSX.Element => {
     return (
-        <div>
-            <ul className='nav flex-column'>
-                {props.stories.map(s => {
-                    return (
-                        <li className='nav-item' key={s.story_id}>
-                            <NavLink className='nav-link' to={`/stories/${s.story_id}`}>{s.story_title}</NavLink>
-                        </li>
-                    );
-                })}
-            </ul>
+        <div className='continer-fluid'>
+            <div className='row'>
+                {props.stories.map(s => <StoryCard story={s} />)}
+            </div>
         </div>
     )
 };
