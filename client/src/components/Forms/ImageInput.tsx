@@ -1,7 +1,7 @@
 import { FC, FocusEvent } from "react"
 import { useDispatch } from "react-redux";
 import { useStoreSelector } from "../../store";
-import { changeImageTitle, changeImageUrl } from "../../store/story-form-slice";
+import { changeImageCaption, changeImageTitle, changeImageUrl } from "../../store/story-form-slice";
 
 type Props = {
     step_position: number,
@@ -20,6 +20,10 @@ const ImageInput: FC<Props> = (props): JSX.Element => {
         dispatch(changeImageUrl({ step_position: props.step_position, image_position: props.image_position, url: event.target.value }));
     }
 
+    const imageCaptionChangedHandler = (event: FocusEvent<HTMLInputElement>) => {
+        dispatch(changeImageCaption({ step_position: props.step_position, image_position: props.image_position, caption: event.target.value }))
+    }
+
     return (
         <>
             <br />
@@ -30,6 +34,10 @@ const ImageInput: FC<Props> = (props): JSX.Element => {
             <label>Image URL</label>
             <br />
             <input type='text' value={image.image_url} onChange={imageUrlChangedHandler} />
+            <br />
+            <label>Image Caption</label>
+            <br />
+            <input type='text' value={image.image_caption} onChange={imageCaptionChangedHandler} />
         </>
     )
 };

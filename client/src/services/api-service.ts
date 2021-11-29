@@ -23,7 +23,8 @@ const getTags = async (): Promise<Tag[]> => {
 };
 
 const addStory = async (story: Story): Promise<Story> => {
-    const res = await axios.post<Story>(storyUrl, story);
+    console.log("here", story);
+    const res = await axios.post<Story>(storyUrl, { story });
     return res.data;
 }
 

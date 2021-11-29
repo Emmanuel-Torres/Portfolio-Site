@@ -1,10 +1,15 @@
-import { FocusEvent, FormEvent } from "react";
+import { FC, FocusEvent, FormEvent } from "react";
 import { useDispatch } from "react-redux";
+import Story from "../../models/story";
 import { useStoreSelector } from "../../store";
 import { addStep, changeStoryTitle } from "../../store/story-form-slice";
 import StepInput from "./StepInput";
 
-const StoryForm = () => {
+type Props = {
+    onSubmitStory: (story: Story) => void
+};
+
+const StoryForm: FC<Props> = (props): JSX.Element => {
     const dispatch = useDispatch();
     const story = useStoreSelector(state => state.storyForm.story)
 
@@ -18,17 +23,18 @@ const StoryForm = () => {
 
     const submitStoryHandler = (event: FormEvent) => {
         event.preventDefault()
+        props.onSubmitStory(story);
     }
 
     return (
         <form onSubmit={submitStoryHandler}>
             <label htmlFor='story-title'>Story Title</label>
-            <br/>
-            <input type='text' name='story-title' value={story.story_title} onChange={storyTitleChangedHandler}/>
-            <br/>
+            <br />
+            <input type='text' name='story-title' value={story.story_title} onChange={storyTitleChangedHandler} />
+            <br />
             <button type='button' onClick={addStepHandler}>Add Step</button>
-            <br/>
-            {story.story_steps.map((s, index) => <StepInput key={index} step_position={index}/>)}
+            <br />
+            {story.story_steps.map((s, index) => <StepInput key={index} step_position={index} />)}
             <br />
             <button type='button'>Cancel</button>
             <button type='submit'>Create Story</button>

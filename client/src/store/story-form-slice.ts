@@ -28,6 +28,9 @@ const storyFormSlice = createSlice({
     name: 'create-story',
     initialState,
     reducers: {
+        setStory(state, action: PayloadAction<Story>) {
+            state.story = action.payload;
+        },
         addStep(state) {
             const newStep: Step = {
                 step_id: undefined,
@@ -63,6 +66,10 @@ const storyFormSlice = createSlice({
         changeImageUrl(state, action: PayloadAction<{ step_position: number, image_position: number, url: string }>) {
             state.story.story_steps[action.payload.step_position]
                 .step_images[action.payload.image_position].image_url = action.payload.url
+        },
+        changeImageCaption(state, action: PayloadAction<{ step_position: number, image_position: number, caption: string }>) {
+            state.story.story_steps[action.payload.step_position]
+                .step_images[action.payload.image_position].image_caption = action.payload.caption
         }
     },
     extraReducers: (builder) => {
@@ -84,5 +91,6 @@ export const {
     changeStepTitle, 
     changeStepContent, 
     changeImageTitle,
-    changeImageUrl
+    changeImageUrl,
+    changeImageCaption
 } = storyFormSlice.actions;
