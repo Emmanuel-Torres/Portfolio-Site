@@ -23,6 +23,9 @@ const NavBar: FC = (): JSX.Element => {
                         <li className='nav-item'>
                             <NavLink className='nav-link' to='/new-story'>Add Story</NavLink>
                         </li>
+                        <li className='nav-item'>
+                            <NavLink className='nav-link' to='/about'>About Me</NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>
