@@ -2,9 +2,7 @@ const express = require('express');
 const app = express();
 
 const { storyController } = require('./controllers/story-contoller');
-const { stepController } = require('./controllers/step-controller');
 const { tagController } = require('./controllers/tag-controller');
-const { imageController } = require('./controllers/image-controller');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
