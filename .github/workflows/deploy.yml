@@ -15,4 +15,5 @@ jobs:
 
       - name: build and test
         run: |
+          git secret reveal
           docker-compose up --build -d
