@@ -21,9 +21,16 @@ const Story: FC = (): JSX.Element => {
     }, [currentStory])
 
     return (
-        <div>
-            <h3>{currentStory?.story_title}</h3>
-            {currentStory?.story_steps.map(s => <StoryStep key={s.step_id} step={s} />)}
+        <div className='p-2'>
+            <h3 className='fw-bold text-center'>{currentStory?.story_title}</h3>
+            <div className='row'>
+                <div className='col-4'>
+                    {currentStory?.story_steps.map(s => <p key={s.step_id}>{s.step_title}</p>)}
+                </div>
+                <div className='col-8'>
+                    {currentStory?.story_steps.map(s => <StoryStep key={s.step_id} step={s} />)}
+                </div>
+            </div>
         </div>
     )
 };
