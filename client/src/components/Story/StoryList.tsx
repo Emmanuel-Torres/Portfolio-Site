@@ -10,7 +10,7 @@ const StoryList: FC<Props> = (props): JSX.Element => {
     return (
         <div className='continer-fluid'>
             <div className='row'>
-                {props.stories.map(s => <StoryCard story={s} />)}
+                {props.stories.map(s => <StoryCard key={s.story_id} story={s} />)}
             </div>
         </div>
     )

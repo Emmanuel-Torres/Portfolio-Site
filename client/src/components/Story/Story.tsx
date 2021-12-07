@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { useStoreSelector } from "../../store";
 import { getStoryById } from "../../store/story-slice";
 import StoryStep from "./StoryStep";
@@ -9,11 +9,16 @@ const Story: FC = (): JSX.Element => {
     const params = useParams();
     const currentStory = useStoreSelector(state => state.story.currentStory);
     const dispatch = useDispatch();
-    const productId: number = parseInt(params.productid ?? '-1')
+    const storyId: number = parseInt(params.storyid ?? '-1')
 
     useEffect(() => {
-        dispatch(getStoryById(productId));
-    }, [dispatch, productId]);
+        console.log(storyId)
+        dispatch(getStoryById(storyId));
+    }, [dispatch, storyId]);
+
+    useEffect(() => {
+        console.log(currentStory)
+    }, [currentStory])
 
     return (
         <div>

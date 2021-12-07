@@ -19,7 +19,7 @@ const initialState: StoryFormState = {
 
 export const addStory = createAsyncThunk(
     'addStory',
-    async (story: Story, thunkApi) => {
+    async (story: Story, thunkApi): Promise<Story> => {
         return await apiService.addStory(story);
     }
 )
@@ -41,7 +41,7 @@ const storyFormSlice = createSlice({
             }
             state.story.story_steps.push(newStep);
         },
-        addImage(state, action) {
+        addImage(state, action: PayloadAction<number>) {
             const newImage: Image = {
                 image_id: undefined,
                 image_title: '',
@@ -74,10 +74,10 @@ const storyFormSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(addStory.fulfilled, (state, action) => {
-                state.story = action.payload;
+            .addCase(addStory.fulfilled, (state) => {
+                state.story = initialState.story;
             })
-            .addCase(addStory.rejected, (state, action) => {
+            .addCase(addStory.rejected, () => {
                 console.error('Something went wrong.')
             })
     }
