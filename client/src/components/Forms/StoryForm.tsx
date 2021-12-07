@@ -1,16 +1,16 @@
-import { FC, FocusEvent, FormEvent } from "react";
-import { useDispatch } from "react-redux";
-import Story from "../../models/story";
-import { useStoreSelector } from "../../store";
-import { addStep, changeStoryTitle } from "../../store/story-form-slice";
-import StepInput from "./StepInput";
+import { FC, FocusEvent, FormEvent } from 'react';
+import { useDispatch } from 'react-redux';
+import { StoreDispatch, useStoreSelector } from '../../store';
+import { addStep, changeStoryTitle } from '../../store/story-form-slice';
+import Story from '../../models/story';
+import StepInput from './StepInput';
 
 type Props = {
     onSubmitStory: (story: Story) => void
 };
 
 const StoryForm: FC<Props> = (props): JSX.Element => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<StoreDispatch>();
     const story = useStoreSelector(state => state.storyForm.story)
 
     const storyTitleChangedHandler = (event: FocusEvent<HTMLInputElement>) => {
@@ -23,21 +23,26 @@ const StoryForm: FC<Props> = (props): JSX.Element => {
 
     const submitStoryHandler = (event: FormEvent) => {
         event.preventDefault()
-        props.onSubmitStory(story);
+        if (story.story_title.trim().length > 0) {
+            props.onSubmitStory(story);
+        }
+        else {
+            alert('You need a title to submit a story.')
+        }
     }
 
     return (
-        <form onSubmit={submitStoryHandler}>
-            <label htmlFor='story-title'>Story Title</label>
-            <br />
-            <input type='text' name='story-title' value={story.story_title} onChange={storyTitleChangedHandler} />
-            <br />
-            <button type='button' onClick={addStepHandler}>Add Step</button>
+        <form className='p-2' onSubmit={submitStoryHandler}>
+            <label className='form-label' htmlFor='story-title'>Story Title</label>
+            <input className='form-control' type='text' name='story-title' value={story.story_title} onChange={storyTitleChangedHandler} />
             <br />
             {story.story_steps.map((s, index) => <StepInput key={index} step_position={index} />)}
+            <button className='btn btn-primary my-2' type='button' onClick={addStepHandler}>Add Step</button>
             <br />
-            <button type='button'>Cancel</button>
-            <button type='submit'>Create Story</button>
+            <div className='d-flex justify-content-end'>
+                <button className='btn btn-danger me-2' type='button'>Cancel</button>
+                <button className='btn btn-primary' type='submit'>Create Story</button>
+            </div>
         </form>
     )
 }
