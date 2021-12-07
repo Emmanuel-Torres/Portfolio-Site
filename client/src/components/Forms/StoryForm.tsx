@@ -1,9 +1,9 @@
-import { FC, FocusEvent, FormEvent } from "react";
-import { useDispatch } from "react-redux";
-import Story from "../../models/story";
-import { useStoreSelector } from "../../store";
-import { addStep, changeStoryTitle } from "../../store/story-form-slice";
-import StepInput from "./StepInput";
+import { FC, FocusEvent, FormEvent } from 'react';
+import { useDispatch } from 'react-redux';
+import Story from '../../models/story';
+import { useStoreSelector } from '../../store';
+import { addStep, changeStoryTitle } from '../../store/story-form-slice';
+import StepInput from './StepInput';
 
 type Props = {
     onSubmitStory: (story: Story) => void
@@ -27,17 +27,15 @@ const StoryForm: FC<Props> = (props): JSX.Element => {
     }
 
     return (
-        <form onSubmit={submitStoryHandler}>
-            <label htmlFor='story-title'>Story Title</label>
-            <br />
-            <input type='text' name='story-title' value={story.story_title} onChange={storyTitleChangedHandler} />
-            <br />
-            <button type='button' onClick={addStepHandler}>Add Step</button>
+        <form className='p-3' onSubmit={submitStoryHandler}>
+            <label className='form-label' htmlFor='story-title'>Story Title</label>
+            <input className='form-control' type='text' name='story-title' value={story.story_title} onChange={storyTitleChangedHandler} />
             <br />
             {story.story_steps.map((s, index) => <StepInput key={index} step_position={index} />)}
+            <button className='btn btn-primary' type='button' onClick={addStepHandler}>Add Step</button>
             <br />
-            <button type='button'>Cancel</button>
-            <button type='submit'>Create Story</button>
+            <button className='btn btn-danger' type='button'>Cancel</button>
+            <button className='btn btn-primary' type='submit'>Create Story</button>
         </form>
     )
 }

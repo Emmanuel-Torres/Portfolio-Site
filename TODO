@@ -38,12 +38,6 @@ Create:
 [ ] As a user I would like to associate existing tags with my newly created story.
 [ ] As a user I would like to add new tags to new stories. They should get added to the tag table.
 [ ] As a user I would like my images to be stored on a data store.
-<!-- [ ] As a user I would like to create a story.
-[ ] As a user I would like to add steps to a story.
-[ ] As a user I would like to attach one or more images to a step.
-[ ] As a user I would like to add tags to my stories.
-[ ] As a user I would like to add tags to my images.
-[ ] As a user I would like to add existing images to my steps. -->
 
 DATABASE:
 [ ] As a user I would like to store projects on my database.

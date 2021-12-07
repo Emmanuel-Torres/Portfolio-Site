@@ -25,20 +25,15 @@ const ImageInput: FC<Props> = (props): JSX.Element => {
     }
 
     return (
-        <>
-            <br />
-            <label>Image Title</label>
-            <br />
-            <input type='text' value={image.image_title} onChange={imageTitleChangedHandler} />
-            <br />
-            <label>Image URL</label>
-            <br />
-            <input type='text' value={image.image_url} onChange={imageUrlChangedHandler} />
-            <br />
-            <label>Image Caption</label>
-            <br />
-            <input type='text' value={image.image_caption} onChange={imageCaptionChangedHandler} />
-        </>
+        <div className="border bg-light border-secondary p-2 my-2">
+            <p className='fw-bold'>Image #{props.image_position + 1}</p>
+            <label className='form-label'>Image Title</label>
+            <input className='form-control' type='text' value={image.image_title} onChange={imageTitleChangedHandler} />
+            <label className='form-label'>Image URL</label>
+            <input className='form-control' type='text' value={image.image_url} onChange={imageUrlChangedHandler} />
+            <label className='form-label'>Image Caption</label>
+            <input className='form-control' type='text' value={image.image_caption} onChange={imageCaptionChangedHandler} />
+        </div>
     )
 };
 
