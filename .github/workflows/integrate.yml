@@ -18,7 +18,7 @@ jobs:
         run: |
           git secret reveal
           docker-compose up --build -d
-          docker-compose exec -T client npm run ops:test
+          docker-compose exec -T client npm portfolio-site_client_1 ops:test
 
   teardown:
     runs-on: self-hosted
