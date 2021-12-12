@@ -26,6 +26,6 @@ jobs:
     needs: [run-tests]
     steps:
       - name: teardown
-        run:
+        run: |
           cd ops/testing
           docker-compose down
