@@ -3,8 +3,7 @@ name: "deploy"
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -13,7 +12,7 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v2.4.0
 
-      - name: build and test
+      - name: run
         run: |
           git secret reveal
           docker-compose up --build -d

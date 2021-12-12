@@ -1,0 +1,28 @@
+name: "integrate"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    runs-on: self-hosted
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2.4.0
+
+      - name: test
+        run: |
+          docker-compose up --build -d
+
+  teardown:
+    runs-on: self-hosted
+    if: ${{ always() }}
+    needs: [run-tests]
+    steps:
+      - name: teardown
+        run:
+          docker-compose down
