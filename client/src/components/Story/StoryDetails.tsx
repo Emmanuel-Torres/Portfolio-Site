@@ -22,27 +22,27 @@ const StoryDetails: FC = (): JSX.Element => {
     }, [currentStory])
 
     return (
-        <>
-            <h3 className='fw-bold text-center border-bottom border-dark border-2 p-2 w-100'>
-                {currentStory?.story_title}
-            </h3>
-            <div className='d-flex mx-2'>
-                <aside className='vh-100'>
-                    <ul className='list-group'>
-                        {currentStory?.story_steps.map(s => (
-                            <li className="list-group-item" key={s.step_id}>
-                                <a className="text-decoration-none" href={`#step-${s.step_id}`}>
-                                    {s.step_title}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                </aside>
-                <div className='vh-100 overflow-auto'>
-                    {currentStory?.story_steps.map(s => <StoryStep key={s.step_id} step={s} />)}
-                </div>
-            </div>
-        </>
+        <div className={styles.container}>
+            <header className={styles.header}>
+                <h3>
+                    {currentStory?.story_title}
+                </h3>
+            </header>
+            <aside className={styles.aside}>
+                <ul className={styles.ul}>
+                    {currentStory?.story_steps.map(s => (
+                        <li className={styles.li}>
+                            <a className={styles.a} href={`#step-${s.step_id}`}>
+                                {s.step_title}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </aside>
+            <main>
+                {currentStory?.story_steps.map(s => <StoryStep key={s.step_id} step={s} />)}
+            </main>
+        </div>
     )
 };
 
