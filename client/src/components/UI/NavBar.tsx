@@ -5,7 +5,7 @@ const NavBar: FC = (): JSX.Element => {
     return (
         <nav className='navbar navbar-expand-lg navbar-dark bg-secondary'>
             <div className='container-fluid'>
-                <NavLink className='navbar-brand' to='/home'>Portfolio</NavLink>
+                <NavLink className='navbar-brand' to='/home'>Portfolio Demo</NavLink>
                 <button className='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarLinks'>
                     <span className='navbar-toggler-icon'></span>
                 </button>
