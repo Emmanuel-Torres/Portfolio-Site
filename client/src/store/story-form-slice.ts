@@ -11,6 +11,11 @@ interface StoryFormState {
 const initialState: StoryFormState = {
     story: {
         story_title: '',
+        story_image: {
+            image_title: '',
+            image_caption: '',
+            image_url: '',
+        },
         story_steps: [],
         story_id: undefined,
         story_posted_on: ''

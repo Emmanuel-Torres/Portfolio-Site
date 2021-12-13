@@ -8,7 +8,7 @@ type Props = {
 
 const StoryCard: FC<Props> = (props): JSX.Element => {
     return (
-        <div className='col-xxl-2 col-xl-3 col-lg-4 col-md-6 mb-2'>
+        <div className='col-xxl-2 col-xl-3 col-lg-4 col-md-6 mb-3'>
             <div className='card border border-secondary h-100'>
                 <Link to={`/stories/${props.story.story_id}`} className='text-decoration-none text-black'>
                     <img src='https://www.aspca.org/sites/default/files/styles/full_width_2_col/public/field/image/adoptable_animal/mishi_a46703853_2021mar11_0081.jpg?itok=y5GNr9za' className='card-img-top' alt='foo' />
