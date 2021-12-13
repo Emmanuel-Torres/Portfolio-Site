@@ -1,5 +1,5 @@
 FROM node:11-alpine
-WORKDIR /src/web
+WORKDIR /usr/src/app
 COPY package.json .
 COPY package-lock.json .
 RUN npm install
