@@ -4,4 +4,5 @@ COPY package.json .
 COPY package-lock.json .
 RUN npm install
 COPY . .
-CMD npm run test
+EXPOSE 80
+CMD ["npm", "start"]
