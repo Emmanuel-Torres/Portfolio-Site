@@ -13,13 +13,8 @@ const StoryDetails: FC = (): JSX.Element => {
     const storyId: number = parseInt(params.storyid!)
 
     useEffect(() => {
-        console.log(storyId)
         dispatch(getStoryById(storyId));
     }, [dispatch, storyId]);
-
-    useEffect(() => {
-        console.log(currentStory)
-    }, [currentStory])
 
     return (
         <div className={styles.container}>
@@ -31,7 +26,7 @@ const StoryDetails: FC = (): JSX.Element => {
             <aside className={styles.aside}>
                 <ul className={styles.ul}>
                     {currentStory?.story_steps.map(s => (
-                        <li className={styles.li}>
+                        <li className={styles.li} key={s.step_id}>
                             <a className={styles.a} href={`#step-${s.step_id}`}>
                                 {s.step_title}
                             </a>
