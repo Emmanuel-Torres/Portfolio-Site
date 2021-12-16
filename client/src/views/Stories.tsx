@@ -13,7 +13,7 @@ const Stories: FC = (): JSX.Element => {
     }, [dispatch]);
 
     return (
-        <div className='row p-2'>
+        <div className='row m-0 p-2'>
             {stories.map(s => <StoryCard key={s.story_id} story={s} />)}
         </div>
     )
