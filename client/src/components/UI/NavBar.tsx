@@ -11,7 +11,6 @@ const NavBar: FC = (): JSX.Element => {
             <NavLink className={linkStyle} to='/home'>Home</NavLink>
             <NavLink className={linkStyle} to='/stories'>Stories</NavLink>
             <NavLink className={linkStyle} to='/projects'>Projects</NavLink>
-            <NavLink className={linkStyle} to='/new-story'>Add Story</NavLink>
             <NavLink className={linkStyle} to='/about'>About Me</NavLink>
         </nav>
     )
