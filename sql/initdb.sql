@@ -18,7 +18,17 @@ INSERT INTO user_story.image (image_title, image_url, image_caption)
     VALUES ('API Dockerfile', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/APIDockerfile.png', 'Dockerfile that describes my API container'),
            ('Front End Dockerfile', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/FrontEndDockerfile.png', 'Dockerfile that describes my Front End container'),
            ('Portfolio Docker-Compose', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/PortfolioDockerCompose.png', 'Docker-Compose file that orchestrates my protfolio site'),
-           ('Init script for my Database', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/DbCreationScript.png', 'SQL file that describes my database');
+           ('Init script for my Database', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/DbCreationScript.png', 'SQL file that describes my database'),
+           ('Portfolio''s VM', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/PortfolioSite/PortfolioVM.png'),
+           ('Actions Runner', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/PortfolioSite/PortfolioRunner.png', 'GitHub actions runner for my protfolio'),
+           ('Secrets Folder', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/PortfolioSite/PortfolioSecrets.png', 'Folder that has all encrypted secrets'),
+           ('CD Pipeline', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/PortfolioSite/PortfolioCDPipeline.png', 'Action that will deploy my portfolio'),
+           ('Successful Deployment', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/PortfolioSite/PortfolioDeploymnet.png', 'My portfolio was successfully deployed'),
+           ('Page Router', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/PortfolioFrontEnd/PortfolioRouter.png', 'Using react router to route different pages of my portfolio'),
+           ('API Service', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/PortfolioFrontEnd/PortfolioApiService.png', 'Service that allows my front end talk to the API'),
+           ('Data Store', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/PortfolioFrontEnd/PortfolioRedux.png', 'Redux store that holds the share state of my portfolio'),
+           ('Story Slice', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/PortfolioFrontEnd/PortfolioSlice.png', 'Slice that keeps my stories within the redux store'),
+           ('Async Thunks', 'https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio-images/PortfolioFrontEnd/PortfolioThunks.png', 'Thunks that allow my slice use my API service');
 
 INSERT INTO user_story.step_image (step_id, image_id)
     VALUES (2, 1),
