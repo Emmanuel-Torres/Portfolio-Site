@@ -12,10 +12,10 @@ services:
       - TZ=America/Denver
       - URL=emmanueltorreshn.com
       - VALIDATION=http
-      - STAGING=false #optional
+      - STAGING=true #optional
       - SUBDOMAINS=www,
     volumes:
-      - ../ops/deploying/default:/config/default
+      - /swag:/config
       #  - ../ops/deploying/default.conf:/config/nginx/site-confs/default
     ports:
       - 443:443
