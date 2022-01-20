@@ -1,6 +1,27 @@
 version: '3'
 
 services:
+  swag:
+    image: ghcr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - URL=yourdomain.url
+      - SUBDOMAINS=www,
+      - VALIDATION=http
+      - STAGING=false #optional
+      - SUBDOMAINS=www,
+    volumes:
+      - ../ops/deploying/default.conf:/config
+    ports:
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
+
   server:
     build: 
       dockerfile: ../ops/deploying/server.Dockerfile
@@ -19,8 +40,6 @@ services:
     build:
       dockerfile: ../ops/deploying/client.Dockerfile
       context: ./client
-    ports:
-      - 80:80
     volumes:
       - ./client/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
