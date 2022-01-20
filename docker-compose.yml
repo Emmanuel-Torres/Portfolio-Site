@@ -9,9 +9,8 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
-      - URL=yourdomain.url
-      - SUBDOMAINS=www,
+      - TZ=America/Denver
+      - URL=emmanueltorreshn.com
       - VALIDATION=http
       - STAGING=false #optional
       - SUBDOMAINS=www,
