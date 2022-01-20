@@ -14,8 +14,8 @@ services:
       - VALIDATION=http
       - STAGING=false #optional
       - SUBDOMAINS=www,
-    volumes:
-      - ../ops/deploying/default.conf:/config/default
+    # volumes:
+      - ../ops/deploying/default:/config/default/default
       #  - ../ops/deploying/default.conf:/config/nginx/site-confs/default
     ports:
       - 443:443
