@@ -5,12 +5,12 @@ namespace server.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class StroyController : ControllerBase
+public class StoryController : ControllerBase
 {
-    private readonly ILogger<StroyController> _logger;
-    private IEnumerable<Story> Stories = new List<Story> { new Story("Hello", "Hello", DateTime.Now) };
+    private readonly ILogger<StoryController> _logger;
+    private List<Story> Stories = new List<Story> { new Story("Hello", DateTime.Now) };
 
-    public StroyController(ILogger<StroyController> logger)
+    public StoryController(ILogger<StoryController> logger)
     {
         _logger = logger;
     }
@@ -26,20 +26,29 @@ public class StroyController : ControllerBase
     [Route("posts/{id:int}")]
     public Task<Story> GetStoryById(int id)
     {
-        return Task.FromResult<Story>(new Story("Hello", "NewTitle", DateTime.Now, id: id));
+        return Task.FromResult<Story>(new Story("Hello", DateTime.Now));
     }
 
-    // [HttpGet]
-    // [Route("Hello")]
-    // public string GetHello()
-    // {
-    //     return "Hello World";
-    // }
+    [HttpPost]
+    [Route("posts")]
+    public Task<Story> PostStory(Story story)
+    {
+        story.Id = 5;
+        return Task.FromResult<Story>(story);
+    }
 
-    // [HttpPost]
-    // [Route("Hello")]
-    // public string PostHello(Story story)
-    // {
-    //     return "Foo";
-    // }
+    [HttpPut]
+    [Route("posts/{id:int}")]
+    public Task<Story> UpdateStory(Story story, int id)
+    {
+        story.Id = id;
+        return Task.FromResult<Story>(story);
+    }
+
+    [HttpDelete]
+    [Route("posts/{id:int}")]
+    public Task<Story> DeleteStory(int id)
+    {
+        return Task.FromResult<Story>(new Story("Hello", DateTime.Now));
+    }
 }

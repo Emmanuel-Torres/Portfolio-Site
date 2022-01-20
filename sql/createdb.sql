@@ -6,6 +6,8 @@ CREATE SCHEMA IF NOT EXISTS user_story;
 CREATE TABLE IF NOT EXISTS user_story.story (
     story_id SERIAL PRIMARY KEY,
     story_title VARCHAR(80) NOT NULL,
+    story_content TEXT,
     story_posted_on TIMESTAMP NOT NULL,
-    story_content TEXT
+    story_main_image_url TEXT,
+    story_tags TEXT
 );
