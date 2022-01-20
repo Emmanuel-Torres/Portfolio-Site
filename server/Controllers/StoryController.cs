@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using server.Models;
 
 namespace server.Controllers;
 
@@ -13,9 +14,19 @@ public class StroyController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet]
-    public string Get()
-    {
-        return "Hello World";
-    }
+    
+
+    // [HttpGet]
+    // [Route("Hello")]
+    // public string GetHello()
+    // {
+    //     return "Hello World";
+    // }
+
+    // [HttpPost]
+    // [Route("Hello")]
+    // public string PostHello(Story story)
+    // {
+    //     return "Foo";
+    // }
 }
