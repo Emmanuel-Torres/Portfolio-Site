@@ -53,3 +53,11 @@ services:
     volumes:
       - ./sql/createdb.sql:/docker-entrypoint-initdb.d/createdb.sql
       - ./sql/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+
+  admin_db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./sql/admindb.sql:/docker-entrypoint-initdb.d/admindb.sql
