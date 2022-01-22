@@ -8,7 +8,11 @@ app.use(express.json());
 app.use(express.static('pages/AddClient.html'))
 
 app.get('/', async (req, res) => {
-    res.sendFile(path.join(__dirname + '/pages/AddClient.html'))
+    res.send("hello world");
+})
+
+app.get('/addconfig', async (req, res) => {
+    res.sendFile(path.join(__dirname + '/pages/AddClient.html'));
 })
 
 app.post('/addconfig', async (req, res) => {
@@ -22,7 +26,8 @@ app.post('/addconfig', async (req, res) => {
     }
 
     try {
-        res.json(await dbService.addConfig(config))
+        await dbService.addConfig(config)
+        res.send(200);
     }
     catch (ex) {
         console.error(ex);
