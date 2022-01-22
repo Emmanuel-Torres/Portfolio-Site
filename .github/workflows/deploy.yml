@@ -19,4 +19,5 @@ jobs:
           cd ..
           docker-compose up --build -d
           cd wireguard/server
+          npm install
           pm2 start process.yml
