@@ -26,6 +26,8 @@ services:
     build: 
       dockerfile: ../ops/deploying/server.Dockerfile
       context: ./src/server
+    ports:
+      - 5000:3000
     env_file:
       - ./src/server/.env
     environment:
