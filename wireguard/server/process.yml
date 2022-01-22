@@ -1,0 +1,6 @@
+apps:
+  - script: './index.js'
+    exec_mode: 'fork'
+    name: 'wirguardadmin'
+    env:
+      
