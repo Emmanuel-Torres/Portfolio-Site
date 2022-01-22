@@ -54,10 +54,10 @@ services:
       - ./src/sql/createdb.sql:/docker-entrypoint-initdb.d/createdb.sql
       - ./src/sql/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
 
-  admin_db:
+  wireguard_db:
     image: postgres
     restart: always
     environment:
       POSTGRES_PASSWORD: password
     volumes:
-      - ./sql/admindb.sql:/docker-entrypoint-initdb.d/admindb.sql
+      - ./src/sql/admindb.sql:/docker-entrypoint-initdb.d/admindb.sql
