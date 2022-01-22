@@ -18,3 +18,5 @@ jobs:
           git secret reveal
           cd ..
           docker-compose up --build -d
+          cd wireguard/server
+          pm2 start process.yml
