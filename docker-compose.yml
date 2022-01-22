@@ -25,6 +25,7 @@ services:
     - host.docker.internal:host-gateway
 
   server:
+    container_name: portfolio_server
     build: 
       dockerfile: ../ops/deploying/server.Dockerfile
       context: ./src/server
@@ -37,6 +38,7 @@ services:
       - db
 
   client:
+    container_name: portfolio_client
     build:
       dockerfile: ../ops/deploying/client.Dockerfile
       context: ./src/client
@@ -47,6 +49,7 @@ services:
 
   db:
     image: postgres
+    container_name: portfolio_db
     restart: always
     environment:
       POSTGRES_PASSWORD: password
@@ -56,6 +59,7 @@ services:
 
   wireguard_db:
     image: postgres
+    container_name: wireguard_db
     restart: always
     ports:
       - 5432:5432
