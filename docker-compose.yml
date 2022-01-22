@@ -51,8 +51,8 @@ services:
     environment:
       POSTGRES_PASSWORD: password
     volumes:
-      - ./sql/createdb.sql:/docker-entrypoint-initdb.d/createdb.sql
-      - ./sql/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - ./src/sql/createdb.sql:/docker-entrypoint-initdb.d/createdb.sql
+      - ./src/sql/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
 
   admin_db:
     image: postgres
