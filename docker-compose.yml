@@ -16,7 +16,7 @@ services:
       - SUBDOMAINS=www,
     volumes:
       - /swag:/config
-      - ../ops/deploying/default.conf:/config/nginx/site-confs/default
+      - ./ops/deploying/default.conf:/config/nginx/site-confs/default
     ports:
       - 443:443
       - 80:80 #optional
