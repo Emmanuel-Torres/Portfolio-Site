@@ -13,7 +13,7 @@ services:
       - URL=emmanueltorreshn.com
       - VALIDATION=http
       - STAGING=false
-      - SUBDOMAINS=www,
+      - SUBDOMAINS=www,admin
     volumes:
       - /swag:/config
       - ./src/ops/deploying/default.conf:/config/nginx/site-confs/default
