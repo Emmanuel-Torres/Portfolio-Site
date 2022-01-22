@@ -29,6 +29,6 @@ app.post('/addconfig', async (req, res) => {
     }
 })
 
-app.listen(80, () => {
+app.listen(3000, () => {
     console.log(`Running at wireguard:3000`)
 })
