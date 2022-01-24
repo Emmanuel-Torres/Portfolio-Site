@@ -1,0 +1,11 @@
+apps:
+  - script: './index.js'
+    exec_mode: 'fork'
+    name: 'wirguardadmin'
+    env:
+      API_PORT: 3000
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_HOST: 'localhost'
+      POSTGRES_DB: 'postgres'
+      POSRGRES_PORT: 5432

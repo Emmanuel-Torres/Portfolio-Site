@@ -13,7 +13,7 @@ jobs:
 
       - name: test
         run: |
-          cd ops/testing
+          cd src/ops/testing
           docker-compose up -d --build
           docker-compose exec -T client_test npm run ops:test
 
@@ -24,5 +24,5 @@ jobs:
     steps:
       - name: teardown
         run: |
-          cd ops/testing
+          cd src/ops/testing
           docker-compose down

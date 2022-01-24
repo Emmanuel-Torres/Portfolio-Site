@@ -12,24 +12,25 @@ services:
       - TZ=America/Denver
       - URL=emmanueltorreshn.com
       - VALIDATION=http
-      - STAGING=false #optional
-      - SUBDOMAINS=www,
+      - STAGING=false
+      - SUBDOMAINS=www,admin
     volumes:
       - /swag:/config
-      - ./ops/deploying/default.conf:/config/nginx/site-confs/default
+      - ./src/ops/deploying/default.conf:/config/nginx/site-confs/default
     ports:
       - 443:443
-      - 80:80 #optional
+      - 80:80
     restart: unless-stopped
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
   server:
+    container_name: portfolio_server
     build: 
       dockerfile: ../ops/deploying/server.Dockerfile
-      context: ./server
-    ports:
-      - 5000:3000
+      context: ./src/server
     env_file:
-      - ./server/.env
+      - ./src/server/.env
     environment:
       DB_HOST: db
       DB_PORT: 5432
@@ -37,19 +38,32 @@ services:
       - db
 
   client:
+    container_name: portfolio_client
     build:
       dockerfile: ../ops/deploying/client.Dockerfile
-      context: ./client
+      context: ./src/client
     volumes:
-      - ./client/default.conf:/etc/nginx/conf.d/default.conf
+      - ./src/client/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - server
 
   db:
     image: postgres
+    container_name: portfolio_db
     restart: always
     environment:
       POSTGRES_PASSWORD: password
     volumes:
-      - ./sql/createdb.sql:/docker-entrypoint-initdb.d/createdb.sql
-      - ./sql/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - ./src/sql/createdb.sql:/docker-entrypoint-initdb.d/createdb.sql
+      - ./src/sql/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+
+  wireguard_db:
+    image: postgres
+    container_name: wireguard_db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./src/sql/admindb.sql:/docker-entrypoint-initdb.d/admindb.sql
