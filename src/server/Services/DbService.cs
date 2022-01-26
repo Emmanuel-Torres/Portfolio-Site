@@ -1,37 +1,42 @@
+using Microsoft.EntityFrameworkCore;
+using server.Data;
 using server.Models;
 
 namespace server.Services;
 
 public class DbService : IDbService
 {
-    private readonly string connectionString;
+    private readonly ApplicationDbContext dbContext;
 
-    public DbService(string host, string username, string password, string database, string port)
+    public DbService(ApplicationDbContext dbContext)
     {
-        this.connectionString = $"Host=${host};Username=${username};Password=${password};Database=${database};Port=${port}";
+        this.dbContext = dbContext;
     }
 
     public async Task<IEnumerable<Story>> GetStoriesAsync()
     {
-        throw new NotImplementedException();
+        return await dbContext.Stories.ToListAsync();
     }
 
-    public async Task<Story> GetStoryByIdAsync(int storyId)
+    public async Task<Story?> GetStoryByIdAsync(int storyId)
     {
-        throw new NotImplementedException();
+        return await dbContext.Stories.FirstOrDefaultAsync(s => s.Id == storyId);
     }
 
-    public async Task<Story> AddStoryAsync(Story story)
+    public async Task AddStoryAsync(Story story)
     {
-        throw new NotImplementedException();
+        await dbContext.Stories.AddAsync(story);
+        await dbContext.SaveChangesAsync();
     }
 
-    public async Task<Story> UpdateStoryAsync(int storyId, Story story)
+    public async Task UpdateStoryAsync(int storyId, Story story)
     {
-        throw new NotImplementedException();
+        story.Id = storyId;
+        dbContext.Stories.Update(story);
+        await dbContext.SaveChangesAsync();
     }
 
-    public async Task<Story> DeleteStoryAsync(int storyId)
+    public async Task DeleteStoryAsync(int storyId)
     {
         throw new NotImplementedException();
     }
