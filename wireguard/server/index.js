@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const exec = require('child_process');
+const exec = require('child_process').exec;
 const { dbService } = require("./services/db-service")
 
 app.use(express.urlencoded({ extended: false }));
