@@ -19,7 +19,7 @@ const getStatus = async (): Promise<string> => {
 }
 
 const restartService = async () => {
-    const res = await axios.get(apiService + '/wgservice/restart');
+    const res = await axios.get(apiUrl + '/wgservice/restart');
 }
 
 const apiService = {
