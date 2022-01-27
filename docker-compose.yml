@@ -49,8 +49,9 @@ services:
 
   wireguard_client: 
     container_name: wg_client
-    dockerfile: ../ops/deploying/client.Dockerfile
-    context: ./wireguard/client
+    build:
+      dockerfile: ../ops/deploying/client.Dockerfile
+      context: ./wireguard/client
 
   db:
     image: postgres
