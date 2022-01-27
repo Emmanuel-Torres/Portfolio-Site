@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const exec = require('child_process');
 const { dbService } = require("./services/db-service")
 
 app.use(express.urlencoded({ extended: false }));
@@ -11,9 +12,31 @@ app.get('/', async (req, res) => {
     res.send("hello world");
 })
 
-// app.get('/addconfig', async (req, res) => {
-//     res.sendFile(path.join(__dirname + '/pages/AddClient.html'));
-// })
+app.get('/api/wgservice/status', (req, res) => {
+    exec(
+        'systemctl status wg-quick@wg0.service',
+        { uid: 1000 },
+        (error, stdout, stderr) => {
+            res.send(stdout);
+        }
+    )
+})
+
+app.get('/api/wgservice/restart', (req, res) => {
+    exec(
+        'sudo systemctl restart wg-quick@wg0.service',
+        { uid: 1000 },
+        (error, stdout, stderr) => {
+            if (error) {
+                res.send(500);
+            } else if (stderr) {
+                res.send(stderr);
+            } else {
+                res.send(200);
+            }
+        }
+    )
+})
 
 app.post('/api/addconfig', async (req, res) => {
     const config = {
