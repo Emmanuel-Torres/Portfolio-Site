@@ -46,7 +46,7 @@ services:
       - server
 
   wireguard_client: 
-    container_name: wg_client
+    container_name: wireguard_client
     build:
       dockerfile: ../../src/ops/deploying/client.Dockerfile
       context: ./wireguard/client
