@@ -11,9 +11,9 @@ app.get('/', async (req, res) => {
     res.send("hello world");
 })
 
-app.get('/addconfig', async (req, res) => {
-    res.sendFile(path.join(__dirname + '/pages/AddClient.html'));
-})
+// app.get('/addconfig', async (req, res) => {
+//     res.sendFile(path.join(__dirname + '/pages/AddClient.html'));
+// })
 
 app.post('/addconfig', async (req, res) => {
     const config = {
