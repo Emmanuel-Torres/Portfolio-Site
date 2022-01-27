@@ -1,13 +1,18 @@
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import WireguardForm from './components/forms/WireguardForm';
 import ClientConfig from './models/clientConfig';
 import { StoreDispatch, useStoreSelector } from './store';
-import { addConfig, restartService } from './store/client-config-slice';
+import { addConfig, getStatus, restartService } from './store/client-config-slice';
 
 function App() {
   const state = useStoreSelector(state => state.clientConfig.wg_status);
 
   const dispatch = useDispatch<StoreDispatch>();
+
+  useEffect(()=> {
+    dispatch(getStatus())
+  }, [dispatch, getStatus])
 
   const restartClicked = () => {
     dispatch(restartService());
