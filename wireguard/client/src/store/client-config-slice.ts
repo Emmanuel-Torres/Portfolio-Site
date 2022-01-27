@@ -19,7 +19,7 @@ export const addConfig = createAsyncThunk(
     }
 )
 
-const clientConfigStore = createSlice({
+const clientConfigSlice = createSlice({
     name: 'client-config',
     initialState,
     reducers: {
@@ -32,3 +32,5 @@ const clientConfigStore = createSlice({
             })
     }
 })
+
+export default clientConfigSlice;
