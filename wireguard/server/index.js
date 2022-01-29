@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const path = require('path');
 const exec = require('child_process').exec;
 const { dbService } = require("./services/db-service")
+const { peerService } = require("./services/peer-service")
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -39,21 +39,26 @@ app.get('/api/wgservice/restart', (req, res) => {
 })
 
 app.post('/api/addconfig', async (req, res) => {
-    const config = {
+    const newConfig = {
         name: req.body.name,
         ipAddress: req.body.ipAddress,
         allowedIpRange: req.body.allowedIpRange,
-        publicKey: req.body.publicKey,
-        privateKey: req.body.privateKey,
+        publicKey: undefined,
+        privateKey: undefined,
         dateAdded: new Date()
     }
 
+    const keys = peerService.genKeys(newConfig)
+    newConfig.publicKey = keys.publicKey;
+    newConfig.privateKey = keys.privateKey;
+
     try {
-        await dbService.addConfig(config)
+        const config = await dbService.addConfig(newConfig);
         res.send(200);
     }
     catch (ex) {
         console.error(ex);
+        res.send(500);
     }
 })
 
