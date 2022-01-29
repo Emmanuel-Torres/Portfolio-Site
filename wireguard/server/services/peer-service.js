@@ -2,6 +2,8 @@ const exec = require('child_process').exec;
 const { dbService } = require("./db-service")
 
 const getStatus = () => {
+    let status = undefined;
+
     const proc = exec(
         'systemctl status wg-quick@wg0.service',
         { uid: 1000 },
@@ -11,7 +13,7 @@ const getStatus = () => {
     )
 
     proc.stdout.on('data', (data) => {
-        return data;
+        status = data;
     })
 }
 
