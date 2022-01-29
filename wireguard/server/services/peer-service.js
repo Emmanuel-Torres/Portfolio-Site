@@ -1,26 +1,15 @@
-const exec = require('child_process').exec;
+const { execSync } = require('child_process');
 const { dbService } = require("./db-service")
 
 const getStatus = () => {
-    let status = undefined;
-
-    const proc = exec(
+    return execSync(
         'systemctl status wg-quick@wg0.service',
-        { uid: 1000 },
-        (error, stdout, stderr) => {
-            return stdout;
-        }
+        { uid: 1000 }
     )
-
-    proc.stdout.on('data', (data) => {
-        status = data;
-    })
-
-    return status;
 }
 
 const restartService = () => {
-    return exec(
+    execSync(
         'sudo systemctl restart wg-quick@wg0.service',
         { uid: 1000 },
         (error, stdout, stderr) => {
@@ -36,7 +25,7 @@ const restartService = () => {
 }
 
 const genConfig = async (body) => {
-    exec(
+    execSync(
         `/home/github/actions-runner/_work/Portfolio-Site/Portfolio-Site/wireguard/server/scripts/wg-keygen.bash ${body.name}`,
         { uid: 1000 }
     );
@@ -56,38 +45,29 @@ const genConfig = async (body) => {
 }
 
 const getVmPublicKey = () => {
-    return exec(
+    return execSync(
         'cat /etc/wireguard/publickey',
-        { uid: 1000 },
-        (error, stdout, stderr) => {
-            return stdout;
-        }
+        { uid: 1000 }
     )
 }
 
 const getClientPublicKey = (clientName) => {
-    return exec(
+    return execSync(
         `cat /home/github/wireguard/clients/${clientName}/publickey`,
-        { uid: 1000 },
-        (error, stdout, stderr) => {
-            return stdout;
-        }
+        { uid: 1000 }
     )
 }
 
 const getClientPrivateKey = (clientName) => {
-    return exec(
+    return execSync(
         `cat /home/github/wireguard/clients/${clientName}/privatekey`,
-        { uid: 1000 },
-        (error, stdout, stderr) => {
-            return stdout;
-        }
+        { uid: 1000 }
     )
 }
 
 const addConfig = async (body) => {
     const config = await genConfig(body);
-    exec (
+    execSync(
         `sudo wg set wg0 peer ${config.publicKey} allowed-ips ${config.ipAddress}/24`,
         { uid: 1000 }
     );
