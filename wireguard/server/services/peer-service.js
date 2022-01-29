@@ -15,6 +15,8 @@ const getStatus = () => {
     proc.stdout.on('data', (data) => {
         status = data;
     })
+
+    return status;
 }
 
 const restartService = () => {
