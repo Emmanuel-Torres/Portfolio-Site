@@ -1,15 +1,51 @@
 const exec = require('child_process').exec;
+const { dbService } = require("./services/db-service")
 
-const genKeys = (clientName) => {
+const getStatus = () => {
+    return exec(
+        'systemctl status wg-quick@wg0.service',
+        { uid: 1000 },
+        (error, stdout, stderr) => {
+            return stdout;
+        }
+    )
+}
+
+const restartService = () => {
+    return exec(
+        'sudo systemctl restart wg-quick@wg0.service',
+        { uid: 1000 },
+        (error, stdout, stderr) => {
+            if (error) {
+                console.error(error);
+            } else if (stderr) {
+                console.error(error);
+            } else {
+                console.log(stdout);
+            }
+        }
+    )
+}
+
+const genConfig = async (body) => {
+    const config = {
+        name: body.name,
+        ipAddress: body.ipAddress,
+        allowedIpRange: body.allowedIpRange,
+        publicKey: undefined,
+        privateKey: undefined,
+        dateAdded: new Date()
+    }
+
     exec(
-        `/home/github/actions-runner/_work/Portfolio-Site/Portfolio-Site/wireguard/server/scripts/wg-keygen.bash ${clientName}`,
+        `/home/github/actions-runner/_work/Portfolio-Site/Portfolio-Site/wireguard/server/scripts/wg-keygen.bash ${config.name}`,
         { uid: 1000 }
     );
 
-    const publicKey = getPublicKey(clientName);
-    const privateKey = getPrivateKey(clientName);
+    config.publicKey = getPublicKey(config.name);
+    config.privateKey = getPrivateKey(config.name);
 
-    return { publicKey, privateKey };
+    return await dbService.addConfig(config);
 }
 
 const getPublicKey = (clientName) => {
@@ -32,12 +68,13 @@ const getPrivateKey = (clientName) => {
     )
 }
 
-const addClient = (clientConfig) => {
+const addConfig = async (body) => {
+    const config = await genConfig(body);
 
 }
 
 module.exports.peerService = {
-    genKeys,
-    getPublicKey,
-    getPrivateKey,
+    getStatus,
+    restartService,
+    addConfig,
 }
