@@ -9,9 +9,10 @@ const testUrl = async (): Promise<string> => {
     return res.data;
 }
 
-const addConfig = async (config: ClientConfig) => {
-    const res = await axios.post(apiUrl + '/addconfig', config, { responseType: 'blob' });
+const addConfig = async (config: ClientConfig): Promise<Blob> => {
+    const res = await axios.post<Blob>(apiUrl + '/addconfig', config, { responseType: 'blob' });
     fileDownload(res.data, 'configuration.conf');
+    return res.data;
 }
 
 const getStatus = async (): Promise<string> => {
