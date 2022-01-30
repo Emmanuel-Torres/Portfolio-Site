@@ -72,7 +72,7 @@ const addConfig = async (body) => {
         cmd,
         { uid: 1000 }
     );
-    
+
     return genConfigFile(config);
 }
 
@@ -84,7 +84,7 @@ const genConfigFile = (config) => {
     DNS = 8.8.8.8
     
     [Peer]
-    PublicKey = ${config.vmIpAddress}
+    PublicKey = ${config.vmPublicKey}
     AllowedIPs = ${config.allowedIpRange}/0
     Endpoint = 23.92.26.110:51820" >  /home/github/wireguard/clients/${config.name}/configuration.conf`;
 
