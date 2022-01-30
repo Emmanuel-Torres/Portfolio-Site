@@ -7,7 +7,7 @@ app.use(express.json());
 
 app.get('/api/wgservice/status', (req, res) => {
     try {
-        res.sendStatus(peerService.getStatus());
+        res.send(peerService.getStatus());
     }
     catch {
         res.sendStatus(500);
@@ -26,7 +26,7 @@ app.get('/api/wgservice/restart', (req, res) => {
 
 app.post('/api/addconfig', async (req, res) => {
     try {
-        const configPath = peerService.addConfig(req.body);
+        const configPath = await peerService.addConfig(req.body);
         res.download(configPath);
     }
     catch (ex) {
