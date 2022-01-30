@@ -34,7 +34,7 @@ const genConfig = async (body) => {
         name: body.name,
         ipAddress: body.ipAddress,
         allowedIpRange: body.allowedIpRange,
-        publicKey: getClientPublicKey(body.name).trim(),
+        publicKey: getClientPublicKey(body.name).toString().trim(),
         privateKey: getClientPrivateKey(body.name).toString().trim(),
         dateAdded: new Date()
     });
