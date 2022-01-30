@@ -67,17 +67,46 @@ const getClientPrivateKey = (clientName) => {
 
 const addConfig = async (body) => {
     const config = await genConfig(body);
-    console.log(config);
     const cmd = `sudo wg set wg0 peer ${config.publicKey} allowed-ips ${config.ipAddress}`
-    console.log(cmd);
     exec(
         cmd,
         { uid: 1000 }
     );
+    
+    return genConfigFile(config);
+}
+
+const genConfigFile = (config) => {
+    const path = `/home/github/wireguard/clients/${config.name}/configuration.conf`;
+    const cmd = `echo "[Interface]
+    PrivateKey = ${config.publicKey}
+    Address = ${config.ipAddress}/24
+    DNS = 8.8.8.8
+    
+    [Peer]
+    PublicKey = ${config.vmIpAddress}
+    AllowedIPs = ${config.allowedIpRange}/0
+    Endpoint = 23.92.26.110:51820" >  /home/github/wireguard/clients/${config.name}/configuration.conf`;
+
+    execSync(
+        cmd,
+        { uid: 1000 }
+    )
+
+    return path;
+}
+
+const removeConfig = async (publicKey) => {
+    const cmd = `sudo wg set wg0 peer ${publicKey.trim()} remove`
+    exec(
+        cmd,
+        { uid: 1000 }
+    )
 }
 
 module.exports.peerService = {
     getStatus,
     restartService,
     addConfig,
+    removeConfig
 }
