@@ -34,13 +34,13 @@ const genConfig = async (body) => {
         name: body.name,
         ipAddress: body.ipAddress,
         allowedIpRange: body.allowedIpRange,
-        publicKey: getClientPublicKey(body.name),
-        privateKey: getClientPrivateKey(body.name),
+        publicKey: getClientPublicKey(body.name).trim(),
+        privateKey: getClientPrivateKey(body.name).toString().trim(),
         dateAdded: new Date()
     });
 
     config['vmIpAddress'] = "23.92.26.110:51820"
-    config['vmPublicKey'] = getVmPublicKey();
+    config['vmPublicKey'] = getVmPublicKey().toString().trim();
     return config;
 }
 
