@@ -96,17 +96,28 @@ const genConfigFile = (config) => {
     return path;
 }
 
+const getPeers = () => {
+    const cmd = 'sudo wg show | grep peer';
+    return execSync(
+        cmd,
+        { uid: 1000 }
+    ).toString().split('\n');
+}
+
 const removeConfig = async (publicKey) => {
     const cmd = `sudo wg set wg0 peer ${publicKey.trim()} remove`
     exec(
         cmd,
         { uid: 1000 }
     )
+    
+    await dbService.removeConfig(publicKey);
 }
 
 module.exports.peerService = {
     getStatus,
     restartService,
     addConfig,
-    removeConfig
+    removeConfig,
+    getPeers
 }

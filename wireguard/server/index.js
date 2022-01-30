@@ -24,6 +24,15 @@ app.get('/api/wgservice/restart', (req, res) => {
     }
 })
 
+app.get('/api/wgservice/peers', (req, res) => {
+    try {
+        res.send(peerService.getPeers());
+    }
+    catch {
+        res.sendStatus(500);
+    }
+})
+
 app.post('/api/addconfig', async (req, res) => {
     try {
         const configPath = await peerService.addConfig(req.body);
@@ -35,7 +44,7 @@ app.post('/api/addconfig', async (req, res) => {
     }
 })
 
-app.post('/api/removeconfig', async (req, res) => {
+app.post('/api/wgservice/removeconfig', async (req, res) => {
     try {
         peerService.removeConfig(req.body.publicKey)
     }
