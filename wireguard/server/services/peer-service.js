@@ -1,4 +1,4 @@
-const { execSync } = require('child_process');
+const { execSync, exec } = require('child_process');
 const { dbService } = require("./db-service")
 
 const getStatus = () => {
@@ -68,7 +68,7 @@ const getClientPrivateKey = (clientName) => {
 const addConfig = async (body) => {
     const config = await genConfig(body);
     console.log(config);
-    execSync(
+    exec(
         `sudo wg set wg0 peer ${config.publicKey} allowed-ips ${config.ipAddress}`,
         { uid: 1000 }
     );
