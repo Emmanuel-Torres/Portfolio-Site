@@ -3,7 +3,7 @@ import ClientConfig from "../models/clientConfig"
 import apiService from "../services/api-service"
 
 interface ClientConfigState {
-    configs: ClientConfig[];
+    configs: Blob[];
     wg_status: string;
 }
 
@@ -14,7 +14,7 @@ const initialState: ClientConfigState = {
 
 export const addConfig = createAsyncThunk(
     'addConfig',
-    async (config: ClientConfig, thunkApi): Promise<ClientConfig> => {
+    async (config: ClientConfig, thunkApi): Promise<Blob> => {
         return await apiService.addConfig(config);
     }
 )
@@ -42,7 +42,7 @@ const clientConfigSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(addConfig.fulfilled, (state, action: PayloadAction<ClientConfig>) => {
+            .addCase(addConfig.fulfilled, (state, action: PayloadAction<Blob>) => {
                 state.configs.push(action.payload);
             })
             .addCase(getStatus.fulfilled, (state, action: PayloadAction<string>) => {
