@@ -21,7 +21,15 @@ const addConfig = async (config) => {
         RETURNING *`,
         [config.name, config.ipAddress, config.allowedIpRange, config.publicKey, config.privateKey, config.dateAdded]);
     
-    return res.rows[0];
+    const config = res.rows[0];
+    return {
+        name: config.client_name,
+        ipAddress: config.client_ip_address,
+        allowedIpRange: config.client_allowed_ip_range,
+        publicKey: config.client_public_key,
+        privateKey: config.client_private_key,
+        dateAdded: config.client_date_added
+    }
 }
 
 module.exports.dbService = {
