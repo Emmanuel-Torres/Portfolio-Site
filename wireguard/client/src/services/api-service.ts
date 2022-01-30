@@ -1,4 +1,5 @@
 import axios from "axios";
+import fileDownload from "js-file-download";
 import ClientConfig from "../models/clientConfig";
 
 const apiUrl = '/api';
@@ -8,9 +9,9 @@ const testUrl = async (): Promise<string> => {
     return res.data;
 }
 
-const addConfig = async (config: ClientConfig): Promise<ClientConfig> => {
-    const res = await axios.post<ClientConfig>(apiUrl + '/addconfig', config);
-    return res.data;
+const addConfig = async (config: ClientConfig) => {
+    const res = await axios.post(apiUrl + '/addconfig', config, { responseType: 'blob' });
+    fileDownload(res.data, 'configuration.conf');
 }
 
 const getStatus = async (): Promise<string> => {
