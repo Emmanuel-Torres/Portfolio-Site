@@ -68,8 +68,10 @@ const getClientPrivateKey = (clientName) => {
 const addConfig = async (body) => {
     const config = await genConfig(body);
     console.log(config);
+    const cmd = `sudo wg set wg0 peer ${config.publicKey} allowed-ips ${config.ipAddress}`
+    console.log(cmd);
     exec(
-        `sudo wg set wg0 peer ${config.publicKey} allowed-ips ${config.ipAddress}`,
+        cmd,
         { uid: 1000 }
     );
 }
