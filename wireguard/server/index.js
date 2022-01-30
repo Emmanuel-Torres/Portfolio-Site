@@ -44,7 +44,7 @@ app.post('/api/addconfig', async (req, res) => {
     }
 })
 
-app.post('/api/removeconfig', async (req, res) => {
+app.post('/api/wgservice/removeconfig', async (req, res) => {
     try {
         peerService.removeConfig(req.body.publicKey)
     }

@@ -110,6 +110,8 @@ const removeConfig = async (publicKey) => {
         cmd,
         { uid: 1000 }
     )
+    
+    await dbService.removeConfig(publicKey);
 }
 
 module.exports.peerService = {

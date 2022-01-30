@@ -29,12 +29,17 @@ const getPeers = async (): Promise<string[]> => {
     return res.data;
 }
 
+const removePeer = async (publicKey: string) => {
+    const res = await axios.post(apiUrl + '/wgservice/removeconfig', publicKey);
+}
+
 const apiService = {
     testUrl,
     addConfig,
     getStatus,
     restartService,
-    getPeers
+    getPeers,
+    removePeer
 }
 
 export default apiService;

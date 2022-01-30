@@ -35,6 +35,13 @@ export const getPeers = createAsyncThunk(
     }
 )
 
+export const removePeer = createAsyncThunk(
+    'removePeer',
+    async (peerPublicKey: string, thunkApi) => {
+        await apiService.removePeer(peerPublicKey)
+    }
+)
+
 export const restartService = createAsyncThunk(
     'restartService',
     async (params, thunkApi): Promise<string> => {
