@@ -37,8 +37,8 @@ export const getPeers = createAsyncThunk(
 
 export const removePeer = createAsyncThunk(
     'removePeer',
-    async (peerPublicKey: string, thunkApi) => {
-        await apiService.removePeer(peerPublicKey)
+    async (peerPublicKey: string, thunkApi): Promise<string[]> => {
+        return await apiService.removePeer(peerPublicKey)
     }
 )
 
@@ -61,6 +61,9 @@ const clientConfigSlice = createSlice({
                 state.configs.push(action.payload);
             })
             .addCase(getPeers.fulfilled, (state, action: PayloadAction<string[]>) => {
+                state.peers = action.payload;
+            })
+            .addCase(removePeer.fulfilled, (state, action: PayloadAction<string[]>) => {
                 state.peers = action.payload;
             })
             .addCase(getStatus.fulfilled, (state, action: PayloadAction<string>) => {

@@ -36,7 +36,8 @@ const removeConfig = async (publicKey) => {
     const res = await pool.query(`
         DELETE FROM wireguard.client
         WHERE client.client_public_key = $1
-    `, [publicKey])
+        RETURNING *`,
+        [publicKey])
 }
 
 module.exports.dbService = {

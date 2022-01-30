@@ -105,13 +105,17 @@ const getPeers = () => {
 }
 
 const removeConfig = async (publicKey) => {
-    const cmd = `sudo wg set wg0 peer ${publicKey.trim()} remove`
     exec(
-        cmd,
+        `sudo wg set wg0 peer ${publicKey.trim()} remove`,
         { uid: 1000 }
     )
-    
-    await dbService.removeConfig(publicKey);
+
+    const peer = await dbService.removeConfig(publicKey);
+
+    exec(
+        `cd /home/github/wireguard/clients/; rm -rf ${peer.name}`,
+        {uid: 1000}
+    )
 }
 
 module.exports.peerService = {
