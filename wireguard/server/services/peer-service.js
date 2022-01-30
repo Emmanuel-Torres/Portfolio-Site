@@ -79,7 +79,7 @@ const addConfig = async (body) => {
 const genConfigFile = (config) => {
     const path = `/home/github/wireguard/clients/${config.name}/configuration.conf`;
     const cmd = `echo "[Interface]
-    PrivateKey = ${config.publicKey}
+    PrivateKey = ${config.privateKey}
     Address = ${config.ipAddress}/24
     DNS = 8.8.8.8
     
