@@ -67,10 +67,11 @@ const getClientPrivateKey = (clientName) => {
 
 const addConfig = async (body) => {
     const config = await genConfig(body);
-    execSync(
-        `sudo wg set wg0 peer ${config.publicKey} allowed-ips ${config.ipAddress}`,
-        { uid: 1000 }
-    );
+    console.log(config);
+    // execSync(
+    //     `sudo wg set wg0 peer ${config.publicKey} allowed-ips ${config.ipAddress}`,
+    //     { uid: 1000 }
+    // );
 }
 
 module.exports.peerService = {
