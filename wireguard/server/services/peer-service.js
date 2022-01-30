@@ -46,7 +46,7 @@ const genConfig = async (body) => {
 
 const getVmPublicKey = () => {
     return execSync(
-        'cat /etc/wireguard/publickey',
+        'sudo cat /etc/wireguard/publickey',
         { uid: 1000 }
     )
 }
@@ -68,7 +68,7 @@ const getClientPrivateKey = (clientName) => {
 const addConfig = async (body) => {
     const config = await genConfig(body);
     execSync(
-        `sudo wg set wg0 peer ${config.publicKey} allowed-ips ${config.ipAddress}/24`,
+        `sudo wg set wg0 peer ${config.publicKey} allowed-ips ${config.ipAddress}`,
         { uid: 1000 }
     );
 }
