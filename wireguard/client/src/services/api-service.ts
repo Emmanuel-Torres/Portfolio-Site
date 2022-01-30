@@ -24,11 +24,17 @@ const restartService = async () => {
     const res = await axios.get(apiUrl + '/wgservice/restart');
 }
 
+const getPeers = async (): Promise<string[]> => {
+    const res = await axios.get<string[]>(apiUrl + '/wgservice/peers');
+    return res.data;
+}
+
 const apiService = {
     testUrl,
     addConfig,
     getStatus,
-    restartService
+    restartService,
+    getPeers
 }
 
 export default apiService;
