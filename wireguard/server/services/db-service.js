@@ -21,14 +21,14 @@ const addConfig = async (config) => {
         RETURNING *`,
         [config.name, config.ipAddress, config.allowedIpRange, config.publicKey, config.privateKey, config.dateAdded]);
     
-    const config = res.rows[0];
+    const foo = res.rows[0];
     return {
-        name: config.client_name,
-        ipAddress: config.client_ip_address,
-        allowedIpRange: config.client_allowed_ip_range,
-        publicKey: config.client_public_key,
-        privateKey: config.client_private_key,
-        dateAdded: config.client_date_added
+        name: foo.client_name,
+        ipAddress: foo.client_ip_address,
+        allowedIpRange: foo.client_allowed_ip_range,
+        publicKey: foo.client_public_key,
+        privateKey: foo.client_private_key,
+        dateAdded: foo.client_date_added
     }
 }
 
