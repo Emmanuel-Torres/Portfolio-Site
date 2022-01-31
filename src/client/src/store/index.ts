@@ -1,11 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
-import storyFormSlice from './story-form-slice';
 
 import storySlice from './story-slice';
 
 export const store = configureStore({
-    reducer: { story: storySlice.reducer, storyForm: storyFormSlice.reducer }
+    reducer: { story: storySlice.reducer }
 });
 
 export type StoreState = ReturnType<typeof store.getState>;
