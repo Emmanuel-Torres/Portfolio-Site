@@ -20,7 +20,7 @@ const StoryDetails: FC = (): JSX.Element => {
     }, [dispatch, storyId]);
 
     return (
-        <div className={styles.container}>
+        <div>
             <header className={styles.header}>
                 <h3>
                     {currentStory?.title}
