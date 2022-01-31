@@ -4,6 +4,8 @@ services:
   dev_server:
     container_name: dev_server
     build: ../../server
+    ports:
+      - 80:80
     depends_on:
       - dev_db
 
@@ -27,5 +29,5 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: password
-    volumes:
-      - ../../sql/createdb.sql:/docker-entrypoint-initdb.d/createdb.sql
+    ports:
+      - 5432:5432

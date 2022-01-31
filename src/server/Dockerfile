@@ -19,4 +19,6 @@ RUN dotnet publish "server.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+# EXPOSE 4040
+# ENV ASPNETCORE_URLS=http://*:4040
 ENTRYPOINT ["dotnet", "server.dll"]

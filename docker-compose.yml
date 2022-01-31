@@ -56,9 +56,6 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: password
-    volumes:
-      - ./src/sql/createdb.sql:/docker-entrypoint-initdb.d/createdb.sql
-      - ./src/sql/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
 
   wireguard_db:
     image: postgres

@@ -1,6 +1,5 @@
 import Story from "../models/story";
 import axios from "axios";
-import Tag from "../models/tag";
 
 const storyUrl = '/api/stories';
 const tagUrl = '/api/tags';
@@ -15,11 +14,6 @@ const getStories = async (): Promise<Story[]> => {
 const getStoryById = async (storyId: number): Promise<Story> => {
     const res = await axios.get<Story>(storyUrl + '/' + storyId);
     return { ...res.data, story_posted_on: (new Date(res.data.story_posted_on)).toLocaleDateString() };
-};
-
-const getTags = async (): Promise<Tag[]> => {
-    const res = await axios.get<Tag[]>(tagUrl);
-    return res.data;
 };
 
 const addStory = async (story: Story): Promise<Story> => {
