@@ -40,6 +40,9 @@ public class DbService : IDbService
 
     public async Task<Story> DeleteStoryAsync(int storyId)
     {
-        throw new NotImplementedException();
+        var story = await dbContext.Stories.FirstAsync(s => s.Id == storyId);
+        dbContext.Stories.Remove(story);
+        await dbContext.SaveChangesAsync();
+        return story;
     }
 }
