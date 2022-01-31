@@ -29,15 +29,8 @@ public class StoryController : ControllerBase
     [Route("posts/{id:int}")]
     public async Task<Story?> GetStoryById(int id)
     {
-        try
-        {
-            _logger.LogDebug("Getting story with id {id}", id);
-            return await dbService.GetStoryByIdAsync(id);
-        }
-        catch
-        {
-            return null;
-        }
+        _logger.LogDebug("Getting story with id {id}", id);
+        return await dbService.GetStoryByIdAsync(id);
     }
 
     [HttpPost]
