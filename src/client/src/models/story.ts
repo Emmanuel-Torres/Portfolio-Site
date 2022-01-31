@@ -9,10 +9,10 @@ export default class Story {
     constructor(
         title: string,
         content?: string,
-        postedOn?: string,
         mainImageUrl?: string,
         tags?: string,
         story_id?: number,
+        postedOn?: string,
     ) {
         this.Id = story_id;
         this.Title = title;
