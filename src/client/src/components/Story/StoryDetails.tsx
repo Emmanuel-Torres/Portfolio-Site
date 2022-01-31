@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useStoreSelector } from "../../store";
 import { getStoryById } from "../../store/story-slice";
+import ReactMarkdown from 'react-markdown'
 import styles from "./StoryDetails.module.css"
 
 const StoryDetails: FC = (): JSX.Element => {
@@ -23,7 +24,9 @@ const StoryDetails: FC = (): JSX.Element => {
                 </h3>
             </header>
             <main>
-                {currentStory?.content}
+                <ReactMarkdown>
+                    {currentStory?.content ?? ''}
+                </ReactMarkdown>
             </main>
         </div>
     )

@@ -16,7 +16,7 @@ const Admin: FC = (): JSX.Element => {
     }
 
     const editStoryHandler = (storyId: number) => {
-
+        
     }
 
     return (
