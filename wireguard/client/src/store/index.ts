@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
+import clientConfigSlice from './client-config-slice';
 
 export const store = configureStore({
-    reducer: { }
+    reducer: { clientConfig: clientConfigSlice.reducer }
 })
 
 export type StoreState = ReturnType<typeof store.getState>;
