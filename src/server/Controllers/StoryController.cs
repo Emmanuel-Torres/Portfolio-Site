@@ -35,6 +35,7 @@ public class StoryController : ControllerBase
     [Route("posts")]
     public async Task<Story> PostStory(Story story)
     {
+        story.Id = null;
         return await dbService.AddStoryAsync(story);
     }
 

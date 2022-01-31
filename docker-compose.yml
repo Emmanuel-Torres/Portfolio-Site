@@ -26,14 +26,7 @@ services:
 
   server:
     container_name: portfolio_server
-    build: 
-      dockerfile: ../ops/deploying/server.Dockerfile
-      context: ./src/server
-    env_file:
-      - ./src/server/.env
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
+    build: ./src/server
     depends_on:
       - db
 

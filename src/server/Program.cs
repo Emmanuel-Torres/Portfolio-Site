@@ -7,8 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+var conString = builder.Configuration.GetConnectionString("ApplicationContext");
+Console.WriteLine(conString);
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("ApplicationContext")));
+    options.UseNpgsql(conString));
 
 builder.Services.AddTransient<IDbService, DbService>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -37,7 +40,8 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
-    context.Database.EnsureCreated();
+    context.Database.Migrate();
+    //context.Database.EnsureCreated();
 }
 
 app.UseAuthorization();
