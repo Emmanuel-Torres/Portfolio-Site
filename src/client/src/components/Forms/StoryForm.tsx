@@ -30,7 +30,7 @@ const StoryForm: FC<Props> = (props): JSX.Element => {
     const submitStoryHandler = (event: FormEvent) => {
         event.preventDefault()
 
-        const story = new Story(title, content, mainImageUrl, tags);
+        const story = new Story(title, (new Date()).toISOString(), content, mainImageUrl, tags);
         props.onSubmitStory(story);
     }
 

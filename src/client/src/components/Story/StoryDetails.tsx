@@ -19,11 +19,11 @@ const StoryDetails: FC = (): JSX.Element => {
         <div className={styles.container}>
             <header className={styles.header}>
                 <h3>
-                    {currentStory?.Title}
+                    {currentStory?.title}
                 </h3>
             </header>
             <main>
-                {currentStory?.Content}
+                {currentStory?.content}
             </main>
         </div>
     )

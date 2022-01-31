@@ -6,7 +6,7 @@ using server.Services;
 namespace server.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/api")]
 public class StoryController : ControllerBase
 {
     private readonly ILogger<StoryController> _logger;
@@ -19,14 +19,14 @@ public class StoryController : ControllerBase
     }
 
     [HttpGet]
-    [Route("posts")]
+    [Route("stories")]
     public async Task<IEnumerable<Story>> GetStories()
     {
         return await dbService.GetStoriesAsync();
     }
 
     [HttpGet]
-    [Route("posts/{id:int}")]
+    [Route("stories/{id:int}")]
     public async Task<Story?> GetStoryById(int id)
     {
         _logger.LogDebug("Getting story with id {id}", id);
@@ -34,7 +34,7 @@ public class StoryController : ControllerBase
     }
 
     [HttpPost]
-    [Route("posts")]
+    [Route("stories")]
     public async Task<Story> PostStory(Story story)
     {
         story.Id = null;
@@ -42,14 +42,14 @@ public class StoryController : ControllerBase
     }
 
     [HttpPut]
-    [Route("posts/{id:int}")]
+    [Route("stories/{id:int}")]
     public async Task<Story> UpdateStory(Story story, int id)
     {
         return await dbService.UpdateStoryAsync(id, story);
     }
 
     [HttpDelete]
-    [Route("posts/{id:int}")]
+    [Route("stories/{id:int}")]
     public async Task<Story> DeleteStory(int id)
     {
         return await dbService.DeleteStoryAsync(id);
