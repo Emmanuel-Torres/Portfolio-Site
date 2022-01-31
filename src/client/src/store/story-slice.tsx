@@ -1,17 +1,24 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Story from '../models/story';
 import apiService from '../services/api-service'
 
 export const getStories = createAsyncThunk(
     'getStories',
-    async (args, thunkAPI) => {
+    async (args, thunkAPI): Promise<Story[]> => {
         return await apiService.getStories();
     }
 );
 
+export const addStory = createAsyncThunk(
+    'addStory',
+    async (story: Story, thunkAPI): Promise<Story> => {
+        return await apiService.addStory(story);
+    }
+)
+
 export const getStoryById = createAsyncThunk(
     'getStoryById',
-    async (storyId: number, thunkAPI) => {
+    async (storyId: number, thunkAPI): Promise<Story> => {
         return await apiService.getStoryById(storyId);
     }
 );
@@ -34,10 +41,13 @@ const storySlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getStories.fulfilled, (state, action) => {
+            .addCase(getStories.fulfilled, (state, action: PayloadAction<Story[]>) => {
                 state.stories = action.payload;
             })
-            .addCase(getStoryById.fulfilled, (state, action) => {
+            .addCase(getStoryById.fulfilled, (state, action: PayloadAction<Story>) => {
+                state.currentStory = action.payload;
+            })
+            .addCase(addStory.fulfilled, (state, action: PayloadAction<Story>) => {
                 state.currentStory = action.payload;
             })
     }

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import StoryForm from "../components/Forms/StoryForm";
 import Story from "../models/story";
 import { StoreDispatch } from "../store";
-import { addStory } from "../store/story-form-slice";
+import { addStory } from "../store/story-slice";
 
 type Props = {
 
