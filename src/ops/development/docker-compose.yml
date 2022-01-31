@@ -3,19 +3,7 @@ version: '3'
 services:
   dev_server:
     container_name: dev_server
-    build: 
-      dockerfile: ../ops/development/devServer.Dockerfile
-      context: ../../server
-    ports:
-      - 5000:3000
-    environment:
-      DB_HOST: dev_db
-      DB_PORT: 5432
-      DB_NAME: postgres
-      DB_USER: postgres
-      DB_PASSWORD: password
-      SERVER_HOST: 0.0.0.0
-      SERVER_PORT: 3000
+    build: ../../server
     depends_on:
       - dev_db
 
@@ -39,5 +27,3 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: password
-    volumes:
-      - ../../sql/createdb.sql:/docker-entrypoint-initdb.d/createdb.sql

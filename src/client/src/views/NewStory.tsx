@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import StoryForm from "../components/Forms/StoryForm";
 import Story from "../models/story";
 import { StoreDispatch } from "../store";
-import { addStory } from "../store/story-form-slice";
+import { addStory } from "../store/story-slice";
 
 type Props = {
 
@@ -20,7 +20,7 @@ const NewStory: FC<Props> = (): JSX.Element => {
             .then(r => {
                 if (r.meta.requestStatus === 'fulfilled') {
                     const story = unwrapResult(r)
-                    navigate(`/stories/${story.story_id}`)  
+                    navigate(`/stories/${story.id}`)  
                 }
                 else {
                     alert('Failed to post story.')

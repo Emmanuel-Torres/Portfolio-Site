@@ -1,37 +1,34 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Story from '../models/story';
-import Tag from '../models/tag';
 import apiService from '../services/api-service'
 
 export const getStories = createAsyncThunk(
     'getStories',
-    async (args, thunkAPI) => {
+    async (args, thunkAPI): Promise<Story[]> => {
         return await apiService.getStories();
     }
 );
 
+export const addStory = createAsyncThunk(
+    'addStory',
+    async (story: Story, thunkAPI): Promise<Story> => {
+        return await apiService.addStory(story);
+    }
+)
+
 export const getStoryById = createAsyncThunk(
     'getStoryById',
-    async (storyId: number, thunkAPI) => {
+    async (storyId: number, thunkAPI): Promise<Story> => {
         return await apiService.getStoryById(storyId);
     }
 );
 
-export const getTags = createAsyncThunk(
-    'getTags',
-    async (args, thunkAPI) => {
-        return await apiService.getTags();
-    }
-);
-
 interface StoryState {
-    tags: Tag[],
     stories: Story[],
     currentStory?: Story
 };
 
 const initialState: StoryState = {
-    tags: [],
     stories: [],
     currentStory: undefined
 };
@@ -44,14 +41,14 @@ const storySlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getStories.fulfilled, (state, action) => {
+            .addCase(getStories.fulfilled, (state, action: PayloadAction<Story[]>) => {
                 state.stories = action.payload;
             })
-            .addCase(getStoryById.fulfilled, (state, action) => {
+            .addCase(getStoryById.fulfilled, (state, action: PayloadAction<Story>) => {
                 state.currentStory = action.payload;
             })
-            .addCase(getTags.fulfilled, (state, action) => {
-                state.tags = action.payload;
+            .addCase(addStory.fulfilled, (state, action: PayloadAction<Story>) => {
+                state.currentStory = action.payload;
             })
     }
 });

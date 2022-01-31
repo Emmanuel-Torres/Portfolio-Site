@@ -1,5 +1,5 @@
 {
-  "proxy": "http://dev_server:3000",
+  "proxy": "http://dev_server",
   "name": "client",
   "version": "0.1.0",
   "private": true,

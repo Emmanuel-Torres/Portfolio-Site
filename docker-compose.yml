@@ -24,14 +24,7 @@ services:
 
   server:
     container_name: portfolio_server
-    build: 
-      dockerfile: ../ops/deploying/server.Dockerfile
-      context: ./src/server
-    env_file:
-      - ./src/server/.env
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
+    build: ./src/server
     depends_on:
       - db
 
@@ -63,9 +56,6 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: password
-    volumes:
-      - ./src/sql/createdb.sql:/docker-entrypoint-initdb.d/createdb.sql
-      - ./src/sql/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
 
   wireguard_db:
     image: postgres
