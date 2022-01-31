@@ -5,7 +5,6 @@ import Home from "./views/Home";
 import Stories from "./views/Stories";
 import Projects from "./views/Projects"
 import NotFound from "./views/NotFound";
-import NewStory from "./views/NewStory";
 import About from "./views/About";
 import styles from "./App.module.css"
 import Admin from "./views/Admin";
@@ -21,7 +20,6 @@ function App() {
           <Route path='/stories' element={<Stories />} />
           <Route path='/stories/:storyid' element={<StoryDetails />} />
           <Route path='/projects' element={<Projects />} />
-          <Route path='/new-story' element={<NewStory />} />
           <Route path='/about' element={<About />} />
           <Route path='/admin' element={<Admin />} />
           <Route path='*' element={<NotFound />} />
