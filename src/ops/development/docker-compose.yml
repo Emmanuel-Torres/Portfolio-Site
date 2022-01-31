@@ -4,8 +4,6 @@ services:
   dev_server:
     container_name: dev_server
     build: ../../server
-    ports:
-      - 80:80
     depends_on:
       - dev_db
 

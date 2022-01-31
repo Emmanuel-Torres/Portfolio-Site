@@ -20,7 +20,7 @@ const NewStory: FC<Props> = (): JSX.Element => {
             .then(r => {
                 if (r.meta.requestStatus === 'fulfilled') {
                     const story = unwrapResult(r)
-                    navigate(`/stories/${story.story_id}`)  
+                    navigate(`/stories/${story.Id}`)  
                 }
                 else {
                     alert('Failed to post story.')

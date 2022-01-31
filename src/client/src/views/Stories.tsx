@@ -14,7 +14,7 @@ const Stories: FC = (): JSX.Element => {
 
     return (
         <div className='row m-0 p-2'>
-            {stories.map(s => <StoryCard key={s.story_id} story={s} />)}
+            {stories.map(s => <StoryCard key={s.Id} story={s} />)}
         </div>
     )
 };
