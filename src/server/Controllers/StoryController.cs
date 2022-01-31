@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using server.Models;
 using server.Services;
 
@@ -26,9 +27,17 @@ public class StoryController : ControllerBase
 
     [HttpGet]
     [Route("posts/{id:int}")]
-    public async Task<Story> GetStoryById(int id)
+    public async Task<Story?> GetStoryById(int id)
     {
-        return await dbService.GetStoryByIdAsync(id);
+        try
+        {
+            _logger.LogDebug("Getting story with id {id}", id);
+            return await dbService.GetStoryByIdAsync(id);
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     [HttpPost]

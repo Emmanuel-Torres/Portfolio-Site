@@ -18,9 +18,9 @@ public class DbService : IDbService
         return await dbContext.Stories.ToListAsync();
     }
 
-    public async Task<Story?> GetStoryByIdAsync(int storyId)
+    public async Task<Story> GetStoryByIdAsync(int storyId)
     {
-        return await dbContext.Stories.FirstOrDefaultAsync(s => s.Id == storyId);
+        return await dbContext.Stories.FirstAsync(s => s.Id == storyId);
     }
 
     public async Task<Story> AddStoryAsync(Story story)
