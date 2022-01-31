@@ -1,23 +1,59 @@
-import { FC, useEffect } from "react";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import StoryForm from "../components/Forms/StoryForm";
+import Story from "../models/story";
 import { StoreDispatch, useStoreSelector } from "../store";
-import { deleteStory, getStories } from "../store/story-slice";
+import { addStory, deleteStory, getStories, getStoryById, updateStory } from "../store/story-slice";
 
 const Admin: FC = (): JSX.Element => {
     const dispatch = useDispatch<StoreDispatch>();
+    const currentStory = useStoreSelector(state => state.story.currentStory);
     const stories = useStoreSelector(state => state.story.stories);
+    const navigate = useNavigate();
+
+    const [isEditing, setIsEditing] = useState<boolean>(false);
 
     useEffect(() => {
         dispatch(getStories());
-    }, [dispatch])
+    }, [dispatch]);
 
     const deleteStoryHandler = (storyId: number) => {
         dispatch(deleteStory(storyId));
     }
 
     const editStoryHandler = (storyId: number) => {
-        
+        setIsEditing(prev => !prev);
+        dispatch(getStoryById(storyId));
     }
+
+    const updateStoryHandler = (story: Story) => {
+        dispatch(updateStory({ storyId: currentStory!.id!, story }))
+            .then(r => {
+                if (r.meta.requestStatus === 'fulfilled') {
+                    const story = unwrapResult(r)
+                    navigate(`/stories/${story.id}`);
+                }
+                else {
+                    alert('Failed to add story.')
+                }
+            });
+    }
+
+    const addStoryHandler = (story: Story) => {
+        dispatch(addStory(story))
+            .then(r => {
+                if (r.meta.requestStatus === 'fulfilled') {
+                    const story = unwrapResult(r)
+                    navigate(`/stories/${story.id}`);
+                }
+                else {
+                    alert('Failed to add story.')
+                }
+            });
+    }
+
 
     return (
         <>
@@ -44,6 +80,16 @@ const Admin: FC = (): JSX.Element => {
                     })}
                 </tbody>
             </table>
+            {!isEditing &&
+                <>
+                    <h4>Add New Story</h4>
+                    <StoryForm onSubmitStory={addStoryHandler} />
+                </>}
+            {isEditing && currentStory &&
+                <>
+                    <h4>Edit story {currentStory.id}</h4>
+                    <StoryForm onSubmitStory={updateStoryHandler} story={currentStory} />
+                </>}
         </>
     )
 }

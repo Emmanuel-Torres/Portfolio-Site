@@ -19,8 +19,6 @@ const StoryDetails: FC = (): JSX.Element => {
         dispatch(getStoryById(storyId));
     }, [dispatch, storyId]);
 
-    const image = <img src="https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-mediumSquareAt3X-v2.jpg" alt="drawing" width="200"/>
-
     return (
         <div className={styles.container}>
             <header className={styles.header}>

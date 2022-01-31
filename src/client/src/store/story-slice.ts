@@ -52,7 +52,12 @@ const storySlice = createSlice({
     name: 'stories',
     initialState,
     reducers: {
-
+        clearCurrentStory (state) {
+            state.currentStory = undefined;
+        },
+        setCurrentStory (state, action: PayloadAction<Story>) {
+            state.currentStory = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -70,5 +75,10 @@ const storySlice = createSlice({
             })
     }
 });
+
+export const {
+    clearCurrentStory,
+    setCurrentStory
+} = storySlice.actions;
 
 export default storySlice;
