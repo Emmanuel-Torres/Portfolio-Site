@@ -14,7 +14,7 @@ export const addStory = createAsyncThunk(
     async (story: Story, thunkAPI): Promise<Story> => {
         return await apiService.addStory(story);
     }
-)
+);
 
 export const getStoryById = createAsyncThunk(
     'getStoryById',
@@ -22,6 +22,21 @@ export const getStoryById = createAsyncThunk(
         return await apiService.getStoryById(storyId);
     }
 );
+
+export const deleteStory = createAsyncThunk(
+    'deleteStory',
+    async (storyId: number, thunkAPI): Promise<Story[]> => {
+        await apiService.deleteStory(storyId);
+        return await apiService.getStories();
+    }
+)
+
+export const updateStory = createAsyncThunk(
+    'updateStory',
+    async (args: { storyId: number, story: Story }, thunkAPI): Promise<Story> => {
+        return await apiService.updateStory(args.storyId, args.story);
+    }
+)
 
 interface StoryState {
     stories: Story[],
@@ -49,6 +64,9 @@ const storySlice = createSlice({
             })
             .addCase(addStory.fulfilled, (state, action: PayloadAction<Story>) => {
                 state.currentStory = action.payload;
+            })
+            .addCase(deleteStory.fulfilled, (state, action: PayloadAction<Story[]>) => {
+                state.stories = action.payload;
             })
     }
 });

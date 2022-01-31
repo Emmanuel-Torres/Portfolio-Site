@@ -20,10 +20,21 @@ const addStory = async (story: Story): Promise<Story> => {
     return res.data;
 }
 
+const deleteStory = async (storyId: number) => {
+    await axios.delete(storyUrl + '/' + storyId)
+}
+
+const updateStory = async (storyId: number, story: Story): Promise<Story> => {
+    const res = await axios.put<Story>(storyUrl + '/' + storyId, story);
+    return res.data;
+}
+
 const apiService = {
     getStories,
     getStoryById,
-    addStory
+    addStory,
+    deleteStory,
+    updateStory
 };
 
 export default apiService;
