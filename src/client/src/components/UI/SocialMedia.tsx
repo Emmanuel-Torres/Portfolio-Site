@@ -1,29 +1,26 @@
 import { FC } from "react";
 import { FaLinkedin, FaGithub } from 'react-icons/fa'
-import { AiOutlineMail } from 'react-icons/ai'
+import styles from './SocialMedia.module.css'
 
 type Props = {
 }
 
 const SocialMedia: FC<Props> = (props): JSX.Element => {
     return (
-        <>
+        <div className={styles.container}>
             <a href='https://www.linkedin.com/in/emmanuel-torres-580516220/'
-               className='display-3 text-black'
+               className={styles.a}
                target='_blank'
                rel='noopener noreferrer'>
                 <FaLinkedin />
             </a>
             <a href='https://github.com/Emmanuel-Torres'
-               className='display-3 text-black'
+               className={styles.a}
                target='_blank'
                rel='noopener noreferrer'>
                 <FaGithub />
             </a>
-            <a href="/" className='display-3 text-black'>
-                <AiOutlineMail />
-            </a>
-        </>
+        </div>
     )
 }
 

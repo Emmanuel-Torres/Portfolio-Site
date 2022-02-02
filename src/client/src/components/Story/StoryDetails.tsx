@@ -3,8 +3,11 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useStoreSelector } from "../../store";
 import { getStoryById } from "../../store/story-slice";
-import StoryStep from "./StoryStep";
+import ReactMarkdown from 'react-markdown'
+import rehypeHighlight from 'rehype-highlight'
 import styles from "./StoryDetails.module.css"
+import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
 
 const StoryDetails: FC = (): JSX.Element => {
     const params = useParams();
@@ -17,27 +20,18 @@ const StoryDetails: FC = (): JSX.Element => {
     }, [dispatch, storyId]);
 
     return (
-        <div className={styles.container}>
+        <>
             <header className={styles.header}>
                 <h3>
-                    {currentStory?.story_title}
+                    {currentStory?.title}
                 </h3>
             </header>
-            <aside className={styles.aside}>
-                <ul className={styles.ul}>
-                    {currentStory?.story_steps.map(s => (
-                        <li className={styles.li} key={s.step_id}>
-                            <a className={styles.a} href={`#step-${s.step_id}`}>
-                                {s.step_title}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </aside>
-            <main>
-                {currentStory?.story_steps.map(s => <StoryStep key={s.step_id} step={s} />)}
+            <main className={styles.main}>
+                <ReactMarkdown rehypePlugins={[rehypeHighlight, rehypeRaw, rehypeSanitize]}>
+                    {currentStory?.content ?? ''}
+                </ReactMarkdown>
             </main>
-        </div>
+        </>
     )
 };
 

@@ -7,13 +7,15 @@ type Props = {
 }
 
 const StoryCard: FC<Props> = (props): JSX.Element => {
+    const imageUrl = (props.story.mainImageUrl && props.story.mainImageUrl?.trim().length > 0) ? props.story.mainImageUrl : 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg';
+
     return (
         <div className='col-xxl-2 col-xl-3 col-lg-4 col-md-6 mb-3'>
             <div className='card border border-secondary h-100'>
-                <Link to={`/stories/${props.story.story_id}`} className='text-decoration-none text-black'>
-                    <img src='https://www.aspca.org/sites/default/files/styles/full_width_2_col/public/field/image/adoptable_animal/mishi_a46703853_2021mar11_0081.jpg?itok=y5GNr9za' className='card-img-top' alt='foo' />
+                <Link to={`/stories/${props.story.id}`} className='text-decoration-none text-black'>
+                    <img src={imageUrl} className='card-img-top' alt='foo' />
                     <div className='card-body d-flex align-items-center'>
-                        <h5 className='card-title m-0'>{props.story.story_title}</h5>
+                        <h5 className='card-title m-0'>{props.story.title}</h5>
                     </div>
                 </Link>
             </div>

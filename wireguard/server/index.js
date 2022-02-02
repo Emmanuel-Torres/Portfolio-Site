@@ -1,38 +1,58 @@
 const express = require('express');
+const { peerService } = require("./services/peer-service")
 const app = express();
-const path = require('path');
-const { dbService } = require("./services/db-service")
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.static('pages/AddClient.html'))
 
-app.get('/', async (req, res) => {
-    res.send("hello world");
-})
-
-app.get('/addconfig', async (req, res) => {
-    res.sendFile(path.join(__dirname + '/pages/AddClient.html'));
-})
-
-app.post('/addconfig', async (req, res) => {
-    const config = {
-        name: req.body.name,
-        ipAddress: req.body.ipAddress,
-        allowedIpRange: req.body.allowedIpRange,
-        publicKey: req.body.publicKey,
-        privateKey: req.body.privateKey,
-        dateAdded: new Date()
-    }
-
+app.get('/api/wgservice/status', (req, res) => {
     try {
-        await dbService.addConfig(config)
-        res.send(200);
+        res.send(peerService.getStatus());
+    }
+    catch {
+        res.sendStatus(500);
+    }
+})
+
+app.get('/api/wgservice/restart', (req, res) => {
+    try {
+        peerService.restartService();
+        res.sendStatus(200);
+    }
+    catch {
+        res.sendStatus(500);
+    }
+})
+
+app.get('/api/wgservice/peers', (req, res) => {
+    try {
+        res.send(peerService.getPeers());
+    }
+    catch {
+        res.sendStatus(500);
+    }
+})
+
+app.post('/api/addconfig', async (req, res) => {
+    try {
+        const configPath = await peerService.addConfig(req.body);
+        res.download(configPath);
     }
     catch (ex) {
         console.error(ex);
+        res.sendStatus(500);
     }
 })
+
+app.post('/api/wgservice/removeconfig', async (req, res) => {
+    try {
+        console.log(req.body)
+        peerService.removeConfig(req.body.publicKey)
+    }
+    catch {
+        res.sendStatus(500);
+    }
+});
 
 app.listen(process.env.API_PORT, () => {
     console.log(`Running at wireguard:3000`)

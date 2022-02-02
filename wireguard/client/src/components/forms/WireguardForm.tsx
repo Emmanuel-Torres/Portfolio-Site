@@ -1,7 +1,11 @@
 import { ChangeEvent, ChangeEventHandler, FC, FormEvent, useState } from 'react';
 import ClientConfig from '../../models/clientConfig';
 
-const WireguardForm: FC = (): JSX.Element => {
+type Props = {
+    onSubmit: (config: ClientConfig) => void;
+}
+
+const WireguardForm: FC<Props> = (props): JSX.Element => {
     const [name, setName] = useState<string>("");
     const [ipAddress, setIpAddress] = useState<string>("");
     const [allowedIpRange, setAllowedIpRange] = useState<string>("");
@@ -48,6 +52,8 @@ const WireguardForm: FC = (): JSX.Element => {
                 publicKey,
                 privateKey
             }
+
+            props.onSubmit(config);
         }
     }
 

@@ -1,54 +1,57 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using server.Models;
+using server.Services;
 
 namespace server.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/api")]
 public class StoryController : ControllerBase
 {
     private readonly ILogger<StoryController> _logger;
-    private List<Story> Stories = new List<Story> { new Story("Hello", DateTime.Now) };
+    private readonly IDbService dbService;
 
-    public StoryController(ILogger<StoryController> logger)
+    public StoryController(ILogger<StoryController> logger, IDbService dbService)
     {
         _logger = logger;
+        this.dbService = dbService;
     }
 
     [HttpGet]
-    [Route("posts")]
-    public Task<IEnumerable<Story>> GetStories()
+    [Route("stories")]
+    public async Task<IEnumerable<Story>> GetStories()
     {
-        return Task.FromResult<IEnumerable<Story>>(Stories);
+        return await dbService.GetStoriesAsync();
     }
 
     [HttpGet]
-    [Route("posts/{id:int}")]
-    public Task<Story> GetStoryById(int id)
+    [Route("stories/{id:int}")]
+    public async Task<Story?> GetStoryById(int id)
     {
-        return Task.FromResult<Story>(new Story("Hello", DateTime.Now));
+        _logger.LogDebug("Getting story with id {id}", id);
+        return await dbService.GetStoryByIdAsync(id);
     }
 
     [HttpPost]
-    [Route("posts")]
-    public Task<Story> PostStory(Story story)
+    [Route("stories")]
+    public async Task<Story> PostStory(Story story)
     {
-        story.Id = 5;
-        return Task.FromResult<Story>(story);
+        story.Id = null;
+        return await dbService.AddStoryAsync(story);
     }
 
     [HttpPut]
-    [Route("posts/{id:int}")]
-    public Task<Story> UpdateStory(Story story, int id)
+    [Route("stories/{id:int}")]
+    public async Task<Story> UpdateStory(Story story, int id)
     {
-        story.Id = id;
-        return Task.FromResult<Story>(story);
+        return await dbService.UpdateStoryAsync(id, story);
     }
 
     [HttpDelete]
-    [Route("posts/{id:int}")]
-    public Task<Story> DeleteStory(int id)
+    [Route("stories/{id:int}")]
+    public async Task<Story> DeleteStory(int id)
     {
-        return Task.FromResult<Story>(new Story("Hello", DateTime.Now));
+        return await dbService.DeleteStoryAsync(id);
     }
 }

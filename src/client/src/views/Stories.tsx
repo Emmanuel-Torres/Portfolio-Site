@@ -1,11 +1,11 @@
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux'
 import { getStories } from '../store/story-slice'
-import { useStoreSelector } from '../store';
+import { StoreDispatch, useStoreSelector } from '../store';
 import StoryCard from '../components/Story/StoryCard';
 
 const Stories: FC = (): JSX.Element => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<StoreDispatch>();
     const stories = useStoreSelector(state => state.story.stories);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const Stories: FC = (): JSX.Element => {
 
     return (
         <div className='row m-0 p-2'>
-            {stories.map(s => <StoryCard key={s.story_id} story={s} />)}
+            {stories.map(s => <StoryCard key={s.id} story={s} />)}
         </div>
     )
 };
