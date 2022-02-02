@@ -4,8 +4,8 @@ apps:
     name: 'wirguardadmin'
     env:
       API_PORT: 3000
-      POSTGRES_PASSWORD: 'password'
-      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'Employee-Buzz4-Unsaved-Unloader-Bats-Phony-Stainable-Canned-Junkie-Campsite'
+      POSTGRES_USER: 'wg_admin'
       POSTGRES_HOST: 'localhost'
       POSTGRES_DB: 'postgres'
       POSRGRES_PORT: 5432
