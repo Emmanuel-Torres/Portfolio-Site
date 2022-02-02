@@ -16,7 +16,6 @@ function App() {
       <div className={styles.container}>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/home' element={<Home />} />
           <Route path='/stories' element={<Stories />} />
           <Route path='/stories/:storyid' element={<StoryDetails />} />
           <Route path='/projects' element={<Projects />} />

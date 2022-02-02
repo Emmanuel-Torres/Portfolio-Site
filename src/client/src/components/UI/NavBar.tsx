@@ -7,11 +7,13 @@ const NavBar: FC = (): JSX.Element => {
 
     return (
         <nav className={styles.nav}>
-            <NavLink className={linkStyle} to='/home'>Emmanuel's Portfolio</NavLink>
-            <NavLink className={linkStyle} to='/home'>Home</NavLink>
-            <NavLink className={linkStyle} to='/stories'>Stories</NavLink>
-            <NavLink className={linkStyle} to='/projects'>Projects</NavLink>
-            <NavLink className={linkStyle} to='/about'>About Me</NavLink>
+            <p className={styles.logo}>Emmanuel Torres</p>
+            <div className={styles.links}>
+                <NavLink className={linkStyle} to='/'>Home</NavLink>
+                <NavLink className={linkStyle} to='/stories'>Stories</NavLink>
+                <NavLink className={linkStyle} to='/projects'>Projects</NavLink>
+                <NavLink className={linkStyle} to='/about'>About Me</NavLink>
+            </div>
         </nav>
     )
 };

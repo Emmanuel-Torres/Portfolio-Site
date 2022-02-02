@@ -20,18 +20,18 @@ const StoryDetails: FC = (): JSX.Element => {
     }, [dispatch, storyId]);
 
     return (
-        <div>
+        <>
             <header className={styles.header}>
                 <h3>
                     {currentStory?.title}
                 </h3>
             </header>
-            <main>
+            <main className={styles.main}>
                 <ReactMarkdown rehypePlugins={[rehypeHighlight, rehypeRaw, rehypeSanitize]}>
                     {currentStory?.content ?? ''}
                 </ReactMarkdown>
             </main>
-        </div>
+        </>
     )
 };
 

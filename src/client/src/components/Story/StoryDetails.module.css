@@ -1,19 +1,11 @@
 .header {
+    margin-top: .5em;
     text-align: center;
     border-bottom: solid;
     border-color: black;
     width: 100%;
 }
 
-.ul {
-    padding: 0%;
-}
-
-.li {
-    list-style-type: none;
-    margin-bottom: 10px;
-}
-
-a {
-    text-decoration: none;
+.main {
+    padding: 1em 3em;
 }
