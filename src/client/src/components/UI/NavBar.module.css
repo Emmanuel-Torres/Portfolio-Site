@@ -4,7 +4,7 @@
     justify-content: space-between;
     overflow: hidden;
     position: fixed;
-    padding: 0 5em;
+    padding: 0 6em;
     width: 100%;
     top: 0;
     left: 0;
@@ -13,13 +13,15 @@
 }
 
 .links {
-    margin: 12px;
+    padding: 12px 0;
+}
+
+.logo p {
+    margin: 0;
 }
 
 .logo {
-    text-decoration: none;
-    padding: 12px 16px;
-    margin: 0;
+    margin: 12px 0;
     color: white;
 }
 
@@ -27,11 +29,9 @@
     position: relative;
     text-decoration: none;
     color: white;
-    padding: 12px 16px;
-    transition-duration: .5s;
-    border-radius: .5em;
+    margin-left: 2em;
 }
 
 .link:hover {
-    background-color: #242424;
+    border-bottom: solid white 2px;
 }

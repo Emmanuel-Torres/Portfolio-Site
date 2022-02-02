@@ -1,0 +1,15 @@
+.container {
+    border: solid rgb(87, 87, 87) 1px;
+    border-radius: .5em;
+    padding: 1em;
+}
+
+.header {
+    font-weight: bold;
+    font-size: 2.25rem;
+}
+
+.content {
+    font-size: 1.5rem;
+    margin: 0;
+}
