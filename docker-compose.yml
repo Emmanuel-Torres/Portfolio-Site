@@ -66,4 +66,5 @@ services:
     environment:
       POSTGRES_PASSWORD: password
     volumes:
-      - ./src/sql/admindb.sql:/docker-entrypoint-initdb.d/admindb.sql
+      - ./wireguard/sql/admindb.sql:/docker-entrypoint-initdb.d/admindb.sql
+      - ./wireguard/sql/adminrole.sql:/docker-entrypoint-initdb.d/adminrole.sql
