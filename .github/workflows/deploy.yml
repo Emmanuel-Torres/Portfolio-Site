@@ -14,6 +14,7 @@ jobs:
 
       - name: run
         run: |
+          git secret reveal
           docker-compose up --build -d
           cd wireguard/server
           npm install
