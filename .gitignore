@@ -1,2 +1,2 @@
 .gitsecret/keys/random_seed
-/wireguard/sql/*
+/wireguard/sql/admindb.sql
