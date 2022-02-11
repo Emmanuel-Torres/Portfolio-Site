@@ -23,7 +23,7 @@ jobs:
           sudo wg-quick down emmanuelvpn
 
   remove:
-    runs-on: ["self-hosted", portfolio-vm"]
+    runs-on: ["self-hosted", "portfolio-vm"]
     needs: [retrieve]
     steps:
       - name: delete backups
