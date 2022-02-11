@@ -1,0 +1,25 @@
+name: "restore"
+
+on:
+  workflow_dispatch:
+    inputs:
+      file_date:
+        description: 'Define your file date (yyyy-mm-dd)'
+        required: true
+
+jobs:
+  copy_backup:
+    runs-on: ["self-hosted", "backup-vm"]
+    steps:
+      - run: |
+          sudo wg-quick up emmanuelvpn
+          scp /home/emmanuel/dumps/postgres-${{ github.event.inputs.file_date }}.sql root@10.200.10.69:/home/github/restore/restore.sql
+          sudo wg-quick down emmanuelvpn
+          
+  apply_backup:
+    runs-on: ["self-hosted", "portfolio-vm"]
+    needs: [copy_backup]
+    steps:
+      - run: |
+          docker exec wireguard_db pg_restore -U postgres -v -c -d postgres < /home/github/restore/restore.sql
+          rm -rf /home/github/restore/restore.sql
