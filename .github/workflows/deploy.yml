@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ["self-hosted", "portfolio-vm"]
     steps:
       - name: checkout repo
         uses: actions/checkout@v2.4.0
