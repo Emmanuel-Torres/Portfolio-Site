@@ -18,9 +18,9 @@ jobs:
     steps:
       - name: retrieve backup
         run: |
-          wg-quick up emmanuelvpn
+          sudo wg-quick up emmanuelvpn
           scp 'root@10.200.10.69:/home/github/dumps/postgres*' /home/emmanuel/dumps
-          wg-quick down emmanuelvpn
+          sudo wg-quick down emmanuelvpn
 
   remove:
     runs-on: ["self-hosted", portfolio-vm"]
