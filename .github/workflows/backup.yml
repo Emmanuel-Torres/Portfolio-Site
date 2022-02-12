@@ -21,6 +21,11 @@ jobs:
           sudo wg-quick up emmanuelvpn
           scp 'root@10.200.10.69:/home/github/dumps/postgres*' /home/emmanuel/dumps
           sudo wg-quick down emmanuelvpn
+      
+      - name: rotate backups
+        run: |
+          cd /home/emmanuel/dumps
+          find ./ -type f -mtime +30 | xargs rm -rf
 
   remove:
     runs-on: ["self-hosted", "portfolio-vm"]
