@@ -6,7 +6,7 @@ on:
 
 jobs:
   run-tests:
-    runs-on: self-hosted
+    runs-on: ["self-hosted", "portfolio-vm"]
     steps:
       - name: checkout repo
         uses: actions/checkout@v2.4.0
@@ -18,7 +18,7 @@ jobs:
           docker-compose exec -T client_test npm run ops:test
 
   teardown:
-    runs-on: self-hosted
+    runs-on: ["self-hosted", "portfolio-vm"]
     if: ${{ always() }}
     needs: [run-tests]
     steps:
