@@ -10,7 +10,7 @@ const testUrl = async (): Promise<string> => {
 }
 
 const addConfig = async (config: ClientConfig): Promise<Blob> => {
-    const res = await axios.post<Blob>(apiUrl + '/addconfig', config, { responseType: 'blob' });
+    const res = await axios.post<Blob>(apiUrl + '/wgservice/addconfig', config, { responseType: 'blob' });
     fileDownload(res.data, 'configuration.conf');
     return res.data;
 }
@@ -34,7 +34,7 @@ const removePeer = async (publicKey: string) => {
     const res = await axios.post(apiUrl + '/wgservice/removeconfig', { publicKey });
 }
 
-const apiService = {
+const wireguardApiService = {
     testUrl,
     addConfig,
     getStatus,
@@ -43,4 +43,4 @@ const apiService = {
     removePeer
 }
 
-export default apiService;
+export default wireguardApiService;

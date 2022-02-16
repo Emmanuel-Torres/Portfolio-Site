@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import ClientConfig from "../models/clientConfig"
-import apiService from "../services/api-service"
+import wireguardApiService from "../services/wireguard-api-service"
 
 interface ClientConfigState {
     configs: Blob[];
@@ -17,36 +17,36 @@ const initialState: ClientConfigState = {
 export const addConfig = createAsyncThunk(
     'addConfig',
     async (config: ClientConfig, thunkApi): Promise<Blob> => {
-        return await apiService.addConfig(config);
+        return await wireguardApiService.addConfig(config);
     }
 )
 
 export const getStatus = createAsyncThunk(
     'getStatus',
     async (params, thunkApi): Promise<string> => {
-        return await apiService.getStatus();
+        return await wireguardApiService.getStatus();
     }
 )
 
 export const getPeers = createAsyncThunk(
     'getPeers',
     async (params, thunkApi): Promise<string[]> => {
-        return await apiService.getPeers();
+        return await wireguardApiService.getPeers();
     }
 )
 
 export const removePeer = createAsyncThunk(
     'removePeer',
     async (peerPublicKey: string, thunkApi) => {
-        await apiService.removePeer(peerPublicKey)
+        await wireguardApiService.removePeer(peerPublicKey)
     }
 )
 
 export const restartService = createAsyncThunk(
     'restartService',
     async (params, thunkApi): Promise<string> => {
-        await apiService.restartService();
-        return await apiService.getStatus();
+        await wireguardApiService.restartService();
+        return await wireguardApiService.getStatus();
     }
 )
 const clientConfigSlice = createSlice({

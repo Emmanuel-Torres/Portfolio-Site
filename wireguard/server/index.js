@@ -1,5 +1,6 @@
 const express = require('express');
-const { peerService } = require("./services/peer-service")
+const { peerService } = require("./services/peer-service");
+const { userService } = require('./services/user-service');
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
@@ -33,7 +34,7 @@ app.get('/api/wgservice/peers', (req, res) => {
     }
 })
 
-app.post('/api/addconfig', async (req, res) => {
+app.post('/api/wgservice/addconfig', async (req, res) => {
     try {
         const configPath = await peerService.addConfig(req.body);
         res.download(configPath);
@@ -50,6 +51,19 @@ app.post('/api/wgservice/removeconfig', async (req, res) => {
         peerService.removeConfig(req.body.publicKey)
     }
     catch {
+        res.sendStatus(500);
+    }
+});
+
+app.post('/api/user/adduser', async (req, res) => {
+    try {
+        console.log(req.body);
+        userService.addUser(req.body.user);
+    }
+    catch(err) {
+        if (err === 400){
+            res.sendStatus(400);
+        }
         res.sendStatus(500);
     }
 });
