@@ -25,6 +25,8 @@ services:
   server:
     container_name: portfolio_server
     build: ./src/server
+    env_file:
+      - './src/server/.env'
     depends_on:
       - portfolio_db
 
