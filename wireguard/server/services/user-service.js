@@ -5,9 +5,10 @@ const saltRounds = 100;
 const addUser = async (user) => {
     console.log(user);
 
-    if (!(user?.username) ||
-        !(user?.password) ||
-        !(user?.repassword) ||
+    if (!(user) ||
+        !(user.username) ||
+        !(user.password) ||
+        !(user.repassword) ||
         user.username.trim().length < 5 ||
         user.password.trim().length < 8 ||
         user.password != user.repassword
