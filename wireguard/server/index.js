@@ -58,7 +58,7 @@ app.post('/api/wgservice/removeconfig', async (req, res) => {
 app.post('/api/user/adduser', async (req, res) => {
     try {
         console.log("here", req.body);
-        userService.addUser(req.body);
+        userService.addUser(req.body.user);
         res.sendStatus(200);
     }
     catch(err) {
