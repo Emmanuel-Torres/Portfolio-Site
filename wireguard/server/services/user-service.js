@@ -8,10 +8,10 @@ const addUser = async (user) => {
     if (!(user) ||
         !(user.username) ||
         !(user.password) ||
-        !(user.repassword) ||
+        !(user.rePassword) ||
         user.username.trim().length < 5 ||
         user.password.trim().length < 8 ||
-        user.password != user.repassword
+        user.password != user.rePassword
     ) {
         throw 400;
     }
