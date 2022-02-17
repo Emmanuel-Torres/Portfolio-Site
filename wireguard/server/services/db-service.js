@@ -43,7 +43,7 @@ const addUser = async (username, hash, salt) => {
     await pool.query(`
         INSERT INTO wireguard.user (
             user_username,
-            user_password,
+            user_hash,
             user_salt)
         VALUES ($1, $2, $3)`,
         [username, hash, salt]);
