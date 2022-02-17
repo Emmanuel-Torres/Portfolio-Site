@@ -16,9 +16,9 @@ const addUser = async (user) => {
         throw 400;
     }
 
-    bcrypt.genSalt(saltRounds, (err, salt) => {
-        bcrypt.hash(user.password, salt, (err, hash) => {
-            dbService.addUser(user.username, hash, salt);
+    await bcrypt.genSalt(saltRounds, async (err, salt) => {
+        await bcrypt.hash(user.password, salt, async (err, hash) => {
+            await dbService.addUser(user.username, hash, salt);
         })
     })
 }
