@@ -58,7 +58,7 @@ app.post('/api/wgservice/removeconfig', async (req, res) => {
 app.post('/api/user/adduser', async (req, res) => {
     try {
         console.log(req.body);
-        userService.addUser(req.body.user);
+        userService.addUser(req.body);
     }
     catch(err) {
         if (err === 400){
@@ -68,6 +68,6 @@ app.post('/api/user/adduser', async (req, res) => {
     }
 });
 
-app.listen(process.env.API_PORT, () => {
+app.listen(process.env.API_PORT ?? 3000, () => {
     console.log(`Running at wireguard:3000`)
 })
