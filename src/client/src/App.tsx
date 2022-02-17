@@ -21,6 +21,7 @@ function App() {
           <Route path='/projects' element={<Projects />} />
           <Route path='/about' element={<About />} />
           <Route path='/admin' element={<Admin />} />
+          <Route path='/login' />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </div>
