@@ -21,9 +21,9 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route("login")]
-    public async Task<ActionResult> Login([FromBody] LoginRequest request)
+    public async Task<ActionResult<string>> Login([FromBody] LoginRequest request)
     {
-        await authService.ValidateAsync(request.Username, request.Password);
-        return Ok();
+        var token = await authService.ValidateAsync(request.Username, request.Password);
+        return Ok(token);
     }
 }
