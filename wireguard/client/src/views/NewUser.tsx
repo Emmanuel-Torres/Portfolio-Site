@@ -29,7 +29,7 @@ const NewUser: FC = (): JSX.Element => {
 
         if (formValid) {
             userApiService.addUser({ username, password, rePassword })
-                .then(r => console.log('success'))
+                .then(r => console.log('success', r))
                 .catch(err => console.error(err));
         }
     };
