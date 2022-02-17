@@ -15,7 +15,7 @@ const Login: FC = (): JSX.Element => {
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
-        axios.post('/api/auth/', { username, password })
+        axios.post('/api/auth/login', { username, password })
             .then(r => console.log('success'))
             .catch(err => console.error(err));
     }
@@ -32,3 +32,5 @@ const Login: FC = (): JSX.Element => {
         </>
     )
 }
+
+export default Login;

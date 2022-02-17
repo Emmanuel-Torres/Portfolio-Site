@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using server.Models;
 
 namespace server.Controllers;
 
@@ -14,13 +15,15 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
-    [Route("/validate")]
-    public async Task<ActionResult> Validate([FromBody] string username, [FromBody] string password)
+    [Route("login")]
+    public async Task<ActionResult> Login([FromBody] LoginRequest request)
     {
-        if (username is null || password is null)
-        {
-            return StatusCode(400);
-        }
+        Console.WriteLine(request.Username + request.Password);
+
+        // if (username is null || password is null)
+        // {
+        //     return StatusCode(400);
+        // }
         return Ok();
     }
 }
