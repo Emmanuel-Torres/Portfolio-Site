@@ -17,7 +17,7 @@ const addUser = async (user) => {
     }
 
     bcrypt.genSalt(saltRounds, (err, salt) => {
-        bcrypt.hash(password, salt, (err, hash) => {
+        bcrypt.hash(user.password, salt, (err, hash) => {
             dbService.addUser(user.username, hash, salt);
         })
     })
