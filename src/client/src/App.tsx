@@ -8,6 +8,7 @@ import NotFound from "./views/NotFound";
 import About from "./views/About";
 import styles from "./App.module.css"
 import Admin from "./views/Admin";
+import Login from "./views/Login";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/projects' element={<Projects />} />
           <Route path='/about' element={<About />} />
           <Route path='/admin' element={<Admin />} />
+          <Route path='/login' element={<Login />}/>
           <Route path='*' element={<NotFound />} />
         </Routes>
       </div>

@@ -4,6 +4,9 @@ services:
   dev_server:
     container_name: dev_server
     build: ../../server
+    environment:
+      - WIREGUARD_DB=Host=dev_wireguard_db;Database=postgres;Username=postgres;Password=password
+      - APPLICATION_CONTEXT=Host=dev_db;Database=postgres;Username=postgres;Password=password
     depends_on:
       - dev_db
 
@@ -27,3 +30,12 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: password
+
+  dev_wireguard_db:
+    container_name: dev_wireguard_db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ../../../wireguard/sql/admindb.sql:/docker-entrypoint-initdb.d/admindb.sql
