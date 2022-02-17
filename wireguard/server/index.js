@@ -10,7 +10,8 @@ app.get('/api/wgservice/status', (req, res) => {
     try {
         res.send(peerService.getStatus());
     }
-    catch {
+    catch (ex) {
+        console.error(ex);
         res.sendStatus(500);
     }
 })
@@ -20,7 +21,8 @@ app.get('/api/wgservice/restart', (req, res) => {
         peerService.restartService();
         res.sendStatus(200);
     }
-    catch {
+    catch (ex) {
+        console.error(ex);
         res.sendStatus(500);
     }
 })
@@ -29,7 +31,8 @@ app.get('/api/wgservice/peers', (req, res) => {
     try {
         res.send(peerService.getPeers());
     }
-    catch {
+    catch (ex) {
+        console.error(ex);
         res.sendStatus(500);
     }
 })
@@ -50,7 +53,8 @@ app.post('/api/wgservice/removeconfig', async (req, res) => {
         console.log(req.body)
         peerService.removeConfig(req.body.publicKey)
     }
-    catch {
+    catch (ex) {
+        console.error(ex);
         res.sendStatus(500);
     }
 });
@@ -62,6 +66,7 @@ app.post('/api/user/adduser', async (req, res) => {
         res.sendStatus(200);
     }
     catch(err) {
+        console.error(ex);
         if (err === 400){
             res.sendStatus(400);
         }
