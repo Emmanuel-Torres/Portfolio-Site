@@ -26,7 +26,7 @@ services:
     container_name: portfolio_server
     build: ./src/server
     depends_on:
-      - db
+      - portfolio_db
 
   client:
     container_name: portfolio_client
@@ -50,12 +50,12 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
 
-  db:
+  portfolio_db:
     image: postgres
     container_name: portfolio_db
     restart: always
-    environment:
-      POSTGRES_PASSWORD: password
+    env_file:
+      - './src/sql/portfoliodb.env'
 
   wireguard_db:
     image: postgres

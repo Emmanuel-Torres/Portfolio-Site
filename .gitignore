@@ -1,4 +1,5 @@
 .gitsecret/keys/random_seed
 /wireguard/sql/admindb.sql
 /wireguard/sql/admindb.env
+/src/sql/portfoliodb.env
 /.vscode

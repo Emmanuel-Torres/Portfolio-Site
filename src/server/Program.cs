@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("ApplicationContext")));
+    options.UseNpgsql(builder.Configuration["APPLICATION_CONTEXT"]));
 
 builder.Services.AddTransient<IDbService, DbService>();
 builder.Services.AddTransient<IAuthDbService, AuthDbService>();

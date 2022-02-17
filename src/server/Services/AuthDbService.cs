@@ -14,7 +14,7 @@ public class AuthDbService : IAuthDbService
 
     public async Task<DbUser?> GetUserByUsernameAsync(string username)
     {
-        using var conn = new NpgsqlConnection(configuration["authDbConnectionString"]);
+        using var conn = new NpgsqlConnection(configuration["WIREGUARD_DB"]);
         await conn.OpenAsync();
         
         using var cmd = new NpgsqlCommand("SELECT * FROM wireguard.user WHERE user_username = @username", conn);
