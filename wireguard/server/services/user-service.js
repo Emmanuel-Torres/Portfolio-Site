@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { dbService } = require('./db-service');
-const saltRounds = 100;
+const saltRounds = 10;
 
 const addUser = async (user) => {
     console.log(user);
@@ -16,13 +16,9 @@ const addUser = async (user) => {
         throw 400;
     }
 
-    await bcrypt.genSalt(saltRounds, async (err, salt) => {
-        console.log(salt);
-        await bcrypt.hash(user.password, salt, async (err, hash) => {
-            console.log(hash);
-            await dbService.addUser(user.username, hash, salt);
-        })
-    })
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(user.password, salt);
+    await dbService.addUser(user.username, hash, salt);
 }
 
 module.exports.userService = {
