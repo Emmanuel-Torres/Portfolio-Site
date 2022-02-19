@@ -17,4 +17,10 @@ public class Session
         Username = username;
         Id = id;
     }
+
+    public Session(string sessionId, string username)
+    {
+        SessionId = sessionId;
+        Username = username;
+    }
 }

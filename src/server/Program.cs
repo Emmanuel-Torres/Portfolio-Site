@@ -11,6 +11,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration["APPLICATION_CONTEXT"]));
 
 builder.Services.AddTransient<IStoryDbService, StoryDbService>();
+builder.Services.AddTransient<ISessionDbService, SessionDbService>();
 builder.Services.AddTransient<IAuthDbService, AuthDbService>();
 builder.Services.AddSingleton<IAuthService, AuthService>();
 

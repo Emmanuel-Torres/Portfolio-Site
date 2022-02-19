@@ -9,19 +9,19 @@ namespace server.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly ILogger<AuthController> logger;
-    private readonly IConfiguration configuration;
     private readonly IAuthService authService;
+    private readonly ISessionDbService sessionDbService;
 
-    public AuthController(ILogger<AuthController> logger, IConfiguration configuration, IAuthService authService)
+    public AuthController(ILogger<AuthController> logger, IAuthService authService, ISessionDbService sessionDbService)
     {
         this.logger = logger;
-        this.configuration = configuration;
         this.authService = authService;
+        this.sessionDbService = sessionDbService;
     }
 
     [HttpPost]
     [Route("login")]
-    public async Task<ActionResult<string>> Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
         if (await authService.ValidateAsync(request.Username, request.Password))
         {
@@ -31,12 +31,23 @@ public class AuthController : ControllerBase
                 HttpOnly = true,
                 SameSite = SameSiteMode.Strict
             };
-            Response.Cookies.Append("session_id", HttpContext.Session.Id, cookieOptions);
+
+            var session = await sessionDbService.AddSessionAsync(new Session(HttpContext.Session.Id, request.Username));
+            Response.Cookies.Append("session_id", session.SessionId, cookieOptions);
             return Ok();
         }
         else
         {
             return Unauthorized("Username or password were incorrect");
         }
+    }
+
+    [HttpPost]
+    [Route("secure")]
+    public async Task<IActionResult> Secure()
+    {
+        HttpContext.Request.Cookies.TryGetValue("session_id", out string? value);
+        Console.WriteLine(value);
+        return Ok(200);
     }
 }
