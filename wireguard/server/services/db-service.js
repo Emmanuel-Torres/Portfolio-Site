@@ -40,7 +40,6 @@ const removeConfig = async (publicKey) => {
 }
 
 const addUser = async (username, hash, salt) => {
-    console.log(username, hash, salt);
     await pool.query(`
         INSERT INTO wireguard.user (
             user_username,
