@@ -9,6 +9,7 @@ import About from "./views/About";
 import styles from "./App.module.css"
 import Admin from "./views/Admin";
 import Login from "./views/Login";
+import Secure from "./views/Secure";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/admin' element={<Admin />} />
           <Route path='/login' element={<Login />}/>
+          <Route path='/secure' element={<Secure />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </div>

@@ -32,8 +32,21 @@ public class AuthController : ControllerBase
                 SameSite = SameSiteMode.Strict
             };
 
-            var session = await sessionDbService.AddSessionAsync(new Session(HttpContext.Session.Id, request.Username));
-            Response.Cookies.Append("session_id", session.SessionId, cookieOptions);
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(request.Username)))
+            {
+                HttpContext.Session.SetString(request.Username, HttpContext.Session.Id);
+            }
+
+            string? sessionId = HttpContext.Session.GetString(request.Username);
+
+            if (sessionId is null)
+            {
+                return StatusCode(500);
+            }
+
+            var session = await sessionDbService.AddSessionAsync(new Session(sessionId, request.Username));
+            // Response.Cookies.Append("session_id", session.SessionId, cookieOptions);
+            Response.Cookies.Append("username", request.Username, cookieOptions);
             return Ok();
         }
         else
@@ -42,12 +55,24 @@ public class AuthController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpGet]
     [Route("secure")]
     public async Task<IActionResult> Secure()
     {
-        HttpContext.Request.Cookies.TryGetValue("session_id", out string? value);
-        Console.WriteLine(value);
-        return Ok(200);
+        HttpContext.Request.Cookies.TryGetValue("session_id", out string? sessionId);
+        HttpContext.Request.Cookies.TryGetValue("username", out string? username);
+        
+        if (sessionId is null || username is null)
+        {
+            return Forbid();
+        }
+
+        if (HttpContext.Session.GetString(username) is not null)
+        {
+            return Ok();
+        }
+
+        await sessionDbService.DeleteSessionAsync(username);
+        return Forbid();
     }
 }

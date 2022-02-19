@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
@@ -14,6 +15,11 @@ public class SessionDbService : ISessionDbService
     }
     public async Task<Session> AddSessionAsync(Session session)
     {
+        var s = await dbContext.Sessions.FirstOrDefaultAsync(s => s.Username == session.Username);
+        if (s is not null)
+        {
+            await DeleteSessionAsync(s.SessionId);
+        }
         await dbContext.Sessions.AddAsync(session);
         await dbContext.SaveChangesAsync();
         return await dbContext.Sessions.FirstAsync(s => s.Id == session.Id);
@@ -24,9 +30,9 @@ public class SessionDbService : ISessionDbService
         return await dbContext.Sessions.FirstOrDefaultAsync(s => s.Id == sessionId);
     }
 
-    public async Task DeleteSessionAsync(int sessionId)
+    public async Task DeleteSessionAsync(string sessionId)
     {
-        var session = await dbContext.Sessions.FirstAsync(s => s.Id == sessionId);
+        var session = await dbContext.Sessions.FirstAsync(s => s.SessionId == sessionId);
         dbContext.Remove(session);
         await dbContext.SaveChangesAsync();
     }
