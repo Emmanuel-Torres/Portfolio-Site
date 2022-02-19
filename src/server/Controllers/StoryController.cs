@@ -10,9 +10,9 @@ namespace server.Controllers;
 public class StoryController : ControllerBase
 {
     private readonly ILogger<StoryController> _logger;
-    private readonly IDbService dbService;
+    private readonly IStoryDbService dbService;
 
-    public StoryController(ILogger<StoryController> logger, IDbService dbService)
+    public StoryController(ILogger<StoryController> logger, IStoryDbService dbService)
     {
         _logger = logger;
         this.dbService = dbService;
