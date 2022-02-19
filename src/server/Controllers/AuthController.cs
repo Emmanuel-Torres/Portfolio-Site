@@ -23,15 +23,20 @@ public class AuthController : ControllerBase
     [Route("login")]
     public async Task<ActionResult<string>> Login([FromBody] LoginRequest request)
     {
-        var token = await authService.ValidateAsync(request.Username, request.Password);
-        var cookieOptions = new CookieOptions
+        if (await authService.ValidateAsync(request.Username, request.Password))
         {
-            Secure = true,
-            HttpOnly = true,
-            SameSite = SameSiteMode.Strict
-        };
-
-        Response.Cookies.Append("auth", "test", cookieOptions);
-        return Ok(token);
+            var cookieOptions = new CookieOptions
+            {
+                Secure = true,
+                HttpOnly = true,
+                SameSite = SameSiteMode.Strict
+            };
+            Response.Cookies.Append("session_id", HttpContext.Session.Id, cookieOptions);
+            return Ok();
+        }
+        else
+        {
+            return Unauthorized("Username or password were incorrect");
+        }
     }
 }

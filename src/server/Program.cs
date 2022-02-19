@@ -13,10 +13,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddTransient<IStoryDbService, StoryDbService>();
 builder.Services.AddTransient<IAuthDbService, AuthDbService>();
 builder.Services.AddSingleton<IAuthService, AuthService>();
+
 builder.Services.ConfigureApplicationCookie(options => {
     options.Cookie.SameSite = SameSiteMode.Strict;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(15);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllers();
@@ -48,6 +57,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseAuthorization();
+app.UseSession();
 app.MapControllers();
 
 app.Run();
