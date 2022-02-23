@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using server.Models;
 using server.Services;
@@ -8,6 +9,7 @@ namespace server.Controllers;
 [Route("/api/[controller]")]
 public class AuthController : ControllerBase
 {
+    private const string SESSION_KEY_NAME = "_SessionId";
     private readonly ILogger<AuthController> logger;
     private readonly IAuthService authService;
     private readonly ISessionDbService sessionDbService;
@@ -25,28 +27,17 @@ public class AuthController : ControllerBase
     {
         if (await authService.ValidateAsync(request.Username, request.Password))
         {
-            var cookieOptions = new CookieOptions
+            var cookieOptions = new CookieOptions()
             {
-                Secure = true,
+                SameSite = SameSiteMode.Strict,
                 HttpOnly = true,
-                SameSite = SameSiteMode.Strict
+                Secure = true
             };
 
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(request.Username)))
-            {
-                HttpContext.Session.SetString(request.Username, HttpContext.Session.Id);
-            }
-
-            string? sessionId = HttpContext.Session.GetString(request.Username);
-
-            if (sessionId is null)
-            {
-                return StatusCode(500);
-            }
-
-            var session = await sessionDbService.AddSessionAsync(new Session(sessionId, request.Username));
-            // Response.Cookies.Append("session_id", session.SessionId, cookieOptions);
-            Response.Cookies.Append("username", request.Username, cookieOptions);
+            string sessionId = HttpContext.Session.Id;
+            HttpContext.Session.SetString(SESSION_KEY_NAME, sessionId);
+            await sessionDbService.AddSessionAsync(new Session(sessionId, request.Username));
+            Response.Cookies.Append(SESSION_KEY_NAME, sessionId, cookieOptions);
             return Ok();
         }
         else
@@ -56,23 +47,57 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet]
-    [Route("secure")]
-    public async Task<IActionResult> Secure()
+    [Route("validate")]
+    public async Task<IActionResult> Validate()
     {
-        HttpContext.Request.Cookies.TryGetValue("session_id", out string? sessionId);
-        HttpContext.Request.Cookies.TryGetValue("username", out string? username);
-        
-        if (sessionId is null || username is null)
+        if (!HttpContext.Request.Cookies.TryGetValue(SESSION_KEY_NAME, out string? sessionId))
         {
-            return Forbid();
+            return StatusCode(403);
+        }
+        if (string.IsNullOrEmpty(HttpContext.Session.GetString(SESSION_KEY_NAME)))
+        {
+            return StatusCode(403);
+        }
+        if (sessionId != HttpContext.Session.GetString(SESSION_KEY_NAME))
+        {
+            return StatusCode(403);
         }
 
-        if (HttpContext.Session.GetString(username) is not null)
-        {
-            return Ok();
-        }
+        return Ok();
+        // try
+        // {
+        //     HttpContext.Request.Cookies.TryGetValue(SESSION_KEY_NAME, out sessionId);
+        //     HttpContext.Request.Cookies.TryGetValue("username", out username);
+        // }
+        // catch (Exception ex)
+        // {
+        //     logger.LogWarning("Could not get cookies from request. Ex: {ex}", ex);
+        //     return Forbid();
+        // }
 
-        await sessionDbService.DeleteSessionAsync(username);
-        return Forbid();
+        // Console.WriteLine(sessionId + " " + username);
+
+        // if (sessionId is null || username is null)
+        // {
+        //     return Forbid();
+        // }
+
+        // // if (HttpContext.Session.GetString(username) is not null)
+        // // {
+        // //     return Ok();
+        // // }
+
+        // try
+        // {
+        //     await sessionDbService.DeleteSessionAsync(username);
+        // }
+        // catch (Exception ex)
+        // {
+        //     logger.LogError("Could not remove session for {user}. Ex: {ex}", username, ex);
+        //     return StatusCode(500);
+        // }
+
+        // return Forbid();
+
     }
 }

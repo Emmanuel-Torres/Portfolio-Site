@@ -13,6 +13,11 @@ const Login: FC = (): JSX.Element => {
         setPassword(e.target.value);
     }
 
+    const secureHandler = () => {
+        axios.get('/api/auth/validate', { withCredentials: true })
+            .then(r => console.log(r));
+    }
+
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
         axios.post('/api/auth/login', { username, password })
@@ -29,6 +34,7 @@ const Login: FC = (): JSX.Element => {
                 <input type='password' value={password} onChange={passwordChangedHandler} />
                 <button type='submit'>Login</button>
             </form>
+            <button type='button' onClick={secureHandler}>Secure</button>
         </>
     )
 }

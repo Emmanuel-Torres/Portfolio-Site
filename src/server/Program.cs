@@ -22,7 +22,6 @@ builder.Services.ConfigureApplicationCookie(options => {
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options => {
-    options.Cookie.Name = "session_id";
     options.IdleTimeout = TimeSpan.FromSeconds(15);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
@@ -49,7 +48,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseHttpsRedirection();
+    // app.UseHttpsRedirection();
 }
 
 using (var scope = app.Services.CreateScope())
@@ -60,7 +59,7 @@ using (var scope = app.Services.CreateScope())
     //context.Database.EnsureCreated();
 }
 
-app.UseAuthorization();
+// app.UseAuthorization();
 app.UseSession();
 app.MapControllers();
 
