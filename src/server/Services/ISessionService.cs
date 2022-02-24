@@ -4,6 +4,7 @@ namespace server.Services;
 
 public interface ISessionService 
 {
-    Task<bool> ValidateSessionAsync(string sessionId);
+    Task<bool> IsSessionValidAsync(string sessionId);
     Task<Session> AddSessionAsync(string sessionId, string username);
+    Task<Session?> GetSessionBySessionIdAsync(string sessionId);
 }

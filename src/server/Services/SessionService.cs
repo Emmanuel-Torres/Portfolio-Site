@@ -17,7 +17,12 @@ public class SessionService : ISessionService
         return await sessionDbService.AddSessionAsync(session);
     }
 
-    public async Task<bool> ValidateSessionAsync(string sessionId)
+    public async Task<Session?> GetSessionBySessionIdAsync(string sessionId)
+    {
+        return await sessionDbService.GetSessionBySessionIdAsync(sessionId);
+    }
+
+    public async Task<bool> IsSessionValidAsync(string sessionId)
     {
         if (sessionId is null)
         {

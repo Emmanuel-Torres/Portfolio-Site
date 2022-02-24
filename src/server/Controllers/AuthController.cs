@@ -14,7 +14,10 @@ public class AuthController : ControllerBase
     private readonly IAuthService authService;
     private readonly ISessionService sessionService;
 
-    public AuthController(ILogger<AuthController> logger, IAuthService authService, ISessionService sessionService)
+    public AuthController(ILogger<AuthController> logger,
+                          IAuthService authService,
+                          ISessionService sessionService
+    )
     {
         this.logger = logger;
         this.authService = authService;
@@ -63,9 +66,10 @@ public class AuthController : ControllerBase
         {
             return StatusCode(403);
         }
-        if (await sessionService.ValidateSessionAsync(sessionId))
+        if (await sessionService.IsSessionValidAsync(sessionId))
         {
-            return StatusCode(200);
+            var username = (await sessionService.GetSessionBySessionIdAsync(sessionId))?.Username;
+            return Ok(username);
         }
 
         return StatusCode(403);

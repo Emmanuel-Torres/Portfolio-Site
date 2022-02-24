@@ -1,9 +1,11 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError } from "axios";
 import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login: FC = (): JSX.Element => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const navigate = useNavigate()
 
     const usernameChangedHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
@@ -13,25 +15,22 @@ const Login: FC = (): JSX.Element => {
         setPassword(e.target.value);
     }
 
-    const secureHandler = () => {
-        axios.get<AxiosResponse>('/api/auth/validate', { withCredentials: true })
-            .then(r => console.log(r))
-            .catch(err => {
-                console.log("hello");
-                console.log(err);
-            });
-    }
-
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
         axios.post('/api/auth/login', { username, password })
-            .catch((err: AxiosError) => {
-                console.log(err);
-                if (err.response) {
-                    console.log(err.response);
-                }
+            .then(r => {
+                alert('Successfully logged in');
+                navigate('/secure');
             })
-            .then(r => console.log('success', r))
+            .catch((err: AxiosError) => {
+                console.error(err);
+                if (err.response?.status === 401) {
+                    alert('Could not log in. Username or password incorrect');
+                }
+                else {
+                    alert('Something went wrong');
+                }
+            });
     }
 
     return (
@@ -43,7 +42,6 @@ const Login: FC = (): JSX.Element => {
                 <input type='password' value={password} onChange={passwordChangedHandler} />
                 <button type='submit'>Login</button>
             </form>
-            <button type='button' onClick={secureHandler}>Secure</button>
         </>
     )
 }
