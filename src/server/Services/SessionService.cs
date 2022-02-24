@@ -13,7 +13,7 @@ public class SessionService : ISessionService
 
     public async Task<Session> AddSessionAsync(string sessionId, string username)
     {
-        var session = new Session(sessionId, username, DateTime.Now.AddHours(2));
+        var session = new Session(sessionId, username, DateTime.UtcNow.AddHours(2));
         return await sessionDbService.AddSessionAsync(session);
     }
 
@@ -29,7 +29,7 @@ public class SessionService : ISessionService
         {
             return false;
         }
-        if (DateTime.Compare(DateTime.Now, session.Expiration) >= 0)
+        if (DateTime.Compare(DateTime.UtcNow, session.Expiration) >= 0)
         {
             return false;
         }

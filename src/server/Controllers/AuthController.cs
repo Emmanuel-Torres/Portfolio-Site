@@ -33,11 +33,19 @@ public class AuthController : ControllerBase
                 HttpOnly = true,
                 Secure = true
             };
-
             string sessionId = Guid.NewGuid().ToString();
-            await sessionService.AddSessionAsync(sessionId, request.Username);
-            Response.Cookies.Append(SESSION_KEY_NAME, sessionId, cookieOptions);
-            return Ok();
+
+            try
+            {
+                await sessionService.AddSessionAsync(sessionId, request.Username);
+                Response.Cookies.Append(SESSION_KEY_NAME, sessionId, cookieOptions);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Could not add session for user {user}. Ex: {ex}", request.Username, ex);
+                return StatusCode(500);
+            }
         }
         else
         {
@@ -46,8 +54,8 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet]
-    [Route("validate")]
-    public async Task<IActionResult> Validate()
+    [Route("secure")]
+    public async Task<IActionResult> Secure()
     {
         HttpContext.Request.Cookies.TryGetValue(SESSION_KEY_NAME, out string? sessionId);
 
@@ -60,6 +68,6 @@ public class AuthController : ControllerBase
             return StatusCode(200);
         }
 
-        return StatusCode(403); 
+        return StatusCode(403);
     }
 }

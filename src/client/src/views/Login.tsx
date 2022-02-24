@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 
 const Login: FC = (): JSX.Element => {
@@ -14,15 +14,24 @@ const Login: FC = (): JSX.Element => {
     }
 
     const secureHandler = () => {
-        axios.get('/api/auth/validate', { withCredentials: true })
-            .then(r => console.log(r));
+        axios.get<AxiosResponse>('/api/auth/validate', { withCredentials: true })
+            .then(r => console.log(r))
+            .catch(err => {
+                console.log("hello");
+                console.log(err);
+            });
     }
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
         axios.post('/api/auth/login', { username, password })
+            .catch((err: AxiosError) => {
+                console.log(err);
+                if (err.response) {
+                    console.log(err.response);
+                }
+            })
             .then(r => console.log('success', r))
-            .catch(err => console.error(err));
     }
 
     return (
