@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using server.Data;
 using server.Services;
 
@@ -16,15 +15,6 @@ builder.Services.AddTransient<IAuthDbService, AuthDbService>();
 builder.Services.AddSingleton<IAuthService, AuthService>();
 
 builder.Services.ConfigureApplicationCookie(options => {
-    options.Cookie.SameSite = SameSiteMode.Strict;
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-});
-
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options => {
-    options.IdleTimeout = TimeSpan.FromSeconds(15);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
     options.Cookie.SameSite = SameSiteMode.Strict;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
@@ -59,8 +49,6 @@ using (var scope = app.Services.CreateScope())
     //context.Database.EnsureCreated();
 }
 
-// app.UseAuthorization();
-app.UseSession();
 app.MapControllers();
 
 app.Run();

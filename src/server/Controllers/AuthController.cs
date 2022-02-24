@@ -12,13 +12,13 @@ public class AuthController : ControllerBase
     private const string SESSION_KEY_NAME = "_SessionId";
     private readonly ILogger<AuthController> logger;
     private readonly IAuthService authService;
-    private readonly ISessionDbService sessionDbService;
+    private readonly ISessionService sessionService;
 
-    public AuthController(ILogger<AuthController> logger, IAuthService authService, ISessionDbService sessionDbService)
+    public AuthController(ILogger<AuthController> logger, IAuthService authService, ISessionService sessionService)
     {
         this.logger = logger;
         this.authService = authService;
-        this.sessionDbService = sessionDbService;
+        this.sessionService = sessionService;
     }
 
     [HttpPost]
@@ -34,9 +34,8 @@ public class AuthController : ControllerBase
                 Secure = true
             };
 
-            string sessionId = HttpContext.Session.Id;
-            HttpContext.Session.SetString(SESSION_KEY_NAME, sessionId);
-            await sessionDbService.AddSessionAsync(new Session(sessionId, request.Username));
+            string sessionId = Guid.NewGuid().ToString();
+            await sessionService.AddSessionAsync(sessionId, request.Username);
             Response.Cookies.Append(SESSION_KEY_NAME, sessionId, cookieOptions);
             return Ok();
         }
@@ -50,54 +49,17 @@ public class AuthController : ControllerBase
     [Route("validate")]
     public async Task<IActionResult> Validate()
     {
-        if (!HttpContext.Request.Cookies.TryGetValue(SESSION_KEY_NAME, out string? sessionId))
+        HttpContext.Request.Cookies.TryGetValue(SESSION_KEY_NAME, out string? sessionId);
+
+        if (sessionId is null)
         {
             return StatusCode(403);
         }
-        if (string.IsNullOrEmpty(HttpContext.Session.GetString(SESSION_KEY_NAME)))
+        if (await sessionService.ValidateSessionAsync(sessionId))
         {
-            return StatusCode(403);
-        }
-        if (sessionId != HttpContext.Session.GetString(SESSION_KEY_NAME))
-        {
-            return StatusCode(403);
+            return StatusCode(200);
         }
 
-        return Ok();
-        // try
-        // {
-        //     HttpContext.Request.Cookies.TryGetValue(SESSION_KEY_NAME, out sessionId);
-        //     HttpContext.Request.Cookies.TryGetValue("username", out username);
-        // }
-        // catch (Exception ex)
-        // {
-        //     logger.LogWarning("Could not get cookies from request. Ex: {ex}", ex);
-        //     return Forbid();
-        // }
-
-        // Console.WriteLine(sessionId + " " + username);
-
-        // if (sessionId is null || username is null)
-        // {
-        //     return Forbid();
-        // }
-
-        // // if (HttpContext.Session.GetString(username) is not null)
-        // // {
-        // //     return Ok();
-        // // }
-
-        // try
-        // {
-        //     await sessionDbService.DeleteSessionAsync(username);
-        // }
-        // catch (Exception ex)
-        // {
-        //     logger.LogError("Could not remove session for {user}. Ex: {ex}", username, ex);
-        //     return StatusCode(500);
-        // }
-
-        // return Forbid();
-
+        return StatusCode(403); 
     }
 }

@@ -25,9 +25,9 @@ public class SessionDbService : ISessionDbService
         return await dbContext.Sessions.FirstAsync(s => s.Id == session.Id);
     }
 
-    public async Task<Session?> GetSessionByIdAsync(int sessionId)
+    public async Task<Session?> GetSessionBySessionIdAsync(string sessionId)
     {
-        return await dbContext.Sessions.FirstOrDefaultAsync(s => s.Id == sessionId);
+        return await dbContext.Sessions.FirstOrDefaultAsync(s => s.SessionId == sessionId);
     }
 
     public async Task DeleteSessionAsync(string sessionId)
