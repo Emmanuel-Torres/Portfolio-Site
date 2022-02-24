@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+
 namespace server.Services;
 
 public class AuthService : IAuthService
@@ -10,16 +12,20 @@ public class AuthService : IAuthService
     }
 
 
-    public async Task<string?> ValidateAsync(string username, string password)
+    public async Task<bool> ValidateAsync(string username, string password)
     {
         var user = await authDbService.GetUserByUsernameAsync(username);
         if (user is null)
         {
-            return null;
+            return false;
         }
 
-        //Code will go here to validate user password and user
+        string hash = BCrypt.Net.BCrypt.HashPassword(password, user.Salt);
+        if (hash == user.Hash)
+        {
+            return true;
+        }
 
-        return "Here we GO!";
+        return false;
     }
 }

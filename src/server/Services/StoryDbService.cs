@@ -4,11 +4,11 @@ using server.Models;
 
 namespace server.Services;
 
-public class DbService : IDbService
+public class StoryDbService : IStoryDbService
 {
     private readonly ApplicationDbContext dbContext;
 
-    public DbService(ApplicationDbContext dbContext)
+    public StoryDbService(ApplicationDbContext dbContext)
     {
         this.dbContext = dbContext;
     }

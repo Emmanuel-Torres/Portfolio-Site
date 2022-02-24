@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using server.Models;
 using server.Services;
@@ -8,30 +9,69 @@ namespace server.Controllers;
 [Route("/api/[controller]")]
 public class AuthController : ControllerBase
 {
+    private const string SESSION_KEY_NAME = "_SessionId";
     private readonly ILogger<AuthController> logger;
-    private readonly IConfiguration configuration;
     private readonly IAuthService authService;
+    private readonly ISessionService sessionService;
 
-    public AuthController(ILogger<AuthController> logger, IConfiguration configuration, IAuthService authService)
+    public AuthController(ILogger<AuthController> logger,
+                          IAuthService authService,
+                          ISessionService sessionService
+    )
     {
         this.logger = logger;
-        this.configuration = configuration;
         this.authService = authService;
+        this.sessionService = sessionService;
     }
 
     [HttpPost]
     [Route("login")]
-    public async Task<ActionResult<string>> Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        var token = await authService.ValidateAsync(request.Username, request.Password);
-        var cookieOptions = new CookieOptions
+        if (await authService.ValidateAsync(request.Username, request.Password))
         {
-            Secure = true,
-            HttpOnly = true,
-            SameSite = SameSiteMode.Strict
-        };
+            var cookieOptions = new CookieOptions()
+            {
+                SameSite = SameSiteMode.Strict,
+                HttpOnly = true,
+                Secure = true
+            };
+            string sessionId = Guid.NewGuid().ToString();
 
-        Response.Cookies.Append("auth", "test", cookieOptions);
-        return Ok(token);
+            try
+            {
+                await sessionService.AddSessionAsync(sessionId, request.Username);
+                Response.Cookies.Append(SESSION_KEY_NAME, sessionId, cookieOptions);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Could not add session for user {user}. Ex: {ex}", request.Username, ex);
+                return StatusCode(500);
+            }
+        }
+        else
+        {
+            return Unauthorized("Username or password were incorrect");
+        }
+    }
+
+    [HttpGet]
+    [Route("secure")]
+    public async Task<IActionResult> Secure()
+    {
+        HttpContext.Request.Cookies.TryGetValue(SESSION_KEY_NAME, out string? sessionId);
+
+        if (sessionId is null)
+        {
+            return StatusCode(403);
+        }
+        if (await sessionService.IsSessionValidAsync(sessionId))
+        {
+            var username = (await sessionService.GetSessionBySessionIdAsync(sessionId))?.Username;
+            return Ok(username);
+        }
+
+        return StatusCode(403);
     }
 }

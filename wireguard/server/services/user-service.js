@@ -3,8 +3,6 @@ const { dbService } = require('./db-service');
 const saltRounds = 10;
 
 const addUser = async (user) => {
-    console.log(user);
-
     if (!(user) ||
         !(user.username) ||
         !(user.password) ||

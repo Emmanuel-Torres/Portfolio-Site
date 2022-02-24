@@ -26,7 +26,6 @@ public class AuthDbService : IAuthDbService
         while (await reader.ReadAsync())
         {
             var user = new DbUser(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
-            Console.WriteLine("{0} {1} {2} {3}", user.Id, user.Username, user.Hash, user.Salt);
             return user;
         }
 

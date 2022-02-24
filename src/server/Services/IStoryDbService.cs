@@ -2,7 +2,7 @@ using server.Models;
 
 namespace server.Services;
 
-public interface IDbService
+public interface IStoryDbService
 {
     Task<IEnumerable<Story>> GetStoriesAsync();
     Task<Story?> GetStoryByIdAsync(int storyId);

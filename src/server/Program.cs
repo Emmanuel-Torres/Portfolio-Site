@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using server.Data;
 using server.Services;
 
@@ -10,13 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration["APPLICATION_CONTEXT"]));
 
-builder.Services.AddTransient<IDbService, DbService>();
+builder.Services.AddTransient<IStoryDbService, StoryDbService>();
+builder.Services.AddTransient<ISessionService, SessionService>();
+builder.Services.AddTransient<ISessionDbService, SessionDbService>();
 builder.Services.AddTransient<IAuthDbService, AuthDbService>();
 builder.Services.AddSingleton<IAuthService, AuthService>();
+
 builder.Services.ConfigureApplicationCookie(options => {
     options.Cookie.SameSite = SameSiteMode.Strict;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllers();
@@ -36,7 +39,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseHttpsRedirection();
+    // app.UseHttpsRedirection();
 }
 
 using (var scope = app.Services.CreateScope())
@@ -47,7 +50,6 @@ using (var scope = app.Services.CreateScope())
     //context.Database.EnsureCreated();
 }
 
-app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

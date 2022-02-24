@@ -61,7 +61,6 @@ app.post('/api/wgservice/removeconfig', async (req, res) => {
 
 app.post('/api/user/adduser', async (req, res) => {
     try {
-        console.log("here", req.body);
         await userService.addUser(req.body.user);
         res.sendStatus(200);
     }
