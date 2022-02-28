@@ -17,28 +17,33 @@ public class SessionService : ISessionService
         return await sessionDbService.AddSessionAsync(session);
     }
 
+    public async Task DeleteSessionAsync(string sessionId)
+    {
+        await sessionDbService.DeleteSessionAsync(sessionId);
+    }
+
     public async Task<Session?> GetSessionBySessionIdAsync(string sessionId)
     {
         return await sessionDbService.GetSessionBySessionIdAsync(sessionId);
     }
 
-    public async Task<bool> IsSessionValidAsync(string sessionId)
+    public async Task<bool> IsSessionValidAsync(string? sessionId)
     {
         if (sessionId is null)
         {
             return false;
         }
 
-        var session = await sessionDbService.GetSessionBySessionIdAsync(sessionId);
+        var session = await GetSessionBySessionIdAsync(sessionId);
         if (session is null)
         {
             return false;
         }
-        if (DateTime.Compare(DateTime.UtcNow, session.Expiration) >= 0)
+        if (DateTime.Compare(DateTime.UtcNow, session.Expiration) < 0)
         {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 }

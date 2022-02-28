@@ -42,6 +42,7 @@ public class AuthController : ControllerBase
             {
                 await sessionService.AddSessionAsync(sessionId, request.Username);
                 Response.Cookies.Append(SESSION_KEY_NAME, sessionId, cookieOptions);
+                Response.Headers.Location = "/secure";
                 return Ok();
             }
             catch (Exception ex)
@@ -56,22 +57,51 @@ public class AuthController : ControllerBase
         }
     }
 
+    [HttpDelete]
+    [Route("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        HttpContext.Request.Cookies.TryGetValue(SESSION_KEY_NAME, out string? sessionId);
+
+        try
+        {
+            if (await sessionService.IsSessionValidAsync(sessionId))
+            {
+                await sessionService.DeleteSessionAsync(sessionId!);
+                Response.Headers.Location = "/login";
+                return StatusCode(301);
+            }
+
+            return BadRequest();
+        }
+        catch (Exception ex)
+        {
+            logger.LogError("Could not log user out. Ex {ex}", ex);
+            return StatusCode(500);
+        }
+    }
+
     [HttpGet]
     [Route("secure")]
     public async Task<IActionResult> Secure()
     {
         HttpContext.Request.Cookies.TryGetValue(SESSION_KEY_NAME, out string? sessionId);
 
-        if (sessionId is null)
+        try
         {
+            if (await sessionService.IsSessionValidAsync(sessionId))
+            {
+                var username = (await sessionService.GetSessionBySessionIdAsync(sessionId!))?.Username;
+                return Ok(username);
+            }
+
+            Response.Headers.Location = "/login";
             return StatusCode(403);
         }
-        if (await sessionService.IsSessionValidAsync(sessionId))
+        catch (Exception ex)
         {
-            var username = (await sessionService.GetSessionBySessionIdAsync(sessionId))?.Username;
-            return Ok(username);
+            logger.LogError("Could not verify if session is valid. Ex {ex}", ex);
+            return StatusCode(500);
         }
-
-        return StatusCode(403);
     }
 }

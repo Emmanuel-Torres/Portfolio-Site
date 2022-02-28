@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -18,9 +18,11 @@ const Login: FC = (): JSX.Element => {
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
         axios.post('/api/auth/login', { username, password })
-            .then(r => {
+            .then((r: AxiosResponse) => {
                 alert('Successfully logged in');
-                navigate('/secure');
+                if (r.headers?.location) {
+                    navigate(r.headers?.location);
+                }
             })
             .catch((err: AxiosError) => {
                 console.error(err);
