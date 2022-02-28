@@ -68,8 +68,16 @@ public class AuthController : ControllerBase
             if (await sessionService.IsSessionValidAsync(sessionId))
             {
                 await sessionService.DeleteSessionAsync(sessionId!);
+                var cookieOptions = new CookieOptions()
+                {
+                    SameSite = SameSiteMode.Strict,
+                    HttpOnly = true,
+                    Secure = true
+                };
+
+                Response.Cookies.Append(SESSION_KEY_NAME, "", cookieOptions);
                 Response.Headers.Location = "/login";
-                return StatusCode(301);
+                return Ok();
             }
 
             return BadRequest();

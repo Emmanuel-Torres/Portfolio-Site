@@ -27,12 +27,12 @@ const Secure: FC = (): JSX.Element => {
     }, [navigate])
 
     const logoutHandler = () => {
-        axios.delete('/api/auth/logout', { withCredentials: true })
+        axios.delete('/api/auth/logout', { withCredentials: true, })
             .then((r: AxiosResponse) => {
-                
+                alert("Successfully logged out");
+                navigate(r.headers.location);
             })
             .catch((err: AxiosError) => {
-                console.error(err);
                 alert("Could not logout");
             });
     };
