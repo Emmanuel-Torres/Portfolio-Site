@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -9,14 +9,16 @@ const Secure: FC = (): JSX.Element => {
 
     useEffect(() => {
         axios.get<string>('/api/auth/secure', { withCredentials: true })
-            .then(r => {
+            .then((r: AxiosResponse) => {
                 setUsername(r.data);
                 setIsLoading(false);
             })
             .catch((err: AxiosError) => {
-                console.error(err);
+                setIsLoading(false);
                 if (err.response?.status === 403) {
-                    navigate('/login');
+                    if (err.response?.headers.location) {
+                        navigate(err.response?.headers.location);
+                    }
                 }
                 else {
                     alert('Something went wrong');
@@ -24,9 +26,26 @@ const Secure: FC = (): JSX.Element => {
             });
     }, [navigate])
 
+    const logoutHandler = () => {
+        axios.delete('/api/auth/logout', { withCredentials: true, })
+            .then((r: AxiosResponse) => {
+                alert("Successfully logged out");
+                navigate(r.headers.location);
+            })
+            .catch((err: AxiosError) => {
+                alert("Could not logout");
+            });
+    };
+
     return (
         <>
-            {isLoading ? <h2>Loading</h2> : <h2>Welcome back {username}</h2>}
+            {isLoading ?
+                <h2>Loading</h2> :
+                <>
+                    <h2>Welcome back {username}</h2>
+                    <button type='submit' onClick={logoutHandler}>Logout</button>
+                </>
+            }
         </>
     )
 };
