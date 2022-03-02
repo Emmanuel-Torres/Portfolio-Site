@@ -2,7 +2,7 @@ import NavBar from "./components/UI/NavBar";
 import { Route, Routes } from 'react-router-dom'
 import StoryDetails from "./components/Story/StoryDetails";
 import Home from "./views/Home/Home";
-import Stories from "./views/Stories";
+import Stories from "./views/Stories/Stories";
 import Projects from "./views/Projects"
 import NotFound from "./views/NotFound";
 import About from "./views/About/About";
