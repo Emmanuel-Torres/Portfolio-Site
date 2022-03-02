@@ -1,0 +1,37 @@
+.nav {
+    background-color: #383838;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    position: fixed;
+    padding: 0 6em;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+.links {
+    padding: 12px 0;
+}
+
+.logo p {
+    margin: 0;
+}
+
+.logo {
+    margin: 12px 0;
+    color: white;
+}
+
+.link, .link_active, .link:hover {
+    position: relative;
+    text-decoration: none;
+    color: white;
+    margin-left: 2em;
+}
+
+.link:hover {
+    border-bottom: solid white 2px;
+}

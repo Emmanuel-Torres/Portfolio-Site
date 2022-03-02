@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  client_test:
+    build:
+      dockerfile: ../ops/testing/clientTest.Dockerfile
+      context: ../../client/
