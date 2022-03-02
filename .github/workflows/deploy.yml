@@ -16,7 +16,7 @@ jobs:
         run: |
           git secret reveal
           docker-compose up --build -d
-          cd wireguard/server
+          cd src/wireguard/server
           npm install
           pm2 start process.yml
           cd scripts
