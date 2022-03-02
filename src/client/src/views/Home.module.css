@@ -1,8 +1,0 @@
-.container {
-    padding: 1em 6em;
-    background-image: url('../assets/images/2109.webp');
-    background-position: center;
-    background-size: cover;
-    height: calc(100vh - 48px);
-}
-
