@@ -20,16 +20,6 @@ const addConfig = async (config) => {
         VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *`,
         [config.name, config.ipAddress, config.allowedIpRange, config.publicKey, config.privateKey, config.dateAdded]);
-    
-    const foo = res.rows[0];
-    return {
-        name: foo.client_name,
-        ipAddress: foo.client_ip_address,
-        allowedIpRange: foo.client_allowed_ip_range,
-        publicKey: foo.client_public_key,
-        privateKey: foo.client_private_key,
-        dateAdded: foo.client_date_added
-    }
 }
 
 const removeConfig = async (publicKey) => {

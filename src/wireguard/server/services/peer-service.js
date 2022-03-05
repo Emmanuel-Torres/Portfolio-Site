@@ -1,4 +1,6 @@
 const { execSync, exec } = require('child_process');
+const Config = require('../models/config');
+const Name = require('../models/name');
 const { dbService } = require("./db-service")
 
 const getStatus = () => {
@@ -25,23 +27,31 @@ const restartService = () => {
 }
 
 const genConfig = async (body) => {
-    execSync(
-        `/home/github/actions-runner/_work/Portfolio-Site/Portfolio-Site/wireguard/server/scripts/wg-keygen.bash ${body.name}`,
-        { uid: 1000 }
-    );
+    try {
+        const name = new Name(body.name);
+        execSync(
+            `/home/github/actions-runner/_work/Portfolio-Site/Portfolio-Site/wireguard/server/scripts/wg-keygen.bash ${name.toString()}`,
+            { uid: 1000 }
+        );
 
-    const config = await dbService.addConfig({
-        name: body.name,
-        ipAddress: body.ipAddress,
-        allowedIpRange: body.allowedIpRange,
-        publicKey: getClientPublicKey(body.name).toString().trim(),
-        privateKey: getClientPrivateKey(body.name).toString().trim(),
-        dateAdded: new Date()
-    });
+        const config = new Config(
+            name.toString(),
+            body.ipAddress,
+            body.allowedIpRange,
+            getClientPublicKey(name.toString()).toString().trim(),
+            getClientPrivateKey(name.toString()).toString().trim(),
+            new Date(),
+            "23.92.26.110:51820",
+            getVmPublicKey().toString().trim()
+        )
 
-    config['vmIpAddress'] = "23.92.26.110:51820"
-    config['vmPublicKey'] = getVmPublicKey().toString().trim();
-    return config;
+        await dbService.addConfig(config);
+    
+        return config;
+    }
+    catch (err) {
+        throw err;
+    }
 }
 
 const getVmPublicKey = () => {
@@ -67,7 +77,7 @@ const getClientPrivateKey = (clientName) => {
 
 const addConfig = async (body) => {
     const config = await genConfig(body);
-    const cmd = `sudo wg set wg0 peer ${config.publicKey} allowed-ips ${config.ipAddress}`
+    const cmd = `sudo wg set wg0 peer ${config.publicKey.toString()} allowed-ips ${config.ipAddress.toString()}`
     exec(
         cmd,
         { uid: 1000 }
