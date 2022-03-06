@@ -22,23 +22,19 @@ class Config {
     vmIpAddress: string,
     vmPublicKey: string
   ) {
-    try {
-      if (!(dateAdded instanceof Date)) {
-        throw Error("Date is not valid");
-      }
-
-      this.name = new Name(name);
-      this.ipAddress = new IpAddress(ipAddress);
-      this.allowedIpRange = new IpAddress(allowedIpRange);
-      this.publicKey = new WgKey(publicKey);
-      this.privateKey = new WgKey(privateKey);
-      this.dateAdded = dateAdded;
-      this.vmIpAddress = new IpAddress(vmIpAddress);
-      this.vmPublicKey = new WgKey(vmPublicKey);
-    } catch (err) {
-      throw err;
+    if (!(dateAdded instanceof Date)) {
+      throw Error("Date is not valid");
     }
+    
+    this.name = new Name(name);
+    this.ipAddress = new IpAddress(ipAddress);
+    this.allowedIpRange = new IpAddress(allowedIpRange);
+    this.publicKey = new WgKey(publicKey);
+    this.privateKey = new WgKey(privateKey);
+    this.dateAdded = dateAdded;
+    this.vmIpAddress = new IpAddress(vmIpAddress);
+    this.vmPublicKey = new WgKey(vmPublicKey);
   }
-};
+}
 
 export default Config;

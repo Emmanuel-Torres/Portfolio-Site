@@ -14,7 +14,7 @@ class WgKey {
       key &&
       typeof key === "string" &&
       key.trim().length === 44 &&
-      /^[a-z0-9\/\+]+=$/i.test(key)
+      /^[a-z0-9/+]+=$/i.test(key)
     );
   };
 

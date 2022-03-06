@@ -33,7 +33,7 @@ const addConfig = async (config: Config) => {
 };
 
 const removeConfig = async (publicKey: WgKey) => {
-  const res = await pool.query(
+  await pool.query(
     `
         DELETE FROM wireguard.client
         WHERE client.client_public_key = $1
