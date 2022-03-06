@@ -1,7 +1,8 @@
-const { execSync, exec } = require('child_process');
-const Config = require('../models/config');
-const Name = require('../models/name');
-const { dbService } = require("./db-service")
+import Config from '../models/config';
+import Name from '../models/name';
+import dbService from './db-service';
+import { exec, execSync } from 'child_process';
+import WgKey from '../models/wgKey';
 
 const getStatus = () => {
     return execSync(
@@ -13,20 +14,11 @@ const getStatus = () => {
 const restartService = () => {
     execSync(
         'sudo systemctl restart wg-quick@wg0.service',
-        { uid: 1000 },
-        (error, stdout, stderr) => {
-            if (error) {
-                console.error(error);
-            } else if (stderr) {
-                console.error(error);
-            } else {
-                console.log(stdout);
-            }
-        }
+        { uid: 1000 }
     )
 }
 
-const genConfig = async (body) => {
+const genConfig = async (body: any) => {
     try {
         const name = new Name(body.name);
         execSync(
@@ -38,15 +30,15 @@ const genConfig = async (body) => {
             name.toString(),
             body.ipAddress,
             body.allowedIpRange,
-            getClientPublicKey(name.toString()).toString().trim(),
-            getClientPrivateKey(name.toString()).toString().trim(),
+            getClientPublicKey(name).toString().trim(),
+            getClientPrivateKey(name).toString().trim(),
             new Date(),
             "23.92.26.110:51820",
             getVmPublicKey().toString().trim()
         )
 
         await dbService.addConfig(config);
-    
+
         return config;
     }
     catch (err) {
@@ -61,21 +53,21 @@ const getVmPublicKey = () => {
     )
 }
 
-const getClientPublicKey = (clientName) => {
+const getClientPublicKey = (name: Name) => {
     return execSync(
-        `cat /home/github/wireguard/clients/${clientName}/publickey`,
+        `cat /home/github/wireguard/clients/${name.toString()}/publickey`,
         { uid: 1000 }
     )
 }
 
-const getClientPrivateKey = (clientName) => {
+const getClientPrivateKey = (name: Name) => {
     return execSync(
-        `cat /home/github/wireguard/clients/${clientName}/privatekey`,
+        `cat /home/github/wireguard/clients/${name.toString()}/privatekey`,
         { uid: 1000 }
     )
 }
 
-const addConfig = async (body) => {
+const addConfig = async (body: any) => {
     const config = await genConfig(body);
     const cmd = `sudo wg set wg0 peer ${config.publicKey.toString()} allowed-ips ${config.ipAddress.toString()}`
     exec(
@@ -86,13 +78,13 @@ const addConfig = async (body) => {
     return genConfigFile(config);
 }
 
-const genConfigFile = (config) => {
+const genConfigFile = (config: Config) => {
     const path = `/home/github/wireguard/clients/${config.name}/configuration.conf`;
     const cmd = `echo "[Interface]
     PrivateKey = ${config.privateKey}
     Address = ${config.ipAddress}/24
     DNS = 8.8.8.8
-    
+
     [Peer]
     PublicKey = ${config.vmPublicKey}
     AllowedIPs = ${config.allowedIpRange}/0
@@ -114,20 +106,22 @@ const getPeers = () => {
     ).toString().split('\n');
 }
 
-const removeConfig = async (publicKey) => {
-    const cmd = `sudo wg set wg0 peer ${publicKey.trim()} remove`
+const removeConfig = async (publicKey: WgKey) => {
+    const cmd = `sudo wg set wg0 peer ${publicKey.toString()} remove`
     exec(
         cmd,
         { uid: 1000 }
     )
-    
+
     await dbService.removeConfig(publicKey);
 }
 
-module.exports.peerService = {
+const peerService = {
     getStatus,
     restartService,
     addConfig,
     removeConfig,
     getPeers
 }
+
+export default peerService;
