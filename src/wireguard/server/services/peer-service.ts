@@ -22,7 +22,7 @@ const genConfig = async (body: any) => {
     try {
         const name = new Name(body.name);
         execSync(
-            `/home/github/actions-runner/_work/Portfolio-Site/Portfolio-Site/wireguard/server/scripts/wg-keygen.bash ${name.toString()}`,
+            `/home/github/actions-runner/_work/Portfolio-Site/Portfolio-Site/src/wireguard/server/scripts/wg-keygen.bash ${name.toString()}`,
             { uid: 1000 }
         );
 
@@ -79,16 +79,16 @@ const addConfig = async (body: any) => {
 }
 
 const genConfigFile = (config: Config) => {
-    const path = `/home/github/wireguard/clients/${config.name}/configuration.conf`;
+    const path = `/home/github/wireguard/clients/${config.name.toString()}/configuration.conf`;
     const cmd = `echo "[Interface]
-    PrivateKey = ${config.privateKey}
-    Address = ${config.ipAddress}/24
-    DNS = 8.8.8.8
+PrivateKey = ${config.privateKey.toString()}
+Address = ${config.ipAddress.toString()}/24
+DNS = 8.8.8.8
 
-    [Peer]
-    PublicKey = ${config.vmPublicKey}
-    AllowedIPs = ${config.allowedIpRange}/0
-    Endpoint = 23.92.26.110:51820" >  /home/github/wireguard/clients/${config.name}/configuration.conf`;
+[Peer]
+PublicKey = ${config.vmPublicKey.toString()}
+AllowedIPs = ${config.allowedIpRange.toString()}/0
+Endpoint = 23.92.26.110:51820" >  /home/github/wireguard/clients/${config.name.toString()}/configuration.conf`;
 
     execSync(
         cmd,

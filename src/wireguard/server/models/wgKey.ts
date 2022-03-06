@@ -6,7 +6,7 @@ class WgKey {
       throw Error("Key was not valid");
     }
 
-    this.key = key;
+    this.key = key.trim();
   }
 
   private isKeyValid = (key: string): boolean => {

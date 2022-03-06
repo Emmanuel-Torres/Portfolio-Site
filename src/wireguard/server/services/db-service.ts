@@ -1,3 +1,4 @@
+import Name from "../models/name";
 import { Pool } from "pg";
 import Config from "../models/config";
 import WgKey from "../models/wgKey";
@@ -41,7 +42,7 @@ const removeConfig = async (publicKey: WgKey) => {
   );
 };
 
-const addUser = async (username: string, hash: string, salt: string) => {
+const addUser = async (username: Name, hash: string, salt: string) => {
   await pool.query(
     `
         INSERT INTO wireguard.user (
@@ -49,7 +50,7 @@ const addUser = async (username: string, hash: string, salt: string) => {
             user_hash,
             user_salt)
         VALUES ($1, $2, $3)`,
-    [username, hash, salt]
+    [username.toString(), hash, salt]
   );
 };
 
