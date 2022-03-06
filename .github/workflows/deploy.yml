@@ -12,12 +12,19 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v2.4.0
 
-      - name: run
+      - name: reveal secrets
         run: |
           git secret reveal
+
+      - name: build docker compose
+        run: |
           docker-compose up --build -d
+
+      - name: build admin api
+        run: |
           cd src/wireguard/server
           npm install
+          npm run build
           pm2 start process.yml
           cd scripts
           chmod 755 wg-keygen.bash

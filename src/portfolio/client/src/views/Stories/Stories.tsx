@@ -1,8 +1,8 @@
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux'
-import { getStories } from '../store/story-slice'
-import { StoreDispatch, useStoreSelector } from '../store';
-import StoryCard from '../components/Story/StoryCard';
+import { getStories } from '../../store/story-slice'
+import { StoreDispatch, useStoreSelector } from '../../store';
+import StoryCard from '../../components/Story/StoryCard';
 
 const Stories: FC = (): JSX.Element => {
     const dispatch = useDispatch<StoreDispatch>();
