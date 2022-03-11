@@ -1,4 +1,15 @@
 .app-container {
-    overflow: hidden;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 600px) {
+  .app-container {
     margin-top: 3rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+    .app-container {
+        margin-bottom: 3rem;
+    }
 }
