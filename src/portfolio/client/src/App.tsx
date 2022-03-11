@@ -1,4 +1,4 @@
-import NavBar from "./components/UI/NavBar";
+import NavBar from './components/UI/NavBar/NavBar';
 import { Route, Routes } from 'react-router-dom'
 import StoryDetails from "./components/Story/StoryDetails";
 import Home from "./views/Home/Home";
@@ -15,7 +15,7 @@ function App() {
   return (
     <>
       <NavBar />
-      <div className={styles.container}>
+      <div className={styles["app-container"]}>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/stories' element={<Stories />} />

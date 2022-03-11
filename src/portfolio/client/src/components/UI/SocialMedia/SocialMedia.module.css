@@ -1,0 +1,20 @@
+.container {
+    width: 100%;
+    text-align: center;
+}
+
+.a {
+    color: var(--tertiary-color);
+    font-size: 4em;
+    transition-duration: .2s;
+}
+
+.a:hover {
+    color: black;
+}
+
+@media screen and (max-width: 600px) {
+    .a {
+        color: black;
+    }
+}
