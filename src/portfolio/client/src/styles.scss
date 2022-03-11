@@ -1,36 +1,44 @@
 :root {
-    font-size: 16px;
-    font-family: 'Open Sans';
-    --accent-color: #6039cb;
+  font-size: 16px;
+  font-family: "Open Sans";
+  --accent-color: #6039cb;
+  --secondary-color: #c4c4c4;
+  --tertiary-color: #878787;
 }
 
 body {
-    color: black;
-    background-color: white;
-    margin: 0;
-    padding: 0;
+  color: black;
+  background-color: white;
+  margin: 0;
+  padding: 0;
 }
 
 body::-webkit-scrollbar {
-    width: 0.5rem;
+  width: 0.5rem;
 }
 
 body::-webkit-scrollbar-track {
-    background: black;
+  background: black;
 }
 
 body::-webkit-scrollbar-thumb {
-    background: var(--accent-color);
-}
-
-#root {
-
+  background: var(--accent-color);
 }
 
 pre {
-    
+  padding: 0.5rem;
+  background-color: rgb(234, 234, 234);
 }
 
 a {
-    
+  text-decoration: none;
+  color: black;
+}
+
+@media screen and (min-width: 600px) {
+  pre {
+    padding: 0.75rem;
+    border-radius: 1rem;
+    border: solid 0.25px var(--tertiary-color);
+  }
 }

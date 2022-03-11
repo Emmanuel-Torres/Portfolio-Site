@@ -34,12 +34,12 @@ const NavBar: FC = (): JSX.Element => {
                         <VscInfo className={styles['link-svg']} />
                     </NavLink>
                 </li>
-                <li className={styles['navbar-item']}>
+                {/* <li className={styles['navbar-item']}>
                     <NavLink className={({isActive}) => isActive ? styles['navbar-link-active'] : styles['navbar-link']} to='/'>
                         <span className={styles['link-text']}>Resume</span>
                         <VscFilePdf className={styles['link-svg']} />
                     </NavLink>
-                </li>
+                </li> */}
             </ul>
 
         </nav>
