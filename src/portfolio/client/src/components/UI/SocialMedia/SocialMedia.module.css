@@ -1,20 +1,37 @@
 .container {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  transform: translateX(3rem);
+  animation: fadeInLeft 2s ease calc(var(--typewriter-speed) + 2s) forwards;
 }
 
 .a {
+  color: black;
+  font-size: 4em;
+}
+
+.a:active,
+.a:focus {
+  color: black;
+}
+
+@keyframes fadeInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .a {
     color: var(--tertiary-color);
-    font-size: 4em;
-    transition-duration: .2s;
-}
+    transition-duration: 0.2s;
+  }
 
-.a:hover {
-    color: black;
-}
-
-@media screen and (max-width: 600px) {
-    .a {
-        color: black;
-    }
+  .a:active,
+  .a:focus,
+  .a:hover {
+    color: var(--accent-color);
+  }
 }

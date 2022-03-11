@@ -1,17 +1,12 @@
 .app-container {
   overflow: hidden;
+  /* margin: 0.75rem 1rem; */
+  margin-bottom: 3rem;
 }
 
 @media screen and (min-width: 600px) {
   .app-container {
-    margin: 2rem;
+    /* margin: 2rem; */
     margin-top: 3rem;
   }
-}
-
-@media screen and (max-width: 600px) {
-    .app-container {
-        margin: 0em .5rem;
-        margin-bottom: 3rem;
-    }
 }
