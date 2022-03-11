@@ -75,7 +75,7 @@
     font-size: 1.75rem;
   }
 
-  .navbar-link-active {
+  .navbar-link-active, .navbar-link-active:focus {
     color: var(--accent-color);
   }
 
