@@ -3,7 +3,7 @@ import styles from "./About.module.css"
 
 const About: FC = (): JSX.Element => {
     return (
-        <>
+        <main className={styles.main}>
             <h5>About me</h5>
             <p>
                 My name is Emmanuel Torres.
@@ -29,7 +29,7 @@ const About: FC = (): JSX.Element => {
                 Lastly, my last hobby is to play drums. Since I was a kid I was always intrigued about percussion in general, so when I got to play drums for the first time, I liked it very much.
                 Although I am not a great musician, I still have a good time when playing drums.
             </p>
-        </>
+        </main>
     )
 }
 
