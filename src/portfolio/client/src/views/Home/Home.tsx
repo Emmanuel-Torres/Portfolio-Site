@@ -1,10 +1,10 @@
 import { FC } from "react";
-import SocialMedia from "../../components/UI/SocialMedia";
+import SocialMedia from "../../components/UI/SocialMedia/SocialMedia";
 import styles from './Home.module.css'
 
 const Home: FC = (): JSX.Element => {
     return (
-        <div className={styles.container}>
+        <main>
             <h2 className={styles.header}>Hello! My name is Emmanuel</h2>
             <p className={styles.content}>
                 I am a Software Engineer that specializes in Web Development.
@@ -13,7 +13,7 @@ const Home: FC = (): JSX.Element => {
                 My main goal is to keep growing as a Software Engineer, while I solve problems writing code.
             </p>
             <SocialMedia />
-        </div>
+        </main>
     )
 };
 

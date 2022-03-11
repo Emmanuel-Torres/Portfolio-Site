@@ -1,17 +1,35 @@
+html {
+    font-size: 16px;
+    font-family: 'Open Sans';
+}
+
+body {
+    color: black;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+body::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+body::-webkit-scrollbar-track {
+    background: black;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #6649b8;
+}
+
 #root {
-    height: 100vh;
-    color: white;
-    background-color: #2e2e2e;
+
 }
 
 pre {
-    padding: 1em;
-    background-color: #464646;
-    border-radius: 1em;
-    border: solid black 1px;
     
 }
 
 a {
-    text-decoration: none;
+    
 }
