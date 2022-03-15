@@ -6,8 +6,8 @@ import { getStoryById } from "../../store/story-slice";
 import ReactMarkdown from 'react-markdown'
 import rehypeHighlight from 'rehype-highlight'
 import styles from "./StoryDetails.module.css"
-import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
+import CodeBlock from "./CodeBlock";
 
 const StoryDetails: FC = (): JSX.Element => {
     const params = useParams();
@@ -27,9 +27,7 @@ const StoryDetails: FC = (): JSX.Element => {
                 </h3>
             </header>
             <main className={styles.main}>
-                <ReactMarkdown rehypePlugins={[rehypeHighlight, rehypeRaw, rehypeSanitize]}>
-                    {currentStory?.content ?? ''}
-                </ReactMarkdown>
+                <ReactMarkdown components={CodeBlock} children={currentStory?.content ?? ''} />
             </main>
         </>
     )

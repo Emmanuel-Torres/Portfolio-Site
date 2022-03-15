@@ -25,11 +25,6 @@ body::-webkit-scrollbar-thumb {
   background: var(--accent-color);
 }
 
-pre {
-  padding: 0.5rem;
-  background-color: rgb(234, 234, 234);
-}
-
 a {
   text-decoration: none;
   color: black;
@@ -37,8 +32,7 @@ a {
 
 @media screen and (min-width: 600px) {
   pre {
-    padding: 0.75rem;
-    border-radius: 1rem;
-    border: solid 0.25px var(--tertiary-color);
+    border-radius: .5em;
+    border: solid black 1px;
   }
 }
