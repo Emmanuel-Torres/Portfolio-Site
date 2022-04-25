@@ -20,9 +20,9 @@ const StoryDetails: FC = (): JSX.Element => {
     return (
         <>
             <header className={styles.header}>
-                <h3>
+                <h1>
                     {currentStory?.title}
-                </h3>
+                </h1>
             </header>
             <main className={styles.main}>
                 <ReactMarkdown components={CodeBlock} children={currentStory?.content ?? ''} />

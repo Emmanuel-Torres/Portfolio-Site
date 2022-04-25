@@ -5,7 +5,7 @@ import image from '../../assets/images/20220311_144355.jpg'
 
 const Home: FC = (): JSX.Element => {
     return (
-        <main className={styles.main}>
+        <main>
             <img src={image} className={styles.image} />
             <div className={styles.container}>
                 <h1 className={styles.header}>Hello! My name is Emmanuel</h1>
