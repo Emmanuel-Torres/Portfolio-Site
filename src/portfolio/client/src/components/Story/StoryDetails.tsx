@@ -4,9 +4,7 @@ import { useParams } from "react-router-dom";
 import { useStoreSelector } from "../../store";
 import { getStoryById } from "../../store/story-slice";
 import ReactMarkdown from 'react-markdown'
-import rehypeHighlight from 'rehype-highlight'
 import styles from "./StoryDetails.module.css"
-import rehypeSanitize from "rehype-sanitize";
 import CodeBlock from "./CodeBlock";
 
 const StoryDetails: FC = (): JSX.Element => {
