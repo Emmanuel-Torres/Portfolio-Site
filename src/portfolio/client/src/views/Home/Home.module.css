@@ -88,4 +88,11 @@
   .image {
     height: 50vh;
   }
+
+  .container {
+    width: 50%;
+    margin: auto;
+    margin-top: 2rem;
+    text-align: center;
+  }
 }
