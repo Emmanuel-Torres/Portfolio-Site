@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { FaHome } from "react-icons/fa";
-import { VscBook, VscFilePdf, VscInfo, VscLibrary } from "react-icons/vsc"
+import { VscBook, VscInfo, VscLibrary } from "react-icons/vsc"
 import { NavLink } from "react-router-dom";
 import styles from "./NavBar.module.css";
 
@@ -37,12 +37,6 @@ const NavBar: FC = (): JSX.Element => {
                         <VscInfo className={styles['link-svg']} />
                     </NavLink>
                 </li>
-                {/* <li className={styles['navbar-item']}>
-                    <NavLink className={({isActive}) => isActive ? styles['navbar-link-active'] : styles['navbar-link']} to='/'>
-                        <span className={styles['link-text']}>Resume</span>
-                        <VscFilePdf className={styles['link-svg']} />
-                    </NavLink>
-                </li> */}
             </ul>
 
         </nav>
