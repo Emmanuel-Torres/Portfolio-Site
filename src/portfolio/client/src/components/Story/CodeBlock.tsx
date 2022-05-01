@@ -1,15 +1,14 @@
-import {Light as SyntaxHighlighter} from 'react-syntax-highlighter';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
 import ts from 'react-syntax-highlighter/dist/esm/languages/hljs/typescript';
 import csharp from 'react-syntax-highlighter/dist/esm/languages/hljs/csharp';
 import sql from 'react-syntax-highlighter/dist/esm/languages/hljs/sql';
-import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
-import {  vs2015 } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import { vs2015 } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 SyntaxHighlighter.registerLanguage('js', js);
 SyntaxHighlighter.registerLanguage('ts', ts);
 SyntaxHighlighter.registerLanguage('cs', csharp);
-SyntaxHighlighter.registerLanguage('tsx', tsx);
+SyntaxHighlighter.registerLanguage('tsx', ts);
 SyntaxHighlighter.registerLanguage('sql', sql)
 
 type Foo = {
