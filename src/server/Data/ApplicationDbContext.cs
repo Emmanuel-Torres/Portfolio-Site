@@ -9,6 +9,6 @@ namespace server.Data
         {
         }
         
-        public DbSet<Story> Stories { get; set; }
+        public required DbSet<Story> Stories { get; set; }
     }
 }

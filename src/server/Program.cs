@@ -10,36 +10,9 @@ var clientId = builder.Configuration["GOOGLE_CLIENT_ID"];
 // Add services to the container.
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration["APPLICATION_CONTEXT"]));
+    options.UseNpgsql(builder.Configuration["APPLICATION_CONTEXT"] ?? throw new ArgumentNullException("Connection string for database was not provided")));
 
 builder.Services.AddTransient<IStoryDbService, StoryDbService>();
-
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.Cookie.SameSite = SameSiteMode.Strict;
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-});
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
-})
-.AddCookie()
-.AddJwtBearer(o =>
-{
-    o.Audience = clientId;
-    o.Authority = "https://accounts.google.com";
-    o.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidAudience = clientId,
-        ValidateIssuerSigningKey = true,
-        ValidateIssuer = true,
-        ValidIssuers = new List<string>() { "https://accounts.google.com", "accounts.google.com" }
-    };
-});
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -71,9 +44,5 @@ using (var scope = app.Services.CreateScope())
     //context.Database.EnsureCreated();
 }
 
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
