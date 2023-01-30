@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using server.Data;
-using server.Models;
+using server.DbModels.Models;
+using server.Interfaces;
 
 namespace server.Services;
 
@@ -18,7 +19,7 @@ public class StoryDbService : IStoryDbService
         return await dbContext.Stories.ToListAsync();
     }
 
-    public async Task<Story?> GetStoryByIdAsync(int storyId)
+    public async Task<Story?> GetStoryByIdAsync(string storyId)
     {
         return await dbContext.Stories.FirstOrDefaultAsync(s => s.Id == storyId);
     }
@@ -30,7 +31,7 @@ public class StoryDbService : IStoryDbService
         return await dbContext.Stories.FirstAsync(s => s.Id == story.Id);
     }
 
-    public async Task<Story> UpdateStoryAsync(int storyId, Story story)
+    public async Task<Story> UpdateStoryAsync(string storyId, Story story)
     {
         story.Id = storyId;
         dbContext.Stories.Update(story);
@@ -38,7 +39,7 @@ public class StoryDbService : IStoryDbService
         return await dbContext.Stories.FirstAsync(s => s.Id == storyId);
     }
 
-    public async Task<Story> DeleteStoryAsync(int storyId)
+    public async Task<Story> DeleteStoryAsync(string storyId)
     {
         var story = await dbContext.Stories.FirstAsync(s => s.Id == storyId);
         dbContext.Stories.Remove(story);

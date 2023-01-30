@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using server.Models;
+using server.DbModels.Models;
+using server.Interfaces;
 using server.Services;
 
 namespace server.Controllers;
 
 [ApiController]
-[Route("/api")]
+[Route("/api/[controller]")]
 public class StoryController : ControllerBase
 {
-    private const string SESSION_KEY_NAME = "_SessionId";
     private readonly ILogger<StoryController> logger;
     private readonly IStoryDbService dbService;
 
@@ -27,8 +27,8 @@ public class StoryController : ControllerBase
     }
 
     [HttpGet]
-    [Route("stories/{id:int}")]
-    public async Task<Story?> GetStoryById(int id)
+    [Route("stories")]
+    public async Task<Story?> GetStoryById(string id)
     {
         logger.LogDebug("Getting story with id {id}", id);
         return await dbService.GetStoryByIdAsync(id);
