@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using server.Data;
 using server.Interfaces;
-using server.Services;
+using server.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var clientId = builder.Configuration["GOOGLE_CLIENT_ID"];
@@ -13,7 +13,7 @@ var clientId = builder.Configuration["GOOGLE_CLIENT_ID"];
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration["APPLICATION_CONTEXT"] ?? throw new ArgumentNullException("Connection string for database was not provided")));
 
-builder.Services.AddTransient<IStoryDbService, StoryDbService>();
+builder.Services.AddTransient<IStoryRepo, StoryRepo>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

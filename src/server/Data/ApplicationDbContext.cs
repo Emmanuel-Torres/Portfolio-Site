@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using server.DbModels.Models;
+using server.DbModels.Models.EntityModels;
 
 namespace server.Data
 {
@@ -9,6 +9,6 @@ namespace server.Data
         {
         }
         
-        public required DbSet<Story> Stories { get; set; }
+        public required DbSet<StoryEntity> Stories { get; set; }
     }
 }

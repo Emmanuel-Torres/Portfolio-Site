@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using server.DbModels.Models;
+using server.DbModels.Models.EntityModels;
 using server.Interfaces;
-using server.Services;
+using server.Repositories;
 
 namespace server.Controllers;
 
@@ -11,9 +11,9 @@ namespace server.Controllers;
 public class StoryController : ControllerBase
 {
     private readonly ILogger<StoryController> logger;
-    private readonly IStoryDbService dbService;
+    private readonly IStoryRepo dbService;
 
-    public StoryController(ILogger<StoryController> logger, IStoryDbService dbService)
+    public StoryController(ILogger<StoryController> logger, IStoryRepo dbService)
     {
         this.logger = logger;
         this.dbService = dbService;
@@ -21,14 +21,14 @@ public class StoryController : ControllerBase
 
     [HttpGet]
     [Route("stories")]
-    public async Task<IEnumerable<Story>> GetStories()
+    public async Task<IEnumerable<StoryEntity>> GetStories()
     {
         return await dbService.GetStoriesAsync();
     }
 
     [HttpGet]
     [Route("stories")]
-    public async Task<Story?> GetStoryById(string id)
+    public async Task<StoryEntity?> GetStoryById(string id)
     {
         logger.LogDebug("Getting story with id {id}", id);
         return await dbService.GetStoryByIdAsync(id);
