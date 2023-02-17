@@ -1,17 +1,15 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using server.Data;
 using server.Interfaces;
 using server.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
-var clientId = builder.Configuration["GOOGLE_CLIENT_ID"];
+Console.WriteLine(builder.Configuration.GetConnectionString("APPLICATION_CONTEXT"));
 
 // Add services to the container.
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration["APPLICATION_CONTEXT"] ?? throw new ArgumentNullException("Connection string for database was not provided")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("APPLICATION_CONTEXT")));
 
 builder.Services.AddTransient<IStoryRepo, StoryRepo>();
 
@@ -41,8 +39,8 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
-    context.Database.Migrate();
-    //context.Database.EnsureCreated();
+    context.Database.EnsureCreated();
+    // context.Database.Migrate();
 }
 
 app.MapControllers();
