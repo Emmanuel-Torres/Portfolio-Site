@@ -1,5 +1,5 @@
 export default class Story {
-    id?: number;
+    id?: string;
     title: string;
     content?: string;
     postedOn: string;
@@ -12,7 +12,7 @@ export default class Story {
         content?: string,
         mainImageUrl?: string,
         tags?: string,
-        story_id?: number,
+        story_id?: string,
     ) {
         this.id = story_id;
         this.title = title;

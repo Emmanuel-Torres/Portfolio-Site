@@ -18,14 +18,14 @@ export const addStory = createAsyncThunk(
 
 export const getStoryById = createAsyncThunk(
     'getStoryById',
-    async (storyId: number, thunkAPI): Promise<Story> => {
+    async (storyId: string, thunkAPI): Promise<Story> => {
         return await apiService.getStoryById(storyId);
     }
 );
 
 export const deleteStory = createAsyncThunk(
     'deleteStory',
-    async (storyId: number, thunkAPI): Promise<Story[]> => {
+    async (storyId: string, thunkAPI): Promise<Story[]> => {
         await apiService.deleteStory(storyId);
         return await apiService.getStories();
     }
@@ -33,7 +33,7 @@ export const deleteStory = createAsyncThunk(
 
 export const updateStory = createAsyncThunk(
     'updateStory',
-    async (args: { storyId: number, story: Story }, thunkAPI): Promise<Story> => {
+    async (args: { storyId: string, story: Story }, thunkAPI): Promise<Story> => {
         return await apiService.updateStory(args.storyId, args.story);
     }
 )

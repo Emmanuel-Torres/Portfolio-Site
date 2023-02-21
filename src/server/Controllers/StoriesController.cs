@@ -8,32 +8,31 @@ namespace server.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
-public class StoryController : ControllerBase
+public class StoriesController : ControllerBase
 {
-    private readonly ILogger<StoryController> logger;
+    private readonly ILogger<StoriesController> logger;
     private readonly IStoryRepo dbService;
 
-    public StoryController(ILogger<StoryController> logger, IStoryRepo dbService)
+    public StoriesController(ILogger<StoriesController> logger, IStoryRepo dbService)
     {
         this.logger = logger;
         this.dbService = dbService;
     }
 
     [HttpGet]
-    [Route("stories")]
     public async Task<IEnumerable<StoryEntity>> GetStories()
     {
-        logger.LogInformation("Logging here");
+        logger.LogDebug("Returning all stories");
         return await dbService.GetStoriesAsync();
     }
 
-    // [HttpGet]
-    // [Route("stories")]
-    // public async Task<StoryEntity?> GetStoryById(string id)
-    // {
-    //     logger.LogDebug("Getting story with id {id}", id);
-    //     return await dbService.GetStoryByIdAsync(id);
-    // }
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<StoryEntity?> GetStoryById(string id)
+    {
+        logger.LogDebug("Getting story with id {id}", id);
+        return await dbService.GetStoryByIdAsync(id);
+    }
 
     // [HttpPost]
     // [Route("stories")]

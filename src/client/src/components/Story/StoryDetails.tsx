@@ -11,7 +11,7 @@ const StoryDetails: FC = (): JSX.Element => {
     const params = useParams();
     const currentStory = useStoreSelector(state => state.story.currentStory);
     const dispatch = useDispatch();
-    const storyId: number = parseInt(params.storyid!)
+    const storyId: string = params.storyid!
 
     useEffect(() => {
         dispatch(getStoryById(storyId));

@@ -19,11 +19,11 @@ const Admin: FC = (): JSX.Element => {
         dispatch(getStories());
     }, [dispatch]);
 
-    const deleteStoryHandler = (storyId: number) => {
+    const deleteStoryHandler = (storyId: string) => {
         dispatch(deleteStory(storyId));
     }
 
-    const editStoryHandler = (storyId: number) => {
+    const editStoryHandler = (storyId: string) => {
         setIsEditing(prev => !prev);
         dispatch(getStoryById(storyId));
     }
