@@ -1,10 +1,10 @@
 import Story from "../models/story";
 import axios from "axios";
 
-const storyUrl = '/api/stories';
+const storyUrl = '/api/Story';
 
 const getStories = async (): Promise<Story[]> => {
-    const res = await axios.get<Story[]>(storyUrl);
+    const res = await axios.get<Story[]>(storyUrl + '/stories');
     return res.data.map(p => {
         return { ...p, postedOn: (new Date(p.postedOn!)).toLocaleDateString() };
     });

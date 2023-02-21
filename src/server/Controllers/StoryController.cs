@@ -23,16 +23,17 @@ public class StoryController : ControllerBase
     [Route("stories")]
     public async Task<IEnumerable<StoryEntity>> GetStories()
     {
+        logger.LogInformation("Logging here");
         return await dbService.GetStoriesAsync();
     }
 
-    [HttpGet]
-    [Route("stories")]
-    public async Task<StoryEntity?> GetStoryById(string id)
-    {
-        logger.LogDebug("Getting story with id {id}", id);
-        return await dbService.GetStoryByIdAsync(id);
-    }
+    // [HttpGet]
+    // [Route("stories")]
+    // public async Task<StoryEntity?> GetStoryById(string id)
+    // {
+    //     logger.LogDebug("Getting story with id {id}", id);
+    //     return await dbService.GetStoryByIdAsync(id);
+    // }
 
     // [HttpPost]
     // [Route("stories")]

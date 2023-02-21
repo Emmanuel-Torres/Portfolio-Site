@@ -9,7 +9,7 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>..\client\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-    <SpaProxyServerUrl>https://localhost:44481</SpaProxyServerUrl>
+    <SpaProxyServerUrl>http://localhost:44481</SpaProxyServerUrl>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
   </PropertyGroup>
 
