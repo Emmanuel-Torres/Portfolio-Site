@@ -1,14 +1,15 @@
 :root {
   font-size: 16px;
   font-family: "Open Sans";
-  --accent-color: #6039cb;
-  --secondary-color: #c4c4c4;
-  --tertiary-color: #878787;
+  --primary-color: #8D55FF;
+  --secondary-color: #9B89B3;
+  --tertiary-color: #FCF8FF;
+  --quaternary-color: #1F1926;
 }
 
 body {
-  color: black;
-  background-color: white;
+  color: var(--tertiary-color)!important;
+  background-color: black!important;
   margin: 0;
   padding: 0;
 }
@@ -23,14 +24,14 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-color);
+  background: var(--primary-color);
 }
 
 @media screen and (min-width: 600px) {
   pre {
     border-radius: 1em;
-    box-shadow: 15px 15px 15px rgb(100, 100, 100);
-    margin-bottom: 2rem;
+    box-shadow: 15px 15px 40px black;
+    margin-bottom: 5rem;
   }
 
   pre > div {

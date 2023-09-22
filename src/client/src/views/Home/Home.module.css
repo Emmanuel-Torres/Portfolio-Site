@@ -39,14 +39,14 @@
 }
 
 .header::before {
-  background-color: white;
+  background-color: black;
   animation: typewriter var(--typewriter-speed)
     steps(var(--typewriter-characters)) 1s forwards;
 }
 
 .header::after {
   width: 0.125em;
-  background-color: black;
+  background-color: white;
   animation: typewriter var(--typewriter-speed)
       steps(var(--typewriter-characters)) 1s forwards,
     blink var(--blink-speed) steps(var(--typewriter-characters)) infinite;
