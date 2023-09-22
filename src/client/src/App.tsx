@@ -18,8 +18,8 @@ function App() {
       <div className={styles["app-container"]}>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/stories' element={<Stories />} />
-          <Route path='/stories/:storyid' element={<StoryDetails />} />
+          <Route path='/blog' element={<Stories />} />
+          <Route path='/blog/:storyid' element={<StoryDetails />} />
           <Route path='/projects' element={<Projects />} />
           <Route path='/about' element={<About />} />
           <Route path='/admin' element={<Admin />} />

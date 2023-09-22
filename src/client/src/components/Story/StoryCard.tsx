@@ -12,7 +12,7 @@ const StoryCard: FC<Props> = (props): JSX.Element => {
     return (
         <div className='col-xxl-2 col-xl-3 col-lg-4 col-md-6 mb-3'>
             <div className='card border border-secondary h-100'>
-                <Link to={`/stories/${props.story.id}`} className='text-decoration-none text-black'>
+                <Link to={`/blog/${props.story.id}`} className='text-decoration-none text-black'>
                     <img src={imageUrl} className='card-img-top' alt='foo' />
                     <div className='card-body d-flex align-items-center'>
                         <h5 className='card-title m-0'>{props.story.title}</h5>

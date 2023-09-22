@@ -20,8 +20,8 @@ const NavBar: FC = (): JSX.Element => {
                     </NavLink>
                 </li>
                 <li className={styles['navbar-item']}>
-                    <NavLink className={({ isActive }) => isActive ? styles['navbar-link-active'] : styles['navbar-link']} to='/stories'>
-                        <span className={styles['link-text']}>Stories</span>
+                    <NavLink className={({ isActive }) => isActive ? styles['navbar-link-active'] : styles['navbar-link']} to='/blog'>
+                        <span className={styles['link-text']}>Blog</span>
                         <VscBook className={styles['link-svg']} />
                     </NavLink>
                 </li>
