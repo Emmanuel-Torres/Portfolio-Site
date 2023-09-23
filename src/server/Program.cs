@@ -9,7 +9,7 @@ Console.WriteLine(builder.Configuration.GetConnectionString("APPLICATION_CONTEXT
 // Add services to the container.
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("APPLICATION_CONTEXT")));
+    options.UseNpgsql(builder.Configuration["APPLICATION_CONTEXT"]));
 
 builder.Services.AddTransient<IStoryRepo, StoryRepo>();
 

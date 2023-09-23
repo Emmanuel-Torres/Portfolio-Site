@@ -1,29 +1,17 @@
 version: '3'
 
 services:
-  dev_server:
-    container_name: dev_server
-    build: ../../src/portfolio/server
+  dev_app:
+    container_name: dev_app
+    build:
+      dockerfile: ../ops/Dockerfile
+      context: ../../src
+    ports:
+      - 80:5000
     environment:
-      - WIREGUARD_DB=Host=dev_wireguard_db;Database=postgres;Username=postgres;Password=password
       - APPLICATION_CONTEXT=Host=dev_db;Database=postgres;Username=postgres;Password=password
-      - GOOGLE_CLIENT_ID=203576300472-qleefq8rh358lkekh6c1vhq3222jp8nh.apps.googleusercontent.com
     depends_on:
       - dev_db
-
-  dev_client:
-    container_name: dev_client
-    build:
-      dockerfile: ../../../ops/development/devClient.Dockerfile
-      context: ../../src/portfolio/client
-    ports:
-      - 80:3000
-    environment:
-      CHOKIDAR_USEPOLLING: "true"
-    volumes:
-      - ../../src/portfolio/client:/usr/src/app
-    depends_on:
-      - dev_server
 
   dev_db:
     container_name: dev_db
@@ -31,12 +19,3 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: password
-
-  dev_wireguard_db:
-    container_name: dev_wireguard_db
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: password
-    volumes:
-      - ../../../wireguard/sql/admindb.sql:/docker-entrypoint-initdb.d/admindb.sql
