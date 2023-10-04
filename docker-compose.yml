@@ -27,9 +27,9 @@ services:
     container_name: db
     restart: always
     environment:
-      - POSTGRES_PASSWORD=${{ vars.ENV_DB_PASSWORD }}
-      - POSTGRES_USER=${{ vars.ENV_DB_USER }}
-      - POSTGRES_DB=${{ vars.ENV_DB_NAME }}
+      - POSTGRES_PASSWORD=${{ secrets.ENV_DB_PASSWORD }}
+      - POSTGRES_USER=${{ secrets.ENV_DB_USER }}
+      - POSTGRES_DB=${{ secrets.ENV_DB_NAME }}
 
   app:
     container_name: app
@@ -37,7 +37,7 @@ services:
       dockerfile: ../Dockerfile
       context: ./src
     environment:
-      - APPLICATION_CONTEXT=Host=db;Database=${{ vars.ENV_DB_NAME }};Username=${{ vars.ENV_DB_USER }};Password=${{ vars.ENV_DB_PASSWORD }}
+      - APPLICATION_CONTEXT=Host=db;Database=${{ secrets.ENV_DB_NAME }};Username=${{ secrets.ENV_DB_USER }};Password=${{ secrets.ENV_DB_PASSWORD }}
     depends_on:
       db:
         condition: service_started
