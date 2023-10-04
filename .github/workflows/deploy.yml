@@ -5,22 +5,22 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-env:
-  ENV_APP_TIMEZONE: ${{ vars.ENV_APP_TIMEZONE }}
-  ENV_APP_URL: ${{ vars.ENV_APP_URL }}
-  ENV_IS_STAGING: ${{ vars.ENV_IS_STAGING }}
-  ENV_APP_SUBDOMAINS: ${{ vars.ENV_APP_SUBDOMAINS }}
-  ENV_DB_PASSWORD: ${{ secrets.ENV_DB_PASSWORD }}
-  ENV_DB_USER: ${{ secrets.ENV_DB_USER }}
-  ENV_DB_NAME: ${{ secrets.ENV_DB_NAME }}
-
 jobs:
   build:
     runs-on: ["self-hosted", "portfolio-vm"]
+    env:
+      ENV_APP_TIMEZONE: ${{ vars.ENV_APP_TIMEZONE }}
+      ENV_APP_URL: ${{ vars.ENV_APP_URL }}
+      ENV_IS_STAGING: ${{ vars.ENV_IS_STAGING }}
+      ENV_APP_SUBDOMAINS: ${{ vars.ENV_APP_SUBDOMAINS }}
+      ENV_DB_PASSWORD: ${{ secrets.ENV_DB_PASSWORD }}
+      ENV_DB_USER: ${{ secrets.ENV_DB_USER }}
+      ENV_DB_NAME: ${{ secrets.ENV_DB_NAME }}
     steps:
       - name: checkout repo
         uses: actions/checkout@v2.4.0
 
       - name: build docker compose
         run: |
+          echo ${{ vars.ENV_APP_URL }} > url.txt
           docker compose up --build -d
