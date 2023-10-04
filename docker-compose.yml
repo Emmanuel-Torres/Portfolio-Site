@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   swag:
@@ -9,11 +9,9 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ="$${ENV_APP_TIMEZONE}"
-      - URL="$${ENV_APP_URL}"
       - VALIDATION=http
-      - STAGING="$${ENV_IS_STAGING}"
-      - SUBDOMAINS="$${ENV_APP_SUBDOMAINS}"
+    env_file:
+      - swag.env
     volumes:
       - /swag:/config
       - ./default.conf:/config/nginx/site-confs/default
@@ -26,18 +24,17 @@ services:
     image: postgres
     container_name: db
     restart: always
-    environment:
-      - POSTGRES_PASSWORD="$${ENV_DB_PASSWORD}"
-      - POSTGRES_USER="$${ENV_DB_USER}"
-      - POSTGRES_DB="$${ENV_DB_NAME}"
+    env_file:
+      - db.env
+
 
   app:
     container_name: app
     build:
       dockerfile: ../Dockerfile
       context: ./src
-    environment:
-      - APPLICATION_CONTEXT=Host=db;Database="$${ENV_DB_NAME}";Username="$${ENV_DB_USER}";Password="$${ENV_DB_PASSWORD}"
+    env_file:
+      - app.env
     depends_on:
       db:
         condition: service_started
