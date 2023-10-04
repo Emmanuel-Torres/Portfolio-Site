@@ -1,0 +1,40 @@
+:root {
+  font-size: 16px;
+  font-family: "Open Sans";
+  --primary-color: #8D55FF;
+  --secondary-color: #9B89B3;
+  --tertiary-color: #FCF8FF;
+  --quaternary-color: #1F1926;
+}
+
+body {
+  color: var(--tertiary-color)!important;
+  background-color: black!important;
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #252526;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+}
+
+@media screen and (min-width: 600px) {
+  pre {
+    border-radius: 1em;
+    box-shadow: 15px 15px 40px black;
+    margin-bottom: 5rem;
+  }
+
+  pre > div {
+    padding: 1rem !important;
+  }
+}
