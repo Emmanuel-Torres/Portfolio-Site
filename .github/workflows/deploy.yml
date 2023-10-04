@@ -14,4 +14,4 @@ jobs:
 
       - name: build docker compose
         run: |
-          docker-compose up --build -d
+          docker compose up --build -d
