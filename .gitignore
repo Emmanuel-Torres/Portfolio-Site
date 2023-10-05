@@ -4,6 +4,9 @@
 /src/portfolio/sql/portfoliodb.env
 /.vscode
 
+app.env
+db.env
+swag.env
 
 #######################################
 # React

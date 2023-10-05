@@ -2,7 +2,7 @@ version: "3"
 
 services:
   swag:
-    image: ghcr.io/linuxserver/swag
+    image: lscr.io/linuxserver/swag
     container_name: swag
     cap_add:
       - NET_ADMIN
@@ -14,7 +14,7 @@ services:
       - swag.env
     volumes:
       - /swag:/config
-      - ./default.conf:/config/nginx/site-confs/default
+      - ./default.conf:/config/nginx/site-confs/default.conf
     ports:
       - 443:443
       - 80:80
@@ -26,7 +26,6 @@ services:
     restart: always
     env_file:
       - db.env
-
 
   app:
     container_name: app
