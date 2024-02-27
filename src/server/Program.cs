@@ -38,14 +38,9 @@ using (var scope = app.Services.CreateScope())
     // context.Database.Migrate();
 }
 
-app.UseHttpsRedirection();
+ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern:"{controller}/{action=Index}/{id?}"
-);
-
-app.MapFallbackToFile("index.html");
+app.MapControllers();
 app.Run();

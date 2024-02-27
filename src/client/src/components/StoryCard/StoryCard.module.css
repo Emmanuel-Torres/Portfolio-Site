@@ -1,0 +1,28 @@
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.container {
+  background-color: white;
+  border-radius: 15px;
+  padding: 1rem;
+}
+
+.link:hover {
+  color: black;
+}
+
+.container h2 {
+  font-size: x-large;
+}
+
+.container h3 {
+  font-size: medium;
+}
+
+.inner-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

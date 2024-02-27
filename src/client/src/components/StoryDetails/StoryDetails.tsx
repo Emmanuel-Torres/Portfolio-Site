@@ -5,7 +5,7 @@ import { useStoreSelector } from "../../store";
 import { getStoryById } from "../../store/story-slice";
 import ReactMarkdown from 'react-markdown'
 import styles from "./StoryDetails.module.css"
-import CodeBlock from "./CodeBlock";
+import CodeBlock from "../CodeBlock/CodeBlock";
 
 const StoryDetails: FC = (): JSX.Element => {
     const params = useParams();
