@@ -41,5 +41,4 @@ services:
     env_file:
       - api.env
     depends_on:
-      - db:
-          condition: service_started
+      - db
