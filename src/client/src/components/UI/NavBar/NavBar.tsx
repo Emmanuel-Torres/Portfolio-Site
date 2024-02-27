@@ -31,12 +31,12 @@ const NavBar: FC = (): JSX.Element => {
                         <VscLibrary className={styles['link-svg']} />
                     </NavLink>
                 </li>
-                <li className={styles['navbar-item']}>
+                {/* <li className={styles['navbar-item']}>
                     <NavLink className={({ isActive }) => isActive ? styles['navbar-link-active'] : styles['navbar-link']} to='/about'>
                         <span className={styles['link-text']}>About Me</span>
                         <VscInfo className={styles['link-svg']} />
                     </NavLink>
-                </li>
+                </li> */}
             </ul>
 
         </nav>
