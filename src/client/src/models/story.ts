@@ -1,24 +1,21 @@
 export default class Story {
-    id?: string;
+    id: string;
     title: string;
-    content?: string;
+    skills: string;
     postedOn: string;
-    mainImageUrl?: string;
-    tags?: string;
+    content: string;
 
     constructor(
+        id: string,
         title: string,
+        skills: string,
         postedOn: string,
-        content?: string,
-        mainImageUrl?: string,
-        tags?: string,
-        story_id?: string,
+        content: string,
     ) {
-        this.id = story_id;
+        this.id = id;
         this.title = title;
-        this.content = content;
+        this.skills = skills;
         this.postedOn = postedOn;
-        this.mainImageUrl = mainImageUrl;
-        this.tags = tags;
+        this.content = content;
     }
 }

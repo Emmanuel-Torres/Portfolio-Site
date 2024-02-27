@@ -1,0 +1,20 @@
+.stories {
+    margin: 1em;
+    list-style: none;
+    padding: 0;
+}
+
+.story {
+    margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 1000px) {
+    .stories {
+        width: 100%;
+    }
+    .story {
+        margin: auto;
+        margin-bottom: 1rem;
+        width: 60%;
+    }
+}
