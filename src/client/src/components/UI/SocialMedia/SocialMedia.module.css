@@ -7,31 +7,20 @@
 }
 
 .a {
-  color: black;
   font-size: 4em;
+  color: var(--tertiary-color);
+  transition-duration: 0.2s;
 }
 
 .a:active,
-.a:focus {
-  color: black;
+.a:focus,
+.a:hover {
+  color: var(--primary-color);
 }
 
 @keyframes fadeInLeft {
   to {
     opacity: 1;
     transform: translateX(0);
-  }
-}
-
-@media screen and (min-width: 600px) {
-  .a {
-    color: var(--tertiary-color);
-    transition-duration: 0.2s;
-  }
-
-  .a:active,
-  .a:focus,
-  .a:hover {
-    color: var(--primary-color);
   }
 }
