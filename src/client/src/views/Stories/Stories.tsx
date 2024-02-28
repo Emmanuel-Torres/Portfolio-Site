@@ -14,13 +14,16 @@ const Stories: FC = (): JSX.Element => {
     }, [dispatch]);
 
     return (
-        <ul className={styles.stories}>
-            {stories.map(s =>
-                <li className={styles.story}>
-                    <StoryCard key={s.id} story={s} />
-                </li>
-            )}
-        </ul>
+        <div className={styles.container}>
+            <h1 className={styles.title}>Blogs</h1>
+            <ul className={styles.stories}>
+                {stories.map(s =>
+                    <li className={styles.story}>
+                        <StoryCard key={s.id} story={s} />
+                    </li>
+                )}
+            </ul>
+        </div>
     )
 };
 

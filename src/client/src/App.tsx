@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import StoryDetails from "./components/StoryDetails/StoryDetails";
 import Home from "./views/Home/Home";
 import Stories from "./views/Stories/Stories";
-import Projects from "./views/Projects"
+import Projects from "./views/Projects/Projects"
 import NotFound from "./views/NotFound";
 import styles from "./App.module.css"
 

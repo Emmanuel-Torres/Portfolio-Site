@@ -1,5 +1,12 @@
+.title {
+    margin-bottom: 1rem;
+}
+
+.container {
+    margin: 1rem;
+}
+
 .stories {
-    margin: 1em;
     list-style: none;
     padding: 0;
 }
@@ -9,9 +16,14 @@
 }
 
 @media screen and (min-width: 1000px) {
+    .title {
+        display: none;
+    }
+
     .stories {
         width: 100%;
     }
+
     .story {
         margin: auto;
         margin-bottom: 1rem;
