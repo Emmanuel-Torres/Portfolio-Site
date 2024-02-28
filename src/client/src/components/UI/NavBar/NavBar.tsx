@@ -1,6 +1,7 @@
 import { FC } from "react";
-import { FaHome } from "react-icons/fa";
-import { VscBook, VscInfo, VscLibrary } from "react-icons/vsc"
+import { VscLibrary } from "react-icons/vsc";
+import { BiNotepad, BiHomeAlt } from "react-icons/bi";
+import { BiArchive } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import styles from "./NavBar.module.css";
 
@@ -16,25 +17,19 @@ const NavBar: FC = (): JSX.Element => {
                 <li className={styles['navbar-item']}>
                     <NavLink className={({ isActive }) => isActive ? styles['navbar-link-active'] : styles['navbar-link']} to='/'>
                         <span className={styles['link-text']}>Home</span>
-                        <FaHome className={styles['link-svg']} />
+                        <BiHomeAlt  className={styles['link-svg']} />
                     </NavLink>
                 </li>
                 <li className={styles['navbar-item']}>
                     <NavLink className={({ isActive }) => isActive ? styles['navbar-link-active'] : styles['navbar-link']} to='/blog'>
                         <span className={styles['link-text']}>Blog</span>
-                        <VscBook className={styles['link-svg']} />
+                        <BiNotepad className={styles['link-svg']} />
                     </NavLink>
                 </li>
                 <li className={styles['navbar-item']}>
                     <NavLink className={({ isActive }) => isActive ? styles['navbar-link-active'] : styles['navbar-link']} to='/projects'>
                         <span className={styles['link-text']}>Projects</span>
-                        <VscLibrary className={styles['link-svg']} />
-                    </NavLink>
-                </li>
-                <li className={styles['navbar-item']}>
-                    <NavLink className={({ isActive }) => isActive ? styles['navbar-link-active'] : styles['navbar-link']} to='/about'>
-                        <span className={styles['link-text']}>About Me</span>
-                        <VscInfo className={styles['link-svg']} />
+                        <BiArchive className={styles['link-svg']} />
                     </NavLink>
                 </li>
             </ul>

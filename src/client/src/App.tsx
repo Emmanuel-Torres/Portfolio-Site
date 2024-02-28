@@ -3,9 +3,8 @@ import { Route, Routes } from 'react-router-dom'
 import StoryDetails from "./components/StoryDetails/StoryDetails";
 import Home from "./views/Home/Home";
 import Stories from "./views/Stories/Stories";
-import Projects from "./views/Projects"
+import Projects from "./views/Projects/Projects"
 import NotFound from "./views/NotFound";
-import About from "./views/About/About";
 import styles from "./App.module.css"
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
           <Route path='/blog' element={<Stories />} />
           <Route path='/blog/:storyid' element={<StoryDetails />} />
           <Route path='/projects' element={<Projects />} />
-          <Route path='/about' element={<About />} />
           <Route path='/projects' element={<Projects />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
