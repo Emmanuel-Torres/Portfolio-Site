@@ -14,7 +14,13 @@ const Projects: FC = (): JSX.Element => {
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Projects</h1>
-            {projects.map((p) => <ProjectCard project={p} key={p.id}/>)}
+            <ul className={styles.projects}>
+                {projects.map((p) =>
+                    <li className={styles.project}>
+                        <ProjectCard project={p} key={p.id} />
+                    </li>
+                )}
+            </ul>
         </div>
     )
 };
