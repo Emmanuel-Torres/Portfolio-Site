@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react';
 import StoryCard from '../../components/StoryCard/StoryCard';
 import styles from './Stories.module.css'
 import Blog from '../../models/blog';
-import jsonBlogs from "../../assets/blogs/blogs.json"
 import axios from 'axios';
 
 const Stories: FC = (): JSX.Element => {

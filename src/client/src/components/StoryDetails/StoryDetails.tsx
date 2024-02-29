@@ -3,8 +3,6 @@ import { useSearchParams } from "react-router-dom";
 import ReactMarkdown from 'react-markdown'
 import styles from "./StoryDetails.module.css"
 import CodeBlock from "../CodeBlock/CodeBlock";
-import Blog from "../../models/blog";
-import blogService from "../../services/blog-service";
 import axios from "axios";
 
 const StoryDetails: FC = (): JSX.Element => {
