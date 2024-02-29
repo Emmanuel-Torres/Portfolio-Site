@@ -1,16 +1,16 @@
 .link {
   text-decoration: none;
-  color: black;
+  color: var(--tertiary-color);
 }
 
 .container {
-  background-color: white;
+  background-color: var(--secondary-bg-color);
   border-radius: 15px;
   padding: 1rem;
 }
 
 .link:hover {
-  color: black;
+  color: var(--tertiary-color);
 }
 
 .container h2 {
