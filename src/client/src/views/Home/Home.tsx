@@ -1,12 +1,12 @@
 import { FC } from "react";
 import SocialMedia from "../../components/UI/SocialMedia/SocialMedia";
 import styles from './Home.module.css'
-import image from '../../assets/images/20220311_144355.jpg'
+import coverPhoto from '../../assets/images/cover_photo.jpg'
 
 const Home: FC = (): JSX.Element => {
     return (
         <main>
-            <img src={image} className={styles.image} alt="main" />
+            <img src={coverPhoto} className={styles.image} alt="main" />
             <div className={styles.container}>
                 <h1 className={styles.header}>Hello! My name is Emmanuel</h1>
                 <p className={styles.content}>

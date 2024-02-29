@@ -5,11 +5,13 @@
   --secondary-color: #9B89B3;
   --tertiary-color: #FCF8FF;
   --quaternary-color: #1F1926;
+  --bg-color: black;
+  --secondary-bg-color: #1e1e1e;
 }
 
 body {
   color: var(--tertiary-color)!important;
-  background-color: black!important;
+  background-color: var(--bg-color)!important;
   margin: 0;
   padding: 0;
 }
@@ -20,7 +22,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #252526;
+  background-color: var(--secondary-bg-color);
 }
 
 ::-webkit-scrollbar-thumb {

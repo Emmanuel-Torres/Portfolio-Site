@@ -17,9 +17,9 @@ const Stories: FC = (): JSX.Element => {
         <div className={styles.container}>
             <h1 className={styles.title}>Blogs</h1>
             <ul className={styles.stories}>
-                {stories.map(s =>
-                    <li className={styles.story}>
-                        <StoryCard key={s.id} story={s} />
+                {stories.map((s,i) =>
+                    <li key={s.id} className={styles.story}>
+                        <StoryCard story={s} />
                     </li>
                 )}
             </ul>
