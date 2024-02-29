@@ -1,24 +1,24 @@
-import { FC, useEffect } from 'react';
-import { useDispatch } from 'react-redux'
-import { getStories } from '../../store/story-slice'
-import { StoreDispatch, useStoreSelector } from '../../store';
+import { FC, useEffect, useState } from 'react';
 import StoryCard from '../../components/StoryCard/StoryCard';
 import styles from './Stories.module.css'
+import Blog from '../../models/blog';
+import jsonBlogs from "../../assets/blogs/blogs.json"
+import axios from 'axios';
 
 const Stories: FC = (): JSX.Element => {
-    const dispatch = useDispatch<StoreDispatch>();
-    const stories = useStoreSelector(state => state.story.stories);
+    const [blogs, setBlogs] = useState<Blog[]>([]);
 
     useEffect(() => {
-        dispatch(getStories())
-    }, [dispatch]);
+        axios.get<Blog[]>('/portfolio/blogs/blogs.json').then(r => setBlogs(r.data));
+    })
+
 
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Blogs</h1>
             <ul className={styles.stories}>
-                {stories.map((s,i) =>
-                    <li key={s.id} className={styles.story}>
+                {blogs.map((s,i) =>
+                    <li key={i} className={styles.story}>
                         <StoryCard story={s} />
                     </li>
                 )}

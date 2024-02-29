@@ -1,15 +1,15 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import Story from "../../models/story";
+import Blog from "../../models/blog";
 import styles from "./StoryCard.module.css"
 
 type Props = {
-    story: Story
+    story: Blog
 }
 
 const StoryCard: FC<Props> = (props): JSX.Element => {
     return (
-        <Link to={`/blog/${props.story.id}`} className={styles.link}>
+        <Link to={`/blogs?filename=${props.story.file}`} className={styles.link}>
             <div className={styles.container}>
                 <h2>{props.story.title}</h2>
                 <div className={styles['inner-container']}>

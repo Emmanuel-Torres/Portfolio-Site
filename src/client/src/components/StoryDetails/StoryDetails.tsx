@@ -1,26 +1,27 @@
-import { FC, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { useStoreSelector } from "../../store";
-import { getStoryById } from "../../store/story-slice";
+import { FC, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import ReactMarkdown from 'react-markdown'
 import styles from "./StoryDetails.module.css"
 import CodeBlock from "../CodeBlock/CodeBlock";
+import Blog from "../../models/blog";
+import blogService from "../../services/blog-service";
+import axios from "axios";
 
 const StoryDetails: FC = (): JSX.Element => {
-    const params = useParams();
-    const currentStory = useStoreSelector(state => state.story.currentStory);
-    const dispatch = useDispatch();
-    const storyId: string = params.storyid!
+    const [searchParams] = useSearchParams();
+    const [content, setContent] = useState<string>();
+    
+    const filename = searchParams.get('filename');
+    const blogDirectory = '/portfolio/blogs/';
 
     useEffect(() => {
-        dispatch(getStoryById(storyId));
-    }, [dispatch, storyId]);
+        axios.get<string>(blogDirectory + filename).then(r => setContent(r.data));
+    }, []);
 
     return (
         <>
             <main className={styles.main}>
-                <ReactMarkdown components={CodeBlock} children={currentStory?.content ?? ''} />
+                <ReactMarkdown components={CodeBlock} children={content ?? ''} />
             </main>
         </>
     )

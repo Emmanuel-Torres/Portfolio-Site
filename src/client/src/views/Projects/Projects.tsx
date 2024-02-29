@@ -1,11 +1,15 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./Projects.module.css"
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
 import Project from "../../models/project";
-import jsonProjects from "../../assets/projects/projects.json"
+import axios from "axios";
 
 const Projects: FC = (): JSX.Element => {
-    const projects = jsonProjects as Project[];
+    const [projects, setProjects] = useState<Project[]>([]);
+
+    useEffect(() => {
+        axios.get<Project[]>('/portfolio/projects/projects.json').then(r => setProjects(r.data));
+    }, [])
 
     return (
         <div className={styles.container}>
