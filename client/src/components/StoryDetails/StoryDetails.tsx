@@ -14,7 +14,7 @@ const StoryDetails: FC = (): JSX.Element => {
 
     useEffect(() => {
         axios.get<string>(blogDirectory + filename).then(r => setContent(r.data));
-    }, []);
+    }, [filename]);
 
     return (
         <>

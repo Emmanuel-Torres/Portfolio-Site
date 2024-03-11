@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { VscLibrary } from "react-icons/vsc";
 import { BiNotepad, BiHomeAlt } from "react-icons/bi";
 import { BiArchive } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
