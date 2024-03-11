@@ -1,0 +1,4 @@
+[redirects]
+  from = "/portfolio/*"
+  to = "/https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/:splat"
+  status = 200

@@ -1,1 +1,1 @@
-/portfolio/*  https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com
+/portfolio/*  https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/:splat 200
