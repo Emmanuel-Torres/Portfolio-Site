@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/portfolio/*"
-  to = "https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/:splat"
+  to = "https://emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com/portfolio/:splat"
   host = "emmanuel-portfolio-image-bucket.s3.us-west-2.amazonaws.com"
   force = true
   status = 200
