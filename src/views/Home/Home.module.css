@@ -1,5 +1,5 @@
 :root {
-  --typewriter-speed: 4s;
+  --typewriter-speed: 1.25s;
   --typewriter-characters: 26;
   --blink-speed: 1s;
 }
@@ -10,8 +10,8 @@
   object-fit: cover;
   object-position: left top;
   opacity: 0;
-  transform: translateY(-2rem);
-  animation: imageFadeIn 1.5s ease forwards;
+  transform: translateY(-1rem);
+  animation: imageFadeIn 1s ease forwards;
 }
 
 .container {
@@ -54,8 +54,12 @@
 
 .content {
   opacity: 0;
-  transform: translateY(3rem);
-  animation: fadeInUp 2s ease calc(var(--typewriter-speed) + 1s) forwards;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-delay: .25s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
 }
 
 @keyframes typewriter {
@@ -70,10 +74,9 @@
   }
 }
 
-@keyframes fadeInUp {
+@keyframes fadeIn {
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
