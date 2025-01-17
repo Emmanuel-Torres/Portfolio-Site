@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  text-align: center;
+}
+
+.a {
+  font-size: 4em;
+  color: var(--tertiary-color);
+  transition-duration: 0.2s;
+}
+
+.a:active,
+.a:focus,
+.a:hover {
+  color: var(--primary-color);
+}
