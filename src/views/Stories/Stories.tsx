@@ -9,7 +9,7 @@ const Stories: FC = (): JSX.Element => {
 
     useEffect(() => {
         axios.get<Blog[]>('/portfolio/blogs/blogs.json').then(r => setBlogs(r.data));
-    })
+    }, [])
 
 
     return (
